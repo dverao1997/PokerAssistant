@@ -12,6 +12,9 @@ package pokercash.modelo.persona;
 public class Usuario extends Empleado{
     private String nomb_usu;
     private String password;
+
+    public Usuario() {
+    }
     
     public Usuario(String nomb_usu, String password, String id_empleado) {
         super(id_empleado);

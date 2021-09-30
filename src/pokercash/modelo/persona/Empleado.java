@@ -13,6 +13,9 @@ public class Empleado extends Persona{
     private String id_empleado;
     private String rol;
 
+    public Empleado() {
+    }
+
     public Empleado(String id_empleado) {
         this.id_empleado = id_empleado;
     }
