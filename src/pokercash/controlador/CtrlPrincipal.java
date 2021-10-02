@@ -6,8 +6,8 @@
 package pokercash.controlador;
 
 import pokercash.modelo.persona.ModlEmpleado;
-import pokercash.vista.VistaPrincipal;
 import pokercash.vista.empleado.VistaEmpleado;
+import pokercash.vista.principal.VistaPrincipal;
 
 /**
  *
@@ -25,7 +25,7 @@ public class CtrlPrincipal {
     }
     
     public void iniciarControl() {
-        v.getTlbIngrEmpleados().addActionListener(l->Empleados());
+        v.getMnuEmpleados().addActionListener(l->Empleados());
     }
     
     public void Empleados(){

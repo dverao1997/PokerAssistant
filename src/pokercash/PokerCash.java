@@ -7,7 +7,9 @@ package pokercash;
 
 import pokercash.controlador.CtrlInicio;
 import pokercash.modelo.persona.ModlUsuario;
-import pokercash.vista.VistaInicio;
+import pokercash.vista.principal.VistaInicio;
+
+
 
 /**
  *
