@@ -5,9 +5,9 @@
  */
 package pokercash;
 
-import pokercash.controlador.ctrlInicio;
-import pokercash.modelo.persona.modlUsuario;
-import pokercash.vista.vistaInicio;
+import pokercash.controlador.CtrlInicio;
+import pokercash.modelo.persona.ModlUsuario;
+import pokercash.vista.VistaInicio;
 
 /**
  *
@@ -19,9 +19,9 @@ public class PokerCash {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        modlUsuario m=new modlUsuario();
-        vistaInicio v=new vistaInicio();
-        ctrlInicio ctrl=new ctrlInicio(m, v);
+        ModlUsuario m=new ModlUsuario();
+        VistaInicio v=new VistaInicio();
+        CtrlInicio ctrl=new CtrlInicio(m, v);
         ctrl.iniciarControl();
     }
     
