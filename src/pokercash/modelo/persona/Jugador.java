@@ -5,40 +5,39 @@
  */
 package pokercash.modelo.persona;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author CyberLink
  */
 public class Jugador extends Persona{
-    private String id_jugador;
-    private String fecha_ingreso;
+    private int id_jugador;
+    private LocalDate fecha_ingreso;
 
-    public Jugador(String id_jugador) {
-        this.id_jugador = id_jugador;
+    public Jugador() {
     }
 
-    
-    public Jugador(String id_jugador, String fecha_ingreso, String id_persona, String nombre, String apellido, String telefono, String genero) {
+    public Jugador(int id_jugador, LocalDate fecha_ingreso, int id_persona, String nombre, String apellido, String telefono, String genero) {
         super(id_persona, nombre, apellido, telefono, genero);
         this.id_jugador = id_jugador;
         this.fecha_ingreso = fecha_ingreso;
     }
 
-    public String getId_jugador() {
+    public int getId_jugador() {
         return id_jugador;
     }
 
-    public void setId_jugador(String id_jugador) {
+    public void setId_jugador(int id_jugador) {
         this.id_jugador = id_jugador;
     }
 
-    public String getFecha_ingreso() {
+    public LocalDate getFecha_ingreso() {
         return fecha_ingreso;
     }
 
-    public void setFecha_ingreso(String fecha_ingreso) {
+    public void setFecha_ingreso(LocalDate fecha_ingreso) {
         this.fecha_ingreso = fecha_ingreso;
     }
-    
-    
+
 }

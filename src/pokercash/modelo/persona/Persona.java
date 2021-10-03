@@ -10,7 +10,7 @@ package pokercash.modelo.persona;
  * @author CyberLink
  */
 public class Persona {
-    private String id_persona;
+    private int id_persona;
     private String nombre;
     private String apellido;
     private String telefono;
@@ -19,7 +19,7 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(String id_persona, String nombre, String apellido, String telefono, String genero) {
+    public Persona(int id_persona, String nombre, String apellido, String telefono, String genero) {
         this.id_persona = id_persona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -27,11 +27,11 @@ public class Persona {
         this.genero = genero;
     }
 
-    public String getId_persona() {
+    public int getId_persona() {
         return id_persona;
     }
 
-    public void setId_persona(String id_persona) {
+    public void setId_persona(int id_persona) {
         this.id_persona = id_persona;
     }
 
@@ -66,6 +66,6 @@ public class Persona {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-    
-    
+
+  
 }

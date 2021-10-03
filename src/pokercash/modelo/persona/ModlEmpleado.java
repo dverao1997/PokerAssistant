@@ -24,9 +24,11 @@ public class ModlEmpleado extends Empleado {
     public ModlEmpleado() {
     }
 
-    public ModlEmpleado(String id_empleado, String rol, String id_persona, String nombre, String apellido, String telefono, String genero) {
+    public ModlEmpleado(int id_empleado, String rol, int id_persona, String nombre, String apellido, String telefono, String genero) {
         super(id_empleado, rol, id_persona, nombre, apellido, telefono, genero);
     }
+
+    
 
     public List<Empleado> listarEmpleado(String aguja) {
         try {
@@ -39,8 +41,8 @@ public class ModlEmpleado extends Empleado {
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Empleado e=new Empleado();
-                e.setId_persona(rs.getString("id_persona"));
-                e.setId_empleado(rs.getString("id_empleado"));
+                e.setId_persona(rs.getInt("id_persona"));
+                e.setId_empleado(rs.getInt("id_empleado"));
                 e.setNombre(rs.getString("nombre"));
                 e.setApellido(rs.getString("apellido"));
                 e.setTelefono(rs.getString("telefono"));

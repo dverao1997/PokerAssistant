@@ -20,9 +20,9 @@ import pokercash.modelo.ConexionPg;
 public class ModlUsuario extends Usuario{
     
     ConexionPg con =new ConexionPg();
-    
-    public ModlUsuario(String nomb_usu, String password, String id_empleado) {
-        super(nomb_usu, password, id_empleado);
+
+    public ModlUsuario(String nomb_usu, String password, int id_empleado, String rol, int id_persona, String nombre, String apellido, String telefono, String genero) {
+        super(nomb_usu, password, id_empleado, rol, id_persona, nombre, apellido, telefono, genero);
     }
 
     public ModlUsuario() {

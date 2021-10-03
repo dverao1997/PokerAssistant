@@ -10,27 +10,23 @@ package pokercash.modelo.persona;
  * @author CyberLink
  */
 public class Empleado extends Persona{
-    private String id_empleado;
+    private int id_empleado;
     private String rol;
 
     public Empleado() {
     }
 
-    public Empleado(String id_empleado) {
-        this.id_empleado = id_empleado;
-    }
-
-    public Empleado(String id_empleado, String rol, String id_persona, String nombre, String apellido, String telefono, String genero) {
+    public Empleado(int id_empleado, String rol, int id_persona, String nombre, String apellido, String telefono, String genero) {
         super(id_persona, nombre, apellido, telefono, genero);
         this.id_empleado = id_empleado;
         this.rol = rol;
     }
 
-    public String getId_empleado() {
+    public int getId_empleado() {
         return id_empleado;
     }
 
-    public void setId_empleado(String id_empleado) {
+    public void setId_empleado(int id_empleado) {
         this.id_empleado = id_empleado;
     }
 
@@ -41,5 +37,5 @@ public class Empleado extends Persona{
     public void setRol(String rol) {
         this.rol = rol;
     }
-    
+
 }

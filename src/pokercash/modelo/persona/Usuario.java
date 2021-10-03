@@ -15,13 +15,14 @@ public class Usuario extends Empleado{
 
     public Usuario() {
     }
-    
-    public Usuario(String nomb_usu, String password, String id_empleado) {
-        super(id_empleado);
+
+    public Usuario(String nomb_usu, String password, int id_empleado, String rol, int id_persona, String nombre, String apellido, String telefono, String genero) {
+        super(id_empleado, rol, id_persona, nombre, apellido, telefono, genero);
         this.nomb_usu = nomb_usu;
         this.password = password;
     }
-
+    
+    
     public String getNomb_usu() {
         return nomb_usu;
     }
