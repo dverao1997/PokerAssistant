@@ -12,8 +12,8 @@ package pokercash.modelo.mesa;
 public class EstadJugador {
     private int id_est_jug;
     private double ingreso_total;
-    private String id_jugador;
-    private String id_mesa;
+    private int id_jugador;
+    private int id_mesa;
     private double perdidas;
     private double ganancias;
     private double deudas;
@@ -21,8 +21,8 @@ public class EstadJugador {
     public EstadJugador(int id_est_jug) {
         this.id_est_jug = id_est_jug;
     }
-    
-    public EstadJugador(int id_est_jug, double ingreso_total, String id_jugador, String id_mesa, double perdidas, double ganancias, double deudas) {
+
+    public EstadJugador(int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas) {
         this.id_est_jug = id_est_jug;
         this.ingreso_total = ingreso_total;
         this.id_jugador = id_jugador;
@@ -30,6 +30,9 @@ public class EstadJugador {
         this.perdidas = perdidas;
         this.ganancias = ganancias;
         this.deudas = deudas;
+    }
+
+    public EstadJugador() {
     }
 
     public int getId_est_jug() {
@@ -48,19 +51,19 @@ public class EstadJugador {
         this.ingreso_total = ingreso_total;
     }
 
-    public String getId_jugador() {
+    public int getId_jugador() {
         return id_jugador;
     }
 
-    public void setId_jugador(String id_jugador) {
+    public void setId_jugador(int id_jugador) {
         this.id_jugador = id_jugador;
     }
 
-    public String getId_mesa() {
+    public int getId_mesa() {
         return id_mesa;
     }
 
-    public void setId_mesa(String id_mesa) {
+    public void setId_mesa(int id_mesa) {
         this.id_mesa = id_mesa;
     }
 
@@ -87,5 +90,7 @@ public class EstadJugador {
     public void setDeudas(double deudas) {
         this.deudas = deudas;
     }
+    
+
     
 }

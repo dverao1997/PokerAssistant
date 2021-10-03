@@ -10,22 +10,25 @@ package pokercash.modelo.mesa;
  * @author CyberLink
  */
 public class IngrJugMesa extends EstadJugador{
-    private String id_ingr_jug;
+    private int id_ingr_jug;
     private double ingreso;
     private String hora;
 
-    public IngrJugMesa(String id_ingr_jug, double ingreso, String hora, int id_est_jug) {
+    public IngrJugMesa() {
+    }
+
+    public IngrJugMesa(int id_ingr_jug, double ingreso, String hora, int id_est_jug) {
         super(id_est_jug);
         this.id_ingr_jug = id_ingr_jug;
         this.ingreso = ingreso;
         this.hora = hora;
     }
 
-    public String getId_ingr_jug() {
+    public int getId_ingr_jug() {
         return id_ingr_jug;
     }
 
-    public void setId_ingr_jug(String id_ingr_jug) {
+    public void setId_ingr_jug(int id_ingr_jug) {
         this.id_ingr_jug = id_ingr_jug;
     }
 
@@ -44,6 +47,7 @@ public class IngrJugMesa extends EstadJugador{
     public void setHora(String hora) {
         this.hora = hora;
     }
+
     
     
 }

@@ -12,27 +12,26 @@ import java.time.LocalDate;
  * @author CyberLink
  */
 public class Mesa {
-    private String id_mesa;
+    private int id_mesa;
     private double casilla;
     private LocalDate fecha;
     private double gastos;
 
-    public Mesa(String id_mesa, double casilla, LocalDate fecha, double gastos) {
+    public Mesa() {
+    }
+
+    public Mesa(int id_mesa, double casilla, LocalDate fecha, double gastos) {
         this.id_mesa = id_mesa;
         this.casilla = casilla;
         this.fecha = fecha;
         this.gastos = gastos;
     }
 
-    public Mesa(String id_mesa) {
-        this.id_mesa = id_mesa;
-    }
-
-    public String getId_mesa() {
+    public int getId_mesa() {
         return id_mesa;
     }
 
-    public void setId_mesa(String id_mesa) {
+    public void setId_mesa(int id_mesa) {
         this.id_mesa = id_mesa;
     }
 
@@ -59,6 +58,8 @@ public class Mesa {
     public void setGastos(double gastos) {
         this.gastos = gastos;
     }
+
+  
     
     
 }

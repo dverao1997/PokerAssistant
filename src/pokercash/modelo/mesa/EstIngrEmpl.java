@@ -15,10 +15,13 @@ public class EstIngrEmpl{
 
     private int id_est_ingr;
     private double ingreso;
-    private String id_empleado;
-    private String id_mesa;
+    private int id_empleado;
+    private int id_mesa;
 
-    public EstIngrEmpl(int id_est_ingr, double ingreso, String id_empleado, String id_mesa) {
+    public EstIngrEmpl() {
+    }
+
+    public EstIngrEmpl(int id_est_ingr, double ingreso, int id_empleado, int id_mesa) {
         this.id_est_ingr = id_est_ingr;
         this.ingreso = ingreso;
         this.id_empleado = id_empleado;
@@ -41,21 +44,22 @@ public class EstIngrEmpl{
         this.ingreso = ingreso;
     }
 
-    public String getId_empleado() {
+    public int getId_empleado() {
         return id_empleado;
     }
 
-    public void setId_empleado(String id_empleado) {
+    public void setId_empleado(int id_empleado) {
         this.id_empleado = id_empleado;
     }
 
-    public String getId_mesa() {
+    public int getId_mesa() {
         return id_mesa;
     }
 
-    public void setId_mesa(String id_mesa) {
+    public void setId_mesa(int id_mesa) {
         this.id_mesa = id_mesa;
     }
-    
+
+  
     
 }
