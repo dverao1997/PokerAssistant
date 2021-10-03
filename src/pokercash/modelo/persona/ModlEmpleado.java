@@ -31,14 +31,14 @@ public class ModlEmpleado extends Empleado {
     public List<Empleado> listarEmpleado(String aguja) {
         try {
             List<Empleado> le = new ArrayList<>();
-
+            
             String sql = "select p.id_persona,p.nombre,p.apellido,p.telefono,p.genero,e.id_empleado,e.rol\n"
                     + "from persona p join empleado e on p.id_persona=e.id_persona\n"
                     + "where upper(p.nombre) like '%" + aguja + "%'\n"
                     + "or  upper(p.apellido) like '%" + aguja + "%';";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
-                Empleado e = new Empleado();
+                Empleado e=new Empleado();
                 e.setId_persona(rs.getString("id_persona"));
                 e.setId_empleado(rs.getString("id_empleado"));
                 e.setNombre(rs.getString("nombre"));
@@ -46,7 +46,7 @@ public class ModlEmpleado extends Empleado {
                 e.setTelefono(rs.getString("telefono"));
                 e.setGenero(rs.getString("genero"));
                 e.setRol(rs.getString("rol"));
-
+                
                 le.add(e);
             }
             rs.close();
@@ -55,15 +55,5 @@ public class ModlEmpleado extends Empleado {
             Logger.getLogger(ModlEmpleado.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
-
-    public boolean Insertar() {
-        String sql = "INSERT INTO persona(\n"
-                + "            id_persona, nombre, apellido, telefono, genero)\n"
-                + "    VALUES ('" + getId_persona() + "','" + getNombre() + "','" + getApellido() + "','" + getTelefono() + "','" + getGenero() + "');\n"
-                + "INSERT INTO empleado(\n"
-                + "            id_empleado, id_persona, rol)\n"
-                + "    VALUES ('" + getId_empleado() + "', '" + getId_persona() + "', '" + getRol() + "');";
-        return con.accion(sql);
     }
 }
