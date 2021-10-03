@@ -6,10 +6,13 @@
 package pokercash.controlador;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
 import pokercash.modelo.persona.Empleado;
 import pokercash.modelo.persona.ModlEmpleado;
+import pokercash.modelo.persona.ModlPersona;
+import pokercash.modelo.persona.Persona;
 import pokercash.vista.empleado.VistaEmpleado;
 
 /**
@@ -17,8 +20,10 @@ import pokercash.vista.empleado.VistaEmpleado;
  * @author CyberLink
  */
 public class CtrlEmpleados {
+
     private ModlEmpleado m;
     private VistaEmpleado v;
+    private int opcion;
 
     public CtrlEmpleados(ModlEmpleado m, VistaEmpleado v) {
         this.m = m;
@@ -27,19 +32,19 @@ public class CtrlEmpleados {
         v.setVisible(true);
         CargarLista("");
     }
-    
-    public void IniciarControl(){
-        
+
+    public void IniciarControl() {
+        v.getBtnCrear().addActionListener(l -> CargarDialogo(1));
     }
-    
-    public void CargarLista(String aguja){
+
+    public void CargarLista(String aguja) {
         DefaultTableModel tbmodel;
-        tbmodel=(DefaultTableModel) v.getTablaEmpleado().getModel();
+        tbmodel = (DefaultTableModel) v.getTablaEmpleado().getModel();
         tbmodel.setRowCount(0);
-        List<Empleado> listaE=m.listarEmpleado(aguja);
-        int n=tbmodel.getColumnCount();
-        Holder<Integer> i=new Holder<>(0);
-        listaE.stream().forEach(listaEm->{
+        List<Empleado> listaE = m.listarEmpleado(aguja);
+        int n = tbmodel.getColumnCount();
+        Holder<Integer> i = new Holder<>(0);
+        listaE.stream().forEach(listaEm -> {
             tbmodel.addRow(new Object[n]);
             v.getTablaEmpleado().setValueAt(listaEm.getNombre(), i.value, 0);
             v.getTablaEmpleado().setValueAt(listaEm.getApellido(), i.value, 1);
@@ -48,5 +53,65 @@ public class CtrlEmpleados {
             v.getTablaEmpleado().setValueAt(listaEm.getRol(), i.value, 4);
             i.value++;
         });
+    }
+
+    public void CargarDialogo(int opc) {
+        this.opcion = opc;
+        switch (opc) {
+            case 1:
+                v.getDlgEmpleado().setTitle("Ingresar Empleado");
+                break;
+        }
+        v.getDlgEmpleado().setVisible(true);
+        v.getDlgEmpleado().setLocationRelativeTo(v);
+        v.getDlgEmpleado().setSize(320, 320);
+    }
+
+    public void InsertarEmpleado() {
+        int id_persona = IdPersona();
+        int id_empleado = IdEmpleado();
+
+        ModlEmpleado emp = new ModlEmpleado(
+                id_empleado, v.getCbxRol().getSelectedItem().toString(),
+                id_persona, v.getTxtNombre().getText(), v.getTxtApellido().getText(),
+                v.getTxtApellido().getText(), v.getCbxGenero().getSelectedItem().toString());
+        if (m.InsertarEmpleado()) {
+            JOptionPane.showMessageDialog(v, "Empleado Ingresado con Exito");
+        }else{
+            JOptionPane.showMessageDialog(v, "ERROR");
+        }
+    }
+
+    public int IdEmpleado() {
+        int num;
+        List<Empleado> lista = m.listarEmpleado("");
+        num = lista.size() + 1;
+        do {
+            lista = m.listarEmpleado(num);
+
+            if (lista.size() == 1) {
+                num++;
+            } else {
+                break;
+            }
+        } while (true);
+        return num;
+    }
+
+    public int IdPersona() {
+        ModlPersona p = new ModlPersona();
+        int num;
+        List<Persona> lista = p.Listarpersona();
+        num = lista.size() + 1;
+        do {
+            lista = p.Listarpersona(num);
+
+            if (lista.size() == 1) {
+                num++;
+            } else {
+                break;
+            }
+        } while (true);
+        return num;
     }
 }
