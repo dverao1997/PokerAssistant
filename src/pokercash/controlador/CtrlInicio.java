@@ -46,6 +46,8 @@ public class CtrlInicio {
                     VistaPrincipal vista=new VistaPrincipal();
                     CtrlPrincipal control= new CtrlPrincipal(vista);
                     control.iniciarControl();
+                }else{
+                    JOptionPane.showMessageDialog(v, "Usuario o contraseña Incorrecta");
                 }
             } else {
                 JOptionPane.showMessageDialog(v, "Usuario o contraseña Incorrecta");

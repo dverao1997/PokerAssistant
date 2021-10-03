@@ -5,6 +5,10 @@
  */
 package pokercash.vista.empleado;
 
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 /**
  *
  * @author CyberLink
@@ -115,6 +119,29 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JTable getTablaEmpleado() {
+        return TablaEmpleado;
+    }
+
+    public void setTablaEmpleado(JTable TablaEmpleado) {
+        this.TablaEmpleado = TablaEmpleado;
+    }
+
+    public JButton getBtnCrear() {
+        return btnCrear;
+    }
+
+    public void setBtnCrear(JButton btnCrear) {
+        this.btnCrear = btnCrear;
+    }
+
+    public JTextField getTxtBuscar() {
+        return txtBuscar;
+    }
+
+    public void setTxtBuscar(JTextField txtBuscar) {
+        this.txtBuscar = txtBuscar;
+    }
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaEmpleado;
