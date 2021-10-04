@@ -6,7 +6,7 @@
 package pokercash.controlador;
 
 import pokercash.modelo.persona.ModlEmpleado;
-import pokercash.vista.empleado.VistaEmpleado;
+import pokercash.vista.persona.VistaEmpleado;
 import pokercash.vista.principal.VistaPrincipal;
 
 /**

@@ -5,6 +5,9 @@
  */
 package pokercash.controlador;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +16,7 @@ import pokercash.modelo.persona.Empleado;
 import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.modelo.persona.ModlPersona;
 import pokercash.modelo.persona.Persona;
-import pokercash.vista.empleado.VistaEmpleado;
+import pokercash.vista.persona.VistaEmpleado;
 
 /**
  *
@@ -34,11 +37,42 @@ public class CtrlEmpleados {
     }
 
     public void IniciarControl() {
+        KeyListener kl = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent ke) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                CargarLista(v.getTxtBuscar().getText().toUpperCase());
+            }
+        };
+        v.getTxtBuscar().addKeyListener(kl);
         v.getBtnCrear().addActionListener(l -> CargarDialogo(1));
+        
+
+        v.getBtnEditar().addActionListener((l) -> {
+            int seleccion = v.getTablaEmpleado().getSelectedRow();
+            if (seleccion != -1) {
+                CargarDialogo(2);
+            } else {
+                JOptionPane.showMessageDialog(v, "Seleccione el empleado a modificar");
+            }
+        });
+
         v.getBtnAceptar().addActionListener((ae) -> {
             switch (opcion) {
                 case 1:
                     InsertarEmpleado();
+                    break;
+                case 2:
+                    EditarEmpleado();
                     break;
             }
         });
@@ -68,6 +102,26 @@ public class CtrlEmpleados {
             case 1:
                 v.getDlgEmpleado().setTitle("Ingresar Empleado");
                 break;
+            case 2:
+                v.getDlgEmpleado().setTitle("Editar Empleado");
+                int seleccion = v.getTablaEmpleado().getSelectedRow();
+                List<Empleado> emp = m.listarEmpleado(v.getTxtBuscar().getText());
+                v.getTxtNombre().setText(emp.get(seleccion).getNombre());
+                v.getTxtApellido().setText(emp.get(seleccion).getApellido());
+                v.getTxtTelefono().setText(emp.get(seleccion).getTelefono());
+                for (int i = 0; i < 2; i++) {
+                    if (emp.get(seleccion).getGenero().equals(v.getCbxGenero().getItemAt(i))) {
+                        v.getCbxGenero().setSelectedIndex(i);
+                        break;
+                    }
+                }
+                for (int i = 0; i < 5; i++) {
+                    if (emp.get(seleccion).getRol().equals(v.getCbxRol().getItemAt(i))) {
+                        v.getCbxRol().setSelectedIndex(i);
+                        break;
+                    }
+                }
+                break;
         }
         v.getDlgEmpleado().setVisible(true);
         v.getDlgEmpleado().setLocationRelativeTo(v);
@@ -86,7 +140,7 @@ public class CtrlEmpleados {
                 v.getTxtApellido().getText(),
                 v.getTxtTelefono().getText(),
                 v.getCbxGenero().getSelectedItem().toString());
-                if (emp.InsertarEmpleado()) {
+        if (emp.InsertarEmpleado()) {
             JOptionPane.showMessageDialog(v, "Empleado Ingresado con Exito");
         } else {
             JOptionPane.showMessageDialog(v, "ERROR");
@@ -117,7 +171,7 @@ public class CtrlEmpleados {
         int num;
         List<Persona> lista = p.Listarpersona();
         num = lista.size() + 1;
-        
+
         do {
             lista = p.Listarpersona(num);
 
@@ -134,5 +188,32 @@ public class CtrlEmpleados {
         v.getTxtNombre().setText("");
         v.getTxtApellido().setText("");
         v.getTxtTelefono().setText("");
+        v.getTxtBuscar().setText("");
+    }
+
+    public void EditarEmpleado( ) {
+        int seleccion = v.getTablaEmpleado().getSelectedRow();
+        List<Empleado> emp = m.listarEmpleado(v.getTxtBuscar().getText());
+        int id_empleado = emp.get(seleccion).getId_empleado();
+        int id_persona = emp.get(seleccion).getId_persona();
+        ModlEmpleado empl = new ModlEmpleado(
+                id_empleado,
+                v.getCbxRol().getSelectedItem().toString(),
+                id_persona,
+                v.getTxtNombre().getText(),
+                v.getTxtApellido().getText(),
+                v.getTxtTelefono().getText(),
+                v.getCbxGenero().getSelectedItem().toString());
+        int confirmar = JOptionPane.showConfirmDialog(v, "Esta seguro que desea editar el empleado", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
+        if (confirmar == 0) {
+            if (empl.EditarEmpleado()) {
+                JOptionPane.showMessageDialog(v, "Empleado Editado con Exito");
+            } else {
+                JOptionPane.showMessageDialog(v, "Error");
+            }
+        }
+        LimpiarCampos();
+        CargarLista("");
+
     }
 }

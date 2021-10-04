@@ -56,8 +56,8 @@ public class ModlEmpleado extends Empleado {
             return null;
         }
     }
-    
-        public List<Empleado> listarEmpleado(int aguja) {
+
+    public List<Empleado> listarEmpleado(int aguja) {
         try {
             List<Empleado> le = new ArrayList<>();
 
@@ -88,10 +88,20 @@ public class ModlEmpleado extends Empleado {
     public boolean InsertarEmpleado() {
         String sql = "INSERT INTO persona(\n"
                 + "            id_persona, nombre, apellido, telefono, genero)\n"
-                + "    VALUES ("+getId_persona()+", '"+getNombre()+"', '"+getApellido()+"', '"+getTelefono()+"', '"+getGenero()+"');\n"
+                + "    VALUES (" + getId_persona() + ", '" + getNombre() + "', '" + getApellido() + "', '" + getTelefono() + "', '" + getGenero() + "');\n"
                 + "INSERT INTO empleado(\n"
                 + "            rol, id_persona, id_empleado)\n"
-                + "    VALUES ('"+getRol()+"', "+getId_persona()+", "+getId_empleado()+");";
+                + "    VALUES ('" + getRol() + "', " + getId_persona() + ", " + getId_empleado() + ");";
+        return con.accion(sql);
+    }
+
+    public boolean EditarEmpleado() {
+        String sql = "UPDATE persona\n"
+                + "   SET nombre= '" + getNombre() + "', apellido='" + getApellido() + "', telefono='" + getTelefono() + "', genero='" + getGenero() + "'\n"
+                + " WHERE id_persona=" + getId_persona() + ";\n"
+                + "UPDATE empleado\n"
+                + "   SET rol='" + getRol() + "'\n"
+                + " WHERE id_empelado=" + getId_empleado() + ";";
         return con.accion(sql);
     }
 }
