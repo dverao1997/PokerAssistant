@@ -88,10 +88,10 @@ public class ModlEmpleado extends Empleado {
     public boolean InsertarEmpleado() {
         String sql = "INSERT INTO persona(\n"
                 + "            id_persona, nombre, apellido, telefono, genero)\n"
-                + "    VALUES ('"+getId_persona()+"', '"+getNombre()+"', '"+getApellido()+"', '"+getTelefono()+"', '"+getGenero()+"');\n"
+                + "    VALUES ("+getId_persona()+", '"+getNombre()+"', '"+getApellido()+"', '"+getTelefono()+"', '"+getGenero()+"');\n"
                 + "INSERT INTO empleado(\n"
                 + "            rol, id_persona, id_empleado)\n"
-                + "    VALUES ('"+getRol()+"', '"+getId_persona()+"', '"+getId_empleado()+"');";
+                + "    VALUES ('"+getRol()+"', "+getId_persona()+", "+getId_empleado()+");";
         return con.accion(sql);
     }
 }

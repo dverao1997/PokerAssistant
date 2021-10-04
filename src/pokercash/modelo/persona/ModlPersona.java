@@ -31,7 +31,7 @@ public class ModlPersona extends Persona {
     public List<Persona> Listarpersona(int aguja) {
         try {
             List<Persona> lp=new ArrayList<>();
-            String sql = "Selct * from Persona where id_persona=" + aguja + "";
+            String sql = "Select * from Persona where id_persona=" + aguja + "";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Persona p = new Persona();
@@ -52,7 +52,7 @@ public class ModlPersona extends Persona {
     public List<Persona> Listarpersona() {
         try {
             List<Persona> lp=new ArrayList<>();
-            String sql = "Selct * from Persona;";
+            String sql = "Select * from Persona;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Persona p = new Persona();

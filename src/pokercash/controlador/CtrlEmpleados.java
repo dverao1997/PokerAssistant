@@ -35,6 +35,13 @@ public class CtrlEmpleados {
 
     public void IniciarControl() {
         v.getBtnCrear().addActionListener(l -> CargarDialogo(1));
+        v.getBtnAceptar().addActionListener((ae) -> {
+            switch (opcion) {
+                case 1:
+                    InsertarEmpleado();
+                    break;
+            }
+        });
     }
 
     public void CargarLista(String aguja) {
@@ -72,14 +79,21 @@ public class CtrlEmpleados {
         int id_empleado = IdEmpleado();
 
         ModlEmpleado emp = new ModlEmpleado(
-                id_empleado, v.getCbxRol().getSelectedItem().toString(),
-                id_persona, v.getTxtNombre().getText(), v.getTxtApellido().getText(),
-                v.getTxtApellido().getText(), v.getCbxGenero().getSelectedItem().toString());
-        if (m.InsertarEmpleado()) {
+                id_empleado,
+                v.getCbxRol().getSelectedItem().toString(),
+                id_persona,
+                v.getTxtNombre().getText(),
+                v.getTxtApellido().getText(),
+                v.getTxtTelefono().getText(),
+                v.getCbxGenero().getSelectedItem().toString());
+                if (emp.InsertarEmpleado()) {
             JOptionPane.showMessageDialog(v, "Empleado Ingresado con Exito");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(v, "ERROR");
         }
+        v.getDlgEmpleado().setVisible(false);
+        LimpiarCampos();
+        CargarLista("");
     }
 
     public int IdEmpleado() {
@@ -103,6 +117,7 @@ public class CtrlEmpleados {
         int num;
         List<Persona> lista = p.Listarpersona();
         num = lista.size() + 1;
+        
         do {
             lista = p.Listarpersona(num);
 
@@ -113,5 +128,11 @@ public class CtrlEmpleados {
             }
         } while (true);
         return num;
+    }
+
+    public void LimpiarCampos() {
+        v.getTxtNombre().setText("");
+        v.getTxtApellido().setText("");
+        v.getTxtTelefono().setText("");
     }
 }
