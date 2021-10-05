@@ -101,7 +101,7 @@ public class ModlEmpleado extends Empleado {
                 + " WHERE id_persona=" + getId_persona() + ";\n"
                 + "UPDATE empleado\n"
                 + "   SET rol='" + getRol() + "'\n"
-                + " WHERE id_empelado=" + getId_empleado() + ";";
+                + " WHERE id_empleado=" + getId_empleado() + ";";
         return con.accion(sql);
     }
 }

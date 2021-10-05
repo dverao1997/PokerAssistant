@@ -17,6 +17,8 @@ import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.modelo.persona.ModlPersona;
 import pokercash.modelo.persona.Persona;
 import pokercash.vista.persona.VistaEmpleado;
+import pokercash.vista.persona.VistaPersona;
+import pokercash.vista.principal.VistaPrincipal;
 
 /**
  *
@@ -54,9 +56,11 @@ public class CtrlEmpleados {
             }
         };
         v.getTxtBuscar().addKeyListener(kl);
-        v.getBtnCrear().addActionListener(l -> CargarDialogo(1));
-        
-
+        v.getBtnCrear().addActionListener(l -> Persona());
+        v.getBtnCancelar().addActionListener((l) -> {
+            LimpiarCampos();
+            v.getDlgEmpleado().setVisible(false);
+        });
         v.getBtnEditar().addActionListener((l) -> {
             int seleccion = v.getTablaEmpleado().getSelectedRow();
             if (seleccion != -1) {
@@ -76,6 +80,7 @@ public class CtrlEmpleados {
                     break;
             }
         });
+        
     }
 
     public void CargarLista(String aguja) {
@@ -105,7 +110,7 @@ public class CtrlEmpleados {
             case 2:
                 v.getDlgEmpleado().setTitle("Editar Empleado");
                 int seleccion = v.getTablaEmpleado().getSelectedRow();
-                List<Empleado> emp = m.listarEmpleado(v.getTxtBuscar().getText());
+                List<Empleado> emp = m.listarEmpleado(v.getTxtBuscar().getText().toUpperCase());
                 v.getTxtNombre().setText(emp.get(seleccion).getNombre());
                 v.getTxtApellido().setText(emp.get(seleccion).getApellido());
                 v.getTxtTelefono().setText(emp.get(seleccion).getTelefono());
@@ -141,9 +146,9 @@ public class CtrlEmpleados {
                 v.getTxtTelefono().getText(),
                 v.getCbxGenero().getSelectedItem().toString());
         if (emp.InsertarEmpleado()) {
-            JOptionPane.showMessageDialog(v, "Empleado Ingresado con Exito");
+            JOptionPane.showMessageDialog(v.getDlgEmpleado(), "Empleado Ingresado con Exito");
         } else {
-            JOptionPane.showMessageDialog(v, "ERROR");
+            JOptionPane.showMessageDialog(v.getDlgEmpleado(), "ERROR");
         }
         v.getDlgEmpleado().setVisible(false);
         LimpiarCampos();
@@ -191,9 +196,9 @@ public class CtrlEmpleados {
         v.getTxtBuscar().setText("");
     }
 
-    public void EditarEmpleado( ) {
+    public void EditarEmpleado() {
         int seleccion = v.getTablaEmpleado().getSelectedRow();
-        List<Empleado> emp = m.listarEmpleado(v.getTxtBuscar().getText());
+        List<Empleado> emp = m.listarEmpleado(v.getTxtBuscar().getText().toUpperCase());
         int id_empleado = emp.get(seleccion).getId_empleado();
         int id_persona = emp.get(seleccion).getId_persona();
         ModlEmpleado empl = new ModlEmpleado(
@@ -204,16 +209,28 @@ public class CtrlEmpleados {
                 v.getTxtApellido().getText(),
                 v.getTxtTelefono().getText(),
                 v.getCbxGenero().getSelectedItem().toString());
-        int confirmar = JOptionPane.showConfirmDialog(v, "Esta seguro que desea editar el empleado", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
+        int confirmar = JOptionPane.showConfirmDialog(v.getDlgEmpleado(), "Esta seguro que desea editar el empleado", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
         if (confirmar == 0) {
             if (empl.EditarEmpleado()) {
-                JOptionPane.showMessageDialog(v, "Empleado Editado con Exito");
+                v.getDlgEmpleado().setVisible(false);
+                JOptionPane.showMessageDialog(v.getDlgEmpleado(), "Empleado Editado con Exito");
+
             } else {
-                JOptionPane.showMessageDialog(v, "Error");
+                JOptionPane.showMessageDialog(v.getDlgEmpleado(), "Error");
             }
         }
         LimpiarCampos();
         CargarLista("");
 
     }
+  
+    public void Persona(){
+        ModlPersona p=new ModlPersona();
+        VistaPersona vi=new VistaPersona();
+        VistaPrincipal vista=new VistaPrincipal();
+        vista.getDktContenedor().add(vi);
+        CtrlPersona control=new CtrlPersona(p, vi);
+        control.IniciarControl(1);
+    }
+        
 }
