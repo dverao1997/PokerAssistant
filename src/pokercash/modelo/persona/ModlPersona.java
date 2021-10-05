@@ -28,10 +28,10 @@ public class ModlPersona extends Persona {
         super(id_persona, nombre, apellido, telefono, genero);
     }
 
-    public List<Persona> Listarpersona(int aguja) {
+    public List<Persona> ListarpersonaID(int aguja) {
         try {
-            List<Persona> lp=new ArrayList<>();
-            String sql = "Select * from Persona where id_persona=" + aguja + "";
+            List<Persona> lp = new ArrayList<>();
+            String sql = "Select * from Persona where id_persona=" + aguja + ";";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Persona p = new Persona();
@@ -51,8 +51,33 @@ public class ModlPersona extends Persona {
     }
     public List<Persona> Listarpersona() {
         try {
-            List<Persona> lp=new ArrayList<>();
+            List<Persona> lp = new ArrayList<>();
             String sql = "Select * from Persona;";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Persona p = new Persona();
+                p.setId_persona(rs.getInt("id_persona"));
+                p.setNombre(rs.getString("nombre"));
+                p.setApellido(rs.getString("apellido"));
+                p.setTelefono(rs.getString("telefono"));
+                p.setGenero(rs.getString("genero"));
+                lp.add(p);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<Persona> Listarpersona(String aguja) {
+        try {
+            List<Persona> lp = new ArrayList<>();
+            String sql = "select p.id_persona,nombre,apellido,telefono,genero\n"
+                    + "from persona p left outer join empleado e on p.id_persona=e.id_empleado\n"
+                    + "where e.id_persona is null and "
+                    + "(upper(p.nombre) like '%" + aguja + "%' or upper(p.apellido) like '%" + aguja + "%');";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Persona p = new Persona();

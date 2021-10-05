@@ -5,7 +5,6 @@
  */
 package pokercash.controlador;
 
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
@@ -17,8 +16,6 @@ import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.modelo.persona.ModlPersona;
 import pokercash.modelo.persona.Persona;
 import pokercash.vista.persona.VistaEmpleado;
-import pokercash.vista.persona.VistaPersona;
-import pokercash.vista.principal.VistaPrincipal;
 
 /**
  *
@@ -53,8 +50,10 @@ public class CtrlEmpleados {
             @Override
             public void keyReleased(KeyEvent ke) {
                 CargarLista(v.getTxtBuscar().getText().toUpperCase());
+                CargarPersona(v.getTxtBuscarPer().getText().toUpperCase());
             }
         };
+        v.getTxtBuscarPer().addKeyListener(kl);
         v.getTxtBuscar().addKeyListener(kl);
         v.getBtnCrear().addActionListener(l -> Persona());
         v.getBtnCancelar().addActionListener((l) -> {
@@ -80,7 +79,7 @@ public class CtrlEmpleados {
                     break;
             }
         });
-        
+
     }
 
     public void CargarLista(String aguja) {
@@ -178,7 +177,7 @@ public class CtrlEmpleados {
         num = lista.size() + 1;
 
         do {
-            lista = p.Listarpersona(num);
+            lista = p.ListarpersonaID(num);
 
             if (lista.size() == 1) {
                 num++;
@@ -223,14 +222,36 @@ public class CtrlEmpleados {
         CargarLista("");
 
     }
-  
-    public void Persona(){
-        ModlPersona p=new ModlPersona();
-        VistaPersona vi=new VistaPersona();
-        VistaPrincipal vista=new VistaPrincipal();
-        vista.getDktContenedor().add(vi);
-        CtrlPersona control=new CtrlPersona(p, vi);
-        control.IniciarControl(1);
+
+    public void Persona() {
+        v.getDlgPersona().setVisible(true);
+        v.getDlgPersona().setLocationRelativeTo(v);
+        v.getDlgPersona().setSize(500, 500);
+        CargarPersona("");
     }
+
+    public void CargarPersona(String aguja) {
+        ModlPersona per = new ModlPersona();
+        DefaultTableModel tbmodel;
+        tbmodel = (DefaultTableModel) v.getTablaPersona().getModel();
+        tbmodel.setRowCount(0);
+        List<Persona> listaE = per.Listarpersona(aguja);
+        int n = tbmodel.getColumnCount();
+        Holder<Integer> i = new Holder<>(0);
+        listaE.stream().forEach(listaEm -> {
+            tbmodel.addRow(new Object[n]);
+            v.getTablaPersona().setValueAt(listaEm.getNombre(), i.value, 0);
+            v.getTablaPersona().setValueAt(listaEm.getApellido(), i.value, 1);
+            v.getTablaPersona().setValueAt(listaEm.getTelefono(), i.value, 2);
+            v.getTablaPersona().setValueAt(listaEm.getGenero(), i.value, 3);
+            i.value++;
+        });
+    }
+    
+    public void Seleccionar(){
+        int selec=v.getTablaPersona().getSelectedRow();
+        ModlPersona per=new ModlPersona();
+        List<Persona> lp=per.Listarpersona(v.getTxtBuscarPer().getText().toUpperCase());
         
+    }
 }

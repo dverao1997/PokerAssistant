@@ -5,7 +5,8 @@
         <group>
             <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/persona/ModlPersona.java</file>
             <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/CtrlInicio.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/vista/empleado/VistaEmpleado.java</file>
+            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/vista/persona/VistaEmpleado.java</file>
+            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/ConexionPg.java</file>
             <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/CtrlEmpleados.java</file>
             <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/persona/ModlEmpleado.java</file>
         </group>
