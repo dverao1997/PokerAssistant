@@ -5,9 +5,11 @@
  */
 package pokercash.controlador;
 
+import pokercash.modelo.inventario.ModlProducto;
 import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.vista.persona.VistaEmpleado;
 import pokercash.vista.principal.VistaPrincipal;
+import pokercash.vista.producto.VistaProducto;
 
 /**
  *
@@ -26,6 +28,7 @@ public class CtrlPrincipal {
     
     public void iniciarControl() {
         v.getMnuEmpleados().addActionListener(l->Empleados());
+        v.getMnuProducto().addActionListener(l->Productos());
     }
     
     public void Empleados(){
@@ -33,6 +36,14 @@ public class CtrlPrincipal {
         VistaEmpleado vis=new VistaEmpleado();
         v.getDktContenedor().add(vis);
         CtrlEmpleados control=new CtrlEmpleados(mod, vis);
+        control.IniciarControl();
+    }
+    
+    public void Productos(){
+        ModlProducto mod=new ModlProducto();
+        VistaProducto pro=new VistaProducto();
+        v.getDktContenedor().add(pro);
+        CtrlProductos control=new CtrlProductos(mod, pro);
         control.IniciarControl();
     }
 }

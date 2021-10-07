@@ -41,6 +41,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mnuEmpleados = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        mnuProducto = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,7 +100,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jMenu1.setText("File");
+        jMenu1.setText("Empleados");
 
         mnuEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/user.png"))); // NOI18N
         mnuEmpleados.setText("Ingresar Empleados");
@@ -107,7 +108,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Productos");
+
+        mnuProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/application.png"))); // NOI18N
+        mnuProducto.setText("Ingresar Producto");
+        jMenu2.add(mnuProducto);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -156,6 +162,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public void setMnuEmpleados(JMenuItem mnuEmpleados) {
         this.mnuEmpleados = mnuEmpleados;
     }
+
+    public JMenuItem getMnuProducto() {
+        return mnuProducto;
+    }
+
+    public void setMnuProducto(JMenuItem mnuProducto) {
+        this.mnuProducto = mnuProducto;
+    }
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -169,5 +183,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JMenuItem mnuEmpleados;
+    private javax.swing.JMenuItem mnuProducto;
     // End of variables declaration//GEN-END:variables
 }
