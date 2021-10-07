@@ -56,10 +56,9 @@ public class CtrlEmpleados {
         v.getTxtBuscarPer().addKeyListener(kl);
         v.getTxtBuscar().addKeyListener(kl);
         v.getBtnCrear().addActionListener(l -> Persona());
-        v.getBtnCancelar().addActionListener((l) -> {
-            LimpiarCampos();
-            v.getDlgEmpleado().setVisible(false);
-        });
+        v.getBtnCancelar().addActionListener(l -> Cancelar());
+        v.getBtnCance().addActionListener(l->Cancelar());
+        v.getBtnNuevo().addActionListener(l -> CargarDialogo(1));
         v.getBtnEditar().addActionListener((l) -> {
             int seleccion = v.getTablaEmpleado().getSelectedRow();
             if (seleccion != -1) {
@@ -79,7 +78,22 @@ public class CtrlEmpleados {
                     break;
             }
         });
+        v.getBtnSeleccionar().addActionListener((l) -> {
+            if (v.getTablaPersona().getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(v.getDlgPersona(), "Seleccione el empleado que quiere Ingresar");
+            } else {
 
+                Seleccionar();
+            }
+
+        });
+
+    }
+
+    public void Cancelar() {
+        LimpiarCampos();
+        v.getDlgEmpleado().setVisible(false);
+        v.getDlgPersona().setVisible(false);
     }
 
     public void CargarLista(String aguja) {
@@ -127,9 +141,12 @@ public class CtrlEmpleados {
                 }
                 break;
         }
-        v.getDlgEmpleado().setVisible(true);
+        
         v.getDlgEmpleado().setLocationRelativeTo(v);
         v.getDlgEmpleado().setSize(320, 320);
+        v.getDlgPersona().setVisible(false);
+        v.getDlgEmpleado().setModal(true);
+        v.getDlgEmpleado().setVisible(true);
     }
 
     public void InsertarEmpleado() {
@@ -193,6 +210,7 @@ public class CtrlEmpleados {
         v.getTxtApellido().setText("");
         v.getTxtTelefono().setText("");
         v.getTxtBuscar().setText("");
+        v.getTxtBuscarPer().setText("");
     }
 
     public void EditarEmpleado() {
@@ -224,10 +242,12 @@ public class CtrlEmpleados {
     }
 
     public void Persona() {
-        v.getDlgPersona().setVisible(true);
-        v.getDlgPersona().setLocationRelativeTo(v);
-        v.getDlgPersona().setSize(500, 500);
         CargarPersona("");
+        v.getDlgPersona().setLocationRelativeTo(v);
+        v.getDlgPersona().setSize(500, 400);
+        v.getDlgPersona().setModal(true);
+        v.getDlgPersona().setVisible(true);
+
     }
 
     public void CargarPersona(String aguja) {
@@ -247,11 +267,33 @@ public class CtrlEmpleados {
             i.value++;
         });
     }
-    
-    public void Seleccionar(){
-        int selec=v.getTablaPersona().getSelectedRow();
-        ModlPersona per=new ModlPersona();
-        List<Persona> lp=per.Listarpersona(v.getTxtBuscarPer().getText().toUpperCase());
-        
+
+    public void Seleccionar() {
+        int selec = v.getTablaPersona().getSelectedRow();
+        ModlPersona per = new ModlPersona();
+        List<Persona> lp = per.Listarpersona(v.getTxtBuscarPer().getText().toUpperCase());
+
+        String[] roles = {"Administrador", "Deler", "Dueño", "Organizador", "Servicio"};
+        String rol = (String) JOptionPane.showInputDialog(v, "Seleccione el Rol", "Poker One Administrator", JOptionPane.DEFAULT_OPTION, null, roles, roles[0]);
+        int id_emp = IdEmpleado();
+        System.out.println(id_emp);
+        int id_persona = lp.get(selec).getId_persona();
+        System.out.println(id_persona);
+        System.out.println(rol);
+        if (rol != null) {
+            ModlEmpleado mo = new ModlEmpleado();
+            mo.setId_empleado(id_emp);
+            mo.setId_persona(id_persona);
+            mo.setRol(rol);
+            if (mo.InsertEmpleado()) {
+                JOptionPane.showMessageDialog(v.getDlgPersona(), "Empleado Ingresado con exito");
+            } else {
+                JOptionPane.showMessageDialog(v.getDlgPersona(), "ERROR");
+            }
+
+            v.getDlgPersona().setVisible(false);
+            LimpiarCampos();
+            CargarLista("");
+        }
     }
 }

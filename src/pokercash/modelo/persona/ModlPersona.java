@@ -75,7 +75,7 @@ public class ModlPersona extends Persona {
         try {
             List<Persona> lp = new ArrayList<>();
             String sql = "select p.id_persona,nombre,apellido,telefono,genero\n"
-                    + "from persona p left outer join empleado e on p.id_persona=e.id_empleado\n"
+                    + "from persona p left outer join empleado e on p.id_persona=e.id_persona\n"
                     + "where e.id_persona is null and "
                     + "(upper(p.nombre) like '%" + aguja + "%' or upper(p.apellido) like '%" + aguja + "%');";
             ResultSet rs = con.consulta(sql);

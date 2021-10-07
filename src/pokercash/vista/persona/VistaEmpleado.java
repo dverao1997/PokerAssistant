@@ -190,7 +190,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
                         .addComponent(txtBuscarPer, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnNuevo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,6 +481,7 @@ public class VistaEmpleado extends javax.swing.JInternalFrame {
     public void setDlgPersona(JDialog dlgPersona) {
         this.dlgPersona = dlgPersona;
     }
+
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaEmpleado;
