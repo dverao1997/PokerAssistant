@@ -34,9 +34,9 @@ public class ModlProducto extends Producto {
             String sql = "SELECT id_producto, nombre, precio, existencias\n"
                     + "  FROM producto\n"
                     + "  where upper(nombre) like '%" + aguja + "%';";
-            ResultSet rs=con.consulta(sql);
+            ResultSet rs = con.consulta(sql);
             while (rs.next()) {
-                Producto p=new Producto();
+                Producto p = new Producto();
                 p.setId_producto(rs.getInt("id_producto"));
                 p.setNombre(rs.getString("nombre"));
                 p.setExistencias(rs.getInt("existencias"));
@@ -49,5 +49,49 @@ public class ModlProducto extends Producto {
             Logger.getLogger(ModlProducto.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public List<Producto> IDProducto(int aguja) {
+        try {
+            List<Producto> lp = new ArrayList<>();
+            String sql = "SELECT id_producto, nombre, precio, existencias\n"
+                    + "  FROM producto\n"
+                    + "  where id_producto=" + aguja + ";";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setId_producto(rs.getInt("id_producto"));
+                p.setNombre(rs.getString("nombre"));
+                p.setExistencias(rs.getInt("existencias"));
+                p.setPrecio(rs.getDouble("precio"));
+                lp.add(p);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlProducto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public boolean InsertarProducto() {
+        String sql = "INSERT INTO producto(\n"
+                + "            id_producto, nombre, precio, existencias)\n"
+                + "    VALUES (" + getId_producto() + ", '" + getNombre() + "', " + getPrecio() + ", " + getExistencias() + ");";
+        return con.accion(sql);
+    }
+
+    public boolean AumentarProducto() {
+        String sql = "UPDATE producto\n"
+                + "   SET existencias=" + getExistencias() + "\n"
+                + " WHERE id_producto=" + getId_producto() + ";";
+        return con.accion(sql);
+    }
+
+    public boolean Editar() {
+        String sql = "UPDATE producto\n"
+                + "  SET nombre='" + getNombre() + "', precio=" + getPrecio() + ", existencias=" + getExistencias() + "\n"
+                + " WHERE id_producto=" + getId_producto() + ";";
+        return con.accion(sql);
     }
 }

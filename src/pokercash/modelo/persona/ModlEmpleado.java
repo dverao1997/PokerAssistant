@@ -94,6 +94,7 @@ public class ModlEmpleado extends Empleado {
                 + "    VALUES ('" + getRol() + "', " + getId_persona() + ", " + getId_empleado() + ");";
         return con.accion(sql);
     }
+
     public boolean InsertEmpleado() {
         String sql = "INSERT INTO empleado(\n"
                 + "            rol, id_persona, id_empleado)\n"
