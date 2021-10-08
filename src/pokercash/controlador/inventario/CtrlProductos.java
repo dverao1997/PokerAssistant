@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pokercash.controlador;
+package pokercash.controlador.inventario;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
 import pokercash.modelo.inventario.ModlProducto;
 import pokercash.modelo.inventario.Producto;
-import pokercash.vista.producto.VistaProducto;
+import pokercash.vista.inventario.VistaProducto;
 
 /**
  *

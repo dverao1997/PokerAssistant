@@ -5,6 +5,7 @@
  */
 package pokercash.modelo.inventario;
 
+import java.awt.Color;
 import java.awt.Image;
 
 /**
@@ -12,12 +13,16 @@ import java.awt.Image;
  * @author CyberLink
  */
 public class Fichas {
+
     private int id_fichas;
     private String color;
     private double valor;
     private String estado;
     private Image foto;
     private int cantidad;
+
+    public Fichas() {
+    }
 
     public Fichas(int id_fichas, String color, double valor, String estado, Image foto, int cantidad) {
         this.id_fichas = id_fichas;
@@ -75,6 +80,5 @@ public class Fichas {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
-    
+
 }

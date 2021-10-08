@@ -5,11 +5,13 @@
  */
 package pokercash.controlador;
 
+import pokercash.controlador.inventario.CtrlProductos;
+import pokercash.controlador.persona.CtrlEmpleados;
 import pokercash.modelo.inventario.ModlProducto;
 import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.vista.persona.VistaEmpleado;
 import pokercash.vista.principal.VistaPrincipal;
-import pokercash.vista.producto.VistaProducto;
+import pokercash.vista.inventario.VistaProducto;
 
 /**
  *
