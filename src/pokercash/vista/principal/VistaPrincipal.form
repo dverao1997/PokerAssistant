@@ -26,7 +26,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Productos"/>
+            <Property name="text" type="java.lang.String" value="Inventario"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuProducto">
@@ -35,6 +35,11 @@
                   <Image iconType="3" name="/pokercash/vista/icons/application.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Ingresar Producto"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuFichas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ingresar Fichas"/>
               </Properties>
             </MenuItem>
           </SubComponents>
