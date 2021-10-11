@@ -35,7 +35,7 @@ public class CtrlFichas {
     private ModlFichas m;
     private VistaFichas v;
     private Image imagen;
-    private String color="240,240,240";
+    private String col="240,240,240";
 
     public CtrlFichas(ModlFichas m, VistaFichas v) {
         this.m = m;
@@ -111,7 +111,7 @@ public class CtrlFichas {
         mf.setEstado("SIN USO");
         mf.setValor(Double.parseDouble(v.getTxtValor().getText()));
         mf.setCantidad(Integer.parseInt(v.getTxtCantidad().getText()));
-        mf.setColor(color);
+        mf.setColor(col);
         mf.setFoto(imagen);
         if (mf.Ingresar()) {
             JOptionPane.showMessageDialog(v, "Fichas Ingresadas Correctamente");
@@ -135,13 +135,13 @@ public class CtrlFichas {
                 Color c = Color.WHITE;
         c=JColorChooser.showDialog(v, "ESCOGER COLOR", c);
         v.getPanelColor().setBackground(c);
-        color=c.toString();
-        color=color.substring(15);
-        color=color.replace("]", "");
-        color=color.replace("=","");
-        color=color.replace("r","");
-        color=color.replace("g","");
-        color=color.replace("b","");
+        col=c.toString();
+        col=col.substring(15);
+        col=col.replace("]", "");
+        col=col.replace("=","");
+        col=col.replace("r","");
+        col=col.replace("g","");
+        col=col.replace("b","");
     }
     
     public int IdFichas() {

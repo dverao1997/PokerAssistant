@@ -149,7 +149,7 @@ public class ModlFichas extends Fichas {
         } catch (IOException ex) {
             Logger.getLogger(ModlFichas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String sql = "INSERT INTO public.fichas(\n"
+        String sql = "INSERT INTO fichas(\n"
                 + "	id_fichas, color, valor, foto, cantidad, estado)\n"
                 + "	VALUES (" + getId_fichas() + ", '" + getColor() + "', " + getValor() + ", '" + foto64 + "', " + getCantidad() + ", '" + getEstado() + "');";
         return con.accion(sql);
