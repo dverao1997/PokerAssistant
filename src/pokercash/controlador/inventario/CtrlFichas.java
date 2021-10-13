@@ -31,12 +31,12 @@ import pokercash.vista.inventario.VistaFichas;
  * @author Usuario
  */
 public class CtrlFichas {
-
+    
     private ModlFichas m;
     private VistaFichas v;
     private Image imagen;
-    private String col="240,240,240";
-
+    private String col = "240,240,240";
+    
     public CtrlFichas(ModlFichas m, VistaFichas v) {
         this.m = m;
         this.v = v;
@@ -44,14 +44,14 @@ public class CtrlFichas {
         cargarLista();
         v.setVisible(true);
     }
-
+    
     public void IniciarControl() {
-        v.getBtnIngresar().addActionListener(l->CargarDialogo(1));
-        v.getBtnColor().addActionListener(l->Color());
-        v.getBtnAceptar().addActionListener(l->IngresarFichas());
-        v.getBtnCargar().addActionListener(l->cargarFoto());
+        v.getBtnIngresar().addActionListener(l -> CargarDialogo(1));
+        v.getBtnColor().addActionListener(l -> Color());
+        v.getBtnAceptar().addActionListener(l -> IngresarFichas());
+        v.getBtnCargar().addActionListener(l -> cargarFoto());
     }
-
+    
     public void cargarLista() {
         v.getTablaFichas().setDefaultRenderer(Object.class, new ImagenTabla());
         v.getTablaFichas().setRowHeight(100);
@@ -76,7 +76,7 @@ public class CtrlFichas {
             } else {
                 v.getTablaFichas().setValueAt(null, i.value, 4);
             }
-
+            
             String c = l.getColor();
             String vl[] = c.split(",");
             int r, g, b;
@@ -91,11 +91,28 @@ public class CtrlFichas {
             i.value++;
         });
     }
-
+    
     public void CargarDialogo(int opc) {
         switch (opc) {
             case 1:
                 v.getDlgFichas().setTitle("Ingresar Fichas");
+                break;
+            case 2:
+                v.getDlgFichas().setTitle("Editar Ficha");
+                int s = v.getTablaFichas().getSelectedRow();
+                List<Fichas> l = m.ListarFichas();
+                v.getTxtValor().setText(String.valueOf(l.get(s).getValor()));
+                v.getTxtCantidad().setText(String.valueOf(l.get(s).getCantidad()));
+                String c = l.get(s).getColor();
+                String vl[] = c.split(",");
+                int r,
+                 g,
+                 b;
+                r = Integer.parseInt(vl[0]);
+                g = Integer.parseInt(vl[1]);
+                b = Integer.parseInt(vl[2]);
+                Color cl = new Color(r, g, b);
+                v.getPanelColor().setBackground(cl);////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 break;
         }
         v.getDlgFichas().setLocationRelativeTo(null);
@@ -103,9 +120,9 @@ public class CtrlFichas {
         v.getDlgFichas().setModal(true);
         v.getDlgFichas().setVisible(true);
     }
-
+    
     public void IngresarFichas() {
-        int id=IdFichas();
+        int id = IdFichas();
         ModlFichas mf = new ModlFichas();
         mf.setId_fichas(id);
         mf.setEstado("SIN USO");
@@ -115,7 +132,7 @@ public class CtrlFichas {
         mf.setFoto(imagen);
         if (mf.Ingresar()) {
             JOptionPane.showMessageDialog(v, "Fichas Ingresadas Correctamente");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(v, "ERROR");
         }
         LimpiarCampos();
@@ -124,24 +141,24 @@ public class CtrlFichas {
         
     }
     
-    public void LimpiarCampos(){
+    public void LimpiarCampos() {
         v.getTxtCantidad().setText("0");
         v.getTxtValor().setText("0");
         v.getLblImagen().setIcon(null);
         v.getPanelColor().setBackground(null);
     }
     
-    public void Color(){
-                Color c = Color.WHITE;
-        c=JColorChooser.showDialog(v, "ESCOGER COLOR", c);
+    public void Color() {
+        Color c = Color.WHITE;
+        c = JColorChooser.showDialog(v, "ESCOGER COLOR", c);
         v.getPanelColor().setBackground(c);
-        col=c.toString();
-        col=col.substring(15);
-        col=col.replace("]", "");
-        col=col.replace("=","");
-        col=col.replace("r","");
-        col=col.replace("g","");
-        col=col.replace("b","");
+        col = c.toString();
+        col = col.substring(15);
+        col = col.replace("]", "");
+        col = col.replace("=", "");
+        col = col.replace("r", "");
+        col = col.replace("g", "");
+        col = col.replace("b", "");
     }
     
     public int IdFichas() {
@@ -157,7 +174,7 @@ public class CtrlFichas {
             }
         } while (true);
     }
-
+    
     private void cargarFoto() {
         JFileChooser jfc = new JFileChooser();
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);

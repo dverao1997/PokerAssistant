@@ -112,6 +112,7 @@ public class CtrlProductos {
                 JOptionPane.showMessageDialog(v, "Seleccione el producto a editar");
             }
         });
+        
     }
 
     public void CargarLista(String aguja) {
@@ -215,10 +216,10 @@ public class CtrlProductos {
     }
 
     public void Cerrar() {
-        v.getDlgProducto().setVisible(false);
         spaum(false);
         LimpiarCampos();
         CargarLista("");
+        v.getDlgProducto().setVisible(false);
     }
 
     public void Editar() {
