@@ -31,13 +31,13 @@ import pokercash.vista.inventario.VistaFichas;
  * @author Usuario
  */
 public class CtrlFichas {
-
+    
     private ModlFichas m;
     private VistaFichas v;
     private Image imagen;
     private String col = "240,240,240";
     private int opc;
-
+    
     public CtrlFichas(ModlFichas m, VistaFichas v) {
         this.m = m;
         this.v = v;
@@ -45,12 +45,13 @@ public class CtrlFichas {
         cargarLista();
         v.setVisible(true);
     }
-
+    
     public void IniciarControl() {
         v.getBtnIngresar().addActionListener(l -> CargarDialogo(1));
         v.getBtnColor().addActionListener(l -> Color());
-        v.getBtnCerrar().addActionListener(l->cerrar());
-        v.getBtnAceptar().addActionListener(l ->{
+        v.getBtnCerrar().addActionListener(l -> cerrar());
+        v.getBtnCancelar().addActionListener(l -> Cancelar());
+        v.getBtnAceptar().addActionListener(l -> {
             switch (opc) {
                 case 1:
                     IngresarFichas();
@@ -59,7 +60,7 @@ public class CtrlFichas {
                     Editar();
                     break;
             }
-        } );
+        });
         v.getBtnCargar().addActionListener(l -> cargarFoto());
         v.getBtnEditar().addActionListener(l -> {
             int s = v.getTablaFichas().getSelectedRow();
@@ -68,8 +69,12 @@ public class CtrlFichas {
             } else {
                 JOptionPane.showMessageDialog(v, "Seleccione ficha para editar");
             }
-
+            
         });
+    }
+
+    public void Cancelar() {
+        v.getDlgFichas().setVisible(false);
     }
 
     public void cargarLista() {
@@ -95,7 +100,7 @@ public class CtrlFichas {
             } else {
                 v.getTablaFichas().setValueAt(null, i.value, 3);
             }
-
+            
             String c = l.getColor();
             String vl[] = c.split(",");
             int r, g, b;
@@ -110,7 +115,7 @@ public class CtrlFichas {
             i.value++;
         });
     }
-
+    
     public void CargarDialogo(int opc) {
         switch (opc) {
             case 1:
@@ -134,7 +139,7 @@ public class CtrlFichas {
                 b = Integer.parseInt(vl[2]);
                 Color cl = new Color(r, g, b);
                 v.getPanelColor().setBackground(cl);
-
+                
                 Image img = l.get(s).getFoto();
                 this.imagen = img;
                 Icon icon = new ImageIcon(img);
@@ -142,13 +147,13 @@ public class CtrlFichas {
                 v.getLblImagen().updateUI();
                 break;
         }
-        this.opc=opc;
+        this.opc = opc;
         v.getDlgFichas().setSize(370, 340);
         v.getDlgFichas().setLocationRelativeTo(v);
         v.getDlgFichas().setModal(true);
         v.getDlgFichas().setVisible(true);
     }
-
+    
     public void IngresarFichas() {
         int id = IdFichas();
         ModlFichas mf = new ModlFichas();
@@ -166,7 +171,7 @@ public class CtrlFichas {
         LimpiarCampos();
         v.getDlgFichas().setVisible(false);
     }
-
+    
     public void LimpiarCampos() {
         v.getTxtCantidad().setText("0");
         v.getTxtValor().setText("0");
@@ -174,7 +179,7 @@ public class CtrlFichas {
         v.getPanelColor().setBackground(null);
         cargarLista();
     }
-
+    
     public void Color() {
         Color c = Color.WHITE;
         c = JColorChooser.showDialog(v, "ESCOGER COLOR", c);
@@ -187,7 +192,7 @@ public class CtrlFichas {
         col = col.replace("g", "");
         col = col.replace("b", "");
     }
-
+    
     public int IdFichas() {
         List<Fichas> lf = m.ListarFichas();
         int id;
@@ -201,7 +206,7 @@ public class CtrlFichas {
             }
         } while (true);
     }
-
+    
     private void cargarFoto() {
         JFileChooser jfc = new JFileChooser();
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -220,7 +225,7 @@ public class CtrlFichas {
             }
         }
     }
-
+    
     public void Editar() {
         int s = v.getTablaFichas().getSelectedRow();
         List<Fichas> l = m.ListarFichas();
@@ -239,7 +244,7 @@ public class CtrlFichas {
         v.getDlgFichas().setVisible(false);
     }
     
-    public void cerrar(){
+    public void cerrar() {
         v.setVisible(false);
     }
 }

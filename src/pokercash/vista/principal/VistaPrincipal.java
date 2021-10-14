@@ -40,6 +40,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuEmpleados = new javax.swing.JMenuItem();
+        mnuUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnuProducto = new javax.swing.JMenuItem();
         mnuFichas = new javax.swing.JMenuItem();
@@ -107,6 +108,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mnuEmpleados.setText("Ingresar Empleados");
         jMenu1.add(mnuEmpleados);
 
+        mnuUsuario.setText("Ingresar Usuario");
+        jMenu1.add(mnuUsuario);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Inventario");
@@ -142,6 +146,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JMenuItem getMnuUsuario() {
+        return mnuUsuario;
+    }
+
+    public void setMnuUsaurio(JMenuItem mnuUsaurio) {
+        this.mnuUsuario = mnuUsaurio;
+    }
 
     public JDesktopPane getDktContenedor() {
         return dktContenedor;
@@ -197,5 +209,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuEmpleados;
     private javax.swing.JMenuItem mnuFichas;
     private javax.swing.JMenuItem mnuProducto;
+    private javax.swing.JMenuItem mnuUsuario;
     // End of variables declaration//GEN-END:variables
 }

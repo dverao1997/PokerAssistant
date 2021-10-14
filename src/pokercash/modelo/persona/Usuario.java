@@ -22,9 +22,6 @@ public class Usuario extends Empleado{
         this.password = password;
     }
 
-  
-    
-    
     public String getNomb_usu() {
         return nomb_usu;
     }
@@ -40,5 +37,5 @@ public class Usuario extends Empleado{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
 }

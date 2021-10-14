@@ -87,10 +87,10 @@ public class ModlEmpleado extends Empleado {
     public List<Empleado> Persona(String aguja) {
         try {
             List<Empleado> lp = new ArrayList<>();
-            String sql = "select p.id_persona,nombre,apellido,telefono,genero,estado,e.id_empleado\n" +
-"                    from persona p left outer join empleado e on p.id_persona=e.id_persona\n" +
-"                    where (e.id_persona is null or e.estado=1) and\n" +
-"                    (upper(p.nombre) like '%"+aguja+"%' or upper(p.apellido) like '%"+aguja+"%');";
+            String sql = "select p.id_persona,nombre,apellido,telefono,genero,estado,e.id_empleado\n"
+                    + "                    from persona p left outer join empleado e on p.id_persona=e.id_persona\n"
+                    + "                    where (e.id_persona is null or e.estado=1) and\n"
+                    + "                    (upper(p.nombre) like '%" + aguja + "%' or upper(p.apellido) like '%" + aguja + "%');";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Empleado p = new Empleado();
@@ -144,5 +144,6 @@ public class ModlEmpleado extends Empleado {
                 + " WHERE id_empleado=" + getId_empleado() + ";";
         return con.accion(sql);
     }
+
 
 }

@@ -5,16 +5,19 @@
  */
 package pokercash.controlador;
 
+import pokercash.controlador.persona.CtrlUsuario;
 import pokercash.controlador.inventario.CtrlFichas;
 import pokercash.controlador.inventario.CtrlProductos;
 import pokercash.controlador.persona.CtrlEmpleados;
 import pokercash.modelo.inventario.ModlFichas;
 import pokercash.modelo.inventario.ModlProducto;
 import pokercash.modelo.persona.ModlEmpleado;
+import pokercash.modelo.persona.ModlUsuario;
 import pokercash.vista.inventario.VistaFichas;
 import pokercash.vista.persona.VistaEmpleado;
 import pokercash.vista.principal.VistaPrincipal;
 import pokercash.vista.inventario.VistaProducto;
+import pokercash.vista.persona.VistaUsuario;
 
 /**
  *
@@ -35,6 +38,7 @@ public class CtrlPrincipal {
         v.getMnuEmpleados().addActionListener(l->Empleados());
         v.getMnuProducto().addActionListener(l->Productos());
         v.getMnuFichas().addActionListener(l->Fichas());
+        v.getMnuUsuario().addActionListener(l->Usuario());
     }
     
     public void Empleados(){
@@ -58,6 +62,13 @@ public class CtrlPrincipal {
         VistaFichas fic=new VistaFichas();
         v.getDktContenedor().add(fic);
         CtrlFichas control=new CtrlFichas(mod, fic);
+        control.IniciarControl();
+    }
+    public void Usuario(){
+        ModlUsuario mod=new ModlUsuario();
+        VistaUsuario vis=new VistaUsuario();
+        v.getDktContenedor().add(vis);
+        CtrlUsuario control=new CtrlUsuario(vis, mod);
         control.IniciarControl();
     }
 }
