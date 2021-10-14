@@ -11,13 +11,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
-import pokercash.controlador.CtrlPrincipal;
 import pokercash.modelo.persona.Empleado;
 import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.modelo.persona.ModlPersona;
 import pokercash.modelo.persona.Persona;
 import pokercash.vista.persona.VistaEmpleado;
-import pokercash.vista.principal.VistaPrincipal;
 
 /**
  *
@@ -181,7 +179,6 @@ public class CtrlEmpleados {
         }
         v.getDlgEmpleado().setVisible(false);
         LimpiarCampos();
-        CargarLista("");
     }
 
     public int IdEmpleado() {
@@ -224,6 +221,7 @@ public class CtrlEmpleados {
         v.getTxtTelefono().setText("");
         v.getTxtBuscar().setText("");
         v.getTxtBuscarPer().setText("");
+        CargarLista("");
     }
 
     public void EditarEmpleado() {
@@ -251,7 +249,6 @@ public class CtrlEmpleados {
             }
         }
         LimpiarCampos();
-        CargarLista("");
 
     }
 
@@ -315,7 +312,6 @@ public class CtrlEmpleados {
             }
             v.getDlgPersona().setVisible(false);
             LimpiarCampos();
-            CargarLista("");
         }
     }
 

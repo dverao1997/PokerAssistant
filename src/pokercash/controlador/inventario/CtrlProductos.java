@@ -11,9 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
 import pokercash.modelo.inventario.ModlProducto;
@@ -91,6 +88,17 @@ public class CtrlProductos {
         v.getTablaProducto().addMouseListener(ml);
         v.getTxtBuscar().addKeyListener(kl);
         v.getBtnNuevo().addActionListener(l -> CargarDialogue(1));
+        v.getBtnCerrar().addActionListener(l->Cerrar());
+        v.getBtnAumentar().addActionListener(l -> Aumentar());
+        v.getBtnCancelar().addActionListener(l -> Cancelar());
+        v.getBtnEditar().addActionListener((l) -> {
+            int s = v.getTablaProducto().getSelectedRow();
+            if (s != -1) {
+                CargarDialogue(2);
+            } else {
+                JOptionPane.showMessageDialog(v, "Seleccione el producto a editar");
+            }
+        });
         v.getBtnAceptar().addActionListener((l) -> {
             switch (opcion) {
                 case 1:
@@ -102,17 +110,7 @@ public class CtrlProductos {
             }
 
         });
-        v.getBtnAumentar().addActionListener(l -> Aumentar());
-        v.getBtnCancelar().addActionListener(l -> Cerrar());
-        v.getBtnEditar().addActionListener((l) -> {
-            int s = v.getTablaProducto().getSelectedRow();
-            if (s != -1) {
-                CargarDialogue(2);
-            } else {
-                JOptionPane.showMessageDialog(v, "Seleccione el producto a editar");
-            }
-        });
-        
+
     }
 
     public void CargarLista(String aguja) {
@@ -145,7 +143,6 @@ public class CtrlProductos {
             JOptionPane.showMessageDialog(v.getDlgProducto(), "error");
         }
         v.getDlgProducto().setVisible(false);
-        CargarLista("");
         LimpiarCampos();
     }
 
@@ -155,6 +152,7 @@ public class CtrlProductos {
         v.getTxtPrecio().setText("0");
         spaum(false);
         v.getSpCantidad().setValue(0);
+        CargarLista("");
     }
 
     public int Id() {
@@ -176,6 +174,7 @@ public class CtrlProductos {
         switch (opc) {
             case 1:
                 v.getDlgProducto().setTitle("Ingresar Producto");
+                LimpiarCampos();
                 break;
             case 2:
                 int s = v.getTablaProducto().getSelectedRow();
@@ -215,10 +214,9 @@ public class CtrlProductos {
         spaum(false);
     }
 
-    public void Cerrar() {
+    public void Cancelar() {
         spaum(false);
         LimpiarCampos();
-        CargarLista("");
         v.getDlgProducto().setVisible(false);
     }
 
@@ -233,6 +231,11 @@ public class CtrlProductos {
         } else {
             JOptionPane.showMessageDialog(v.getDlgProducto(), "ERROR");
         }
-        Cerrar();
+        Cancelar();
+    }
+
+    public void Cerrar() {
+        v.setVisible(false);
+
     }
 }
