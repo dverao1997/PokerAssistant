@@ -11,11 +11,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
+import pokercash.controlador.CtrlPrincipal;
 import pokercash.modelo.persona.Empleado;
 import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.modelo.persona.ModlPersona;
 import pokercash.modelo.persona.Persona;
 import pokercash.vista.persona.VistaEmpleado;
+import pokercash.vista.principal.VistaPrincipal;
 
 /**
  *
@@ -57,7 +59,7 @@ public class CtrlEmpleados {
         v.getTxtBuscar().addKeyListener(kl);
         v.getBtnCrear().addActionListener(l -> Persona());
         v.getBtnCancelar().addActionListener(l -> Cancelar());
-        v.getBtnCance().addActionListener(l->Cancelar());
+        v.getBtnCance().addActionListener(l -> Cancelar());
         v.getBtnNuevo().addActionListener(l -> CargarDialogo(1));
         v.getBtnEditar().addActionListener((l) -> {
             int seleccion = v.getTablaEmpleado().getSelectedRow();
@@ -82,12 +84,19 @@ public class CtrlEmpleados {
             if (v.getTablaPersona().getSelectedRow() == -1) {
                 JOptionPane.showMessageDialog(v.getDlgPersona(), "Seleccione el empleado que quiere Ingresar");
             } else {
-
                 Seleccionar();
             }
 
         });
+        v.getBtnEliminar().addActionListener((l) -> {
+            if (v.getTablaEmpleado().getSelectedRow() == -1) {
+                JOptionPane.showMessageDialog(v, "Seleccione el empleado que quiere Eliminar");
+            } else {
+                Inactivar(v.getTxtBuscar().getText().toUpperCase());
+            }
 
+        });
+        v.getBtnCerrar().addActionListener(l->Cerrar());
     }
 
     public void Cancelar() {
@@ -119,6 +128,8 @@ public class CtrlEmpleados {
         switch (opc) {
             case 1:
                 v.getDlgEmpleado().setTitle("Ingresar Empleado");
+                LimpiarCampos();
+                v.getDlgPersona().setVisible(false);
                 break;
             case 2:
                 v.getDlgEmpleado().setTitle("Editar Empleado");
@@ -141,12 +152,12 @@ public class CtrlEmpleados {
                 }
                 break;
         }
-        
-        v.getDlgEmpleado().setLocationRelativeTo(v);
+
         v.getDlgEmpleado().setSize(320, 320);
-        v.getDlgPersona().setVisible(false);
+        v.getDlgEmpleado().setLocationRelativeTo(v);
         v.getDlgEmpleado().setModal(true);
         v.getDlgEmpleado().setVisible(true);
+
     }
 
     public void InsertarEmpleado() {
@@ -156,11 +167,13 @@ public class CtrlEmpleados {
         ModlEmpleado emp = new ModlEmpleado(
                 id_empleado,
                 v.getCbxRol().getSelectedItem().toString(),
+                0,
                 id_persona,
                 v.getTxtNombre().getText(),
                 v.getTxtApellido().getText(),
                 v.getTxtTelefono().getText(),
                 v.getCbxGenero().getSelectedItem().toString());
+
         if (emp.InsertarEmpleado()) {
             JOptionPane.showMessageDialog(v.getDlgEmpleado(), "Empleado Ingresado con Exito");
         } else {
@@ -221,6 +234,7 @@ public class CtrlEmpleados {
         ModlEmpleado empl = new ModlEmpleado(
                 id_empleado,
                 v.getCbxRol().getSelectedItem().toString(),
+                0,
                 id_persona,
                 v.getTxtNombre().getText(),
                 v.getTxtApellido().getText(),
@@ -243,22 +257,23 @@ public class CtrlEmpleados {
 
     public void Persona() {
         CargarPersona("");
-        v.getDlgPersona().setLocationRelativeTo(v);
+
         v.getDlgPersona().setSize(500, 400);
+        v.getDlgPersona().setLocationRelativeTo(v);
         v.getDlgPersona().setModal(true);
         v.getDlgPersona().setVisible(true);
 
     }
 
     public void CargarPersona(String aguja) {
-        ModlPersona per = new ModlPersona();
+        ModlEmpleado per = new ModlEmpleado();
         DefaultTableModel tbmodel;
         tbmodel = (DefaultTableModel) v.getTablaPersona().getModel();
         tbmodel.setRowCount(0);
-        List<Persona> listaE = per.Listarpersona(aguja);
+        List<Empleado> lp = per.Persona(v.getTxtBuscarPer().getText().toUpperCase());
         int n = tbmodel.getColumnCount();
         Holder<Integer> i = new Holder<>(0);
-        listaE.stream().forEach(listaEm -> {
+        lp.stream().forEach(listaEm -> {
             tbmodel.addRow(new Object[n]);
             v.getTablaPersona().setValueAt(listaEm.getNombre(), i.value, 0);
             v.getTablaPersona().setValueAt(listaEm.getApellido(), i.value, 1);
@@ -270,30 +285,60 @@ public class CtrlEmpleados {
 
     public void Seleccionar() {
         int selec = v.getTablaPersona().getSelectedRow();
-        ModlPersona per = new ModlPersona();
-        List<Persona> lp = per.Listarpersona(v.getTxtBuscarPer().getText().toUpperCase());
+        ModlEmpleado mo = new ModlEmpleado();
+        List<Empleado> lp = mo.Persona(v.getTxtBuscarPer().getText().toUpperCase());
 
         String[] roles = {"Administrador", "Deler", "Dueño", "Organizador", "Servicio"};
-        String rol = (String) JOptionPane.showInputDialog(v, "Seleccione el Rol", "Poker One Administrator", JOptionPane.DEFAULT_OPTION, null, roles, roles[0]);
+        String rol = (String) JOptionPane.showInputDialog(v.getDlgPersona(), "Seleccione el Rol", "Poker One Administrator", JOptionPane.DEFAULT_OPTION, null, roles, roles[0]);
         int id_emp = IdEmpleado();
-        System.out.println(id_emp);
         int id_persona = lp.get(selec).getId_persona();
-        System.out.println(id_persona);
-        System.out.println(rol);
-        if (rol != null) {
-            ModlEmpleado mo = new ModlEmpleado();
-            mo.setId_empleado(id_emp);
-            mo.setId_persona(id_persona);
-            mo.setRol(rol);
-            if (mo.InsertEmpleado()) {
-                JOptionPane.showMessageDialog(v.getDlgPersona(), "Empleado Ingresado con exito");
-            } else {
-                JOptionPane.showMessageDialog(v.getDlgPersona(), "ERROR");
-            }
 
+        if (rol != null) {
+            if (lp.get(selec).getEstado() == 1) {
+                mo.setId_empleado(lp.get(selec).getId_empleado());
+                mo.setRol(rol);
+                mo.setEstado(0);
+                if (mo.InactEmpleado()) {
+                    JOptionPane.showMessageDialog(v.getDlgPersona(), "Empleado Ingresado con exito");
+                } else {
+                    JOptionPane.showMessageDialog(v.getDlgPersona(), "ERROR");
+                }
+            } else {
+                mo.setId_empleado(id_emp);
+                mo.setId_persona(id_persona);
+                mo.setRol(rol);
+                if (mo.InsertEmpleado()) {
+                    JOptionPane.showMessageDialog(v.getDlgPersona(), "Empleado Ingresado con exito");
+                } else {
+                    JOptionPane.showMessageDialog(v.getDlgPersona(), "ERROR");
+                }
+            }
             v.getDlgPersona().setVisible(false);
             LimpiarCampos();
             CargarLista("");
         }
     }
+
+    public void Inactivar(String aguja) {
+        int selec = v.getTablaEmpleado().getSelectedRow();
+        List<Empleado> listaE = m.listarEmpleado(aguja);
+        m.setId_empleado(listaE.get(selec).getId_empleado());
+        m.setRol("");
+        m.setEstado(1);
+        int confirmar = JOptionPane.showConfirmDialog(v, "Esta seguro que desea eliminar el empleado", "CONFIRMACIÓN", JOptionPane.YES_NO_OPTION);
+        if (confirmar == 0) {
+            if (m.InactEmpleado()) {
+                JOptionPane.showMessageDialog(v, "Empleado eliminado con exito");
+            } else {
+                JOptionPane.showMessageDialog(v, "ERROR");
+            }
+        }
+        CargarLista(aguja);
+    }
+    
+    public void Cerrar(){
+        v.setVisible(false);
+        
+    }
+    
 }

@@ -17,30 +17,30 @@ import pokercash.modelo.ConexionPg;
  *
  * @author CyberLink
  */
-public class ModlUsuario extends Usuario{
-    
-    ConexionPg con =new ConexionPg();
+public class ModlUsuario extends Usuario {
 
-    public ModlUsuario(String nomb_usu, String password, int id_empleado, String rol, int id_persona, String nombre, String apellido, String telefono, String genero) {
-        super(nomb_usu, password, id_empleado, rol, id_persona, nombre, apellido, telefono, genero);
+    ConexionPg con = new ConexionPg();
+
+    public ModlUsuario(String nomb_usu, String password, int id_empleado) {
+        super(nomb_usu, password, id_empleado);
     }
 
     public ModlUsuario() {
     }
-    
-    public List<Usuario> IniciarSesion(String nombUsuario){
-        
+
+    public List<Usuario> IniciarSesion(String nombUsuario) {
+
         try {
-            List<Usuario> lu =new ArrayList<>();
-            String sql="select * from usuario where nomb_usu='"+nombUsuario+"';";
-            ResultSet rs = con.consulta(sql); 
-                while (rs.next()) {
-                    Usuario u=new Usuario();
-                    u.setNomb_usu(rs.getString("nomb_usu"));
-                    u.setPassword(rs.getString("password"));
-                    lu.add(u);
-                }
-            
+            List<Usuario> lu = new ArrayList<>();
+            String sql = "select * from usuario where nomb_usu='" + nombUsuario + "';";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setNomb_usu(rs.getString("nomb_usu"));
+                u.setPassword(rs.getString("password"));
+                lu.add(u);
+            }
+
             return lu;
         } catch (SQLException ex) {
             Logger.getLogger(ModlUsuario.class.getName()).log(Level.SEVERE, null, ex);

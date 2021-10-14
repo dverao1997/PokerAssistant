@@ -49,6 +49,7 @@ public class ModlPersona extends Persona {
             return null;
         }
     }
+
     public List<Persona> Listarpersona() {
         try {
             List<Persona> lp = new ArrayList<>();
@@ -71,28 +72,5 @@ public class ModlPersona extends Persona {
         }
     }
 
-    public List<Persona> Listarpersona(String aguja) {
-        try {
-            List<Persona> lp = new ArrayList<>();
-            String sql = "select p.id_persona,nombre,apellido,telefono,genero\n"
-                    + "from persona p left outer join empleado e on p.id_persona=e.id_persona\n"
-                    + "where e.id_persona is null and "
-                    + "(upper(p.nombre) like '%" + aguja + "%' or upper(p.apellido) like '%" + aguja + "%');";
-            ResultSet rs = con.consulta(sql);
-            while (rs.next()) {
-                Persona p = new Persona();
-                p.setId_persona(rs.getInt("id_persona"));
-                p.setNombre(rs.getString("nombre"));
-                p.setApellido(rs.getString("apellido"));
-                p.setTelefono(rs.getString("telefono"));
-                p.setGenero(rs.getString("genero"));
-                lp.add(p);
-            }
-            rs.close();
-            return lp;
-        } catch (SQLException ex) {
-            Logger.getLogger(ModlPersona.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
+
 }

@@ -24,18 +24,18 @@ public class ModlEmpleado extends Empleado {
     public ModlEmpleado() {
     }
 
-    public ModlEmpleado(int id_empleado, String rol, int id_persona, String nombre, String apellido, String telefono, String genero) {
-        super(id_empleado, rol, id_persona, nombre, apellido, telefono, genero);
+    public ModlEmpleado(int id_empleado, String rol, int estado, int id_persona, String nombre, String apellido, String telefono, String genero) {
+        super(id_empleado, rol, estado, id_persona, nombre, apellido, telefono, genero);
     }
 
     public List<Empleado> listarEmpleado(String aguja) {
         try {
             List<Empleado> le = new ArrayList<>();
 
-            String sql = "select p.id_persona,p.nombre,p.apellido,p.telefono,p.genero,e.id_empleado,e.rol\n"
+            String sql = "select p.id_persona,p.nombre,p.apellido,p.telefono,p.genero,e.id_empleado,e.rol,e.estado\n"
                     + "from persona p join empleado e on p.id_persona=e.id_persona\n"
-                    + "where upper(p.nombre) like '%" + aguja + "%'\n"
-                    + "or  upper(p.apellido) like '%" + aguja + "%';";
+                    + "where e.estado=0 and (upper(p.nombre) like '%" + aguja + "%'\n"
+                    + "or  upper(p.apellido) like '%" + aguja + "%');";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Empleado e = new Empleado();
@@ -46,7 +46,7 @@ public class ModlEmpleado extends Empleado {
                 e.setTelefono(rs.getString("telefono"));
                 e.setGenero(rs.getString("genero"));
                 e.setRol(rs.getString("rol"));
-
+                e.setEstado(rs.getInt("estado"));
                 le.add(e);
             }
             rs.close();
@@ -74,7 +74,6 @@ public class ModlEmpleado extends Empleado {
                 e.setTelefono(rs.getString("telefono"));
                 e.setGenero(rs.getString("genero"));
                 e.setRol(rs.getString("rol"));
-
                 le.add(e);
             }
             rs.close();
@@ -85,20 +84,47 @@ public class ModlEmpleado extends Empleado {
         }
     }
 
+    public List<Empleado> Persona(String aguja) {
+        try {
+            List<Empleado> lp = new ArrayList<>();
+            String sql = "select p.id_persona,nombre,apellido,telefono,genero,estado,e.id_empleado\n" +
+"                    from persona p left outer join empleado e on p.id_persona=e.id_persona\n" +
+"                    where (e.id_persona is null or e.estado=1) and\n" +
+"                    (upper(p.nombre) like '%"+aguja+"%' or upper(p.apellido) like '%"+aguja+"%');";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Empleado p = new Empleado();
+                p.setId_persona(rs.getInt("id_persona"));
+                p.setId_empleado(rs.getInt("id_empleado"));
+                p.setNombre(rs.getString("nombre"));
+                p.setApellido(rs.getString("apellido"));
+                p.setTelefono(rs.getString("telefono"));
+                p.setGenero(rs.getString("genero"));
+                p.setEstado(rs.getInt("estado"));
+                lp.add(p);
+            }
+            rs.close();
+            return lp;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlPersona.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public boolean InsertarEmpleado() {
         String sql = "INSERT INTO persona(\n"
                 + "            id_persona, nombre, apellido, telefono, genero)\n"
                 + "    VALUES (" + getId_persona() + ", '" + getNombre() + "', '" + getApellido() + "', '" + getTelefono() + "', '" + getGenero() + "');\n"
                 + "INSERT INTO empleado(\n"
-                + "            rol, id_persona, id_empleado)\n"
-                + "    VALUES ('" + getRol() + "', " + getId_persona() + ", " + getId_empleado() + ");";
+                + "            rol, id_persona, id_empleado,estado)\n"
+                + "    VALUES ('" + getRol() + "', " + getId_persona() + ", " + getId_empleado() + "," + getEstado() + ");";
         return con.accion(sql);
     }
 
     public boolean InsertEmpleado() {
         String sql = "INSERT INTO empleado(\n"
-                + "            rol, id_persona, id_empleado)\n"
-                + "    VALUES ('" + getRol() + "', " + getId_persona() + ", " + getId_empleado() + ");";
+                + "            rol, id_persona, id_empleado,estado)\n"
+                + "    VALUES ('" + getRol() + "', " + getId_persona() + ", " + getId_empleado() + "," + getEstado() + ");";
         return con.accion(sql);
     }
 
@@ -111,4 +137,12 @@ public class ModlEmpleado extends Empleado {
                 + " WHERE id_empleado=" + getId_empleado() + ";";
         return con.accion(sql);
     }
+
+    public boolean InactEmpleado() {
+        String sql = "UPDATE empleado\n"
+                + "   SET rol='" + getRol() + "',estado=" + getEstado() + "\n"
+                + " WHERE id_empleado=" + getId_empleado() + ";";
+        return con.accion(sql);
+    }
+
 }
