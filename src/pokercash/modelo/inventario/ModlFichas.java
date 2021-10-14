@@ -77,7 +77,7 @@ public class ModlFichas extends Fichas {
             List<Fichas> l = new ArrayList<>();
             String sql = "SELECT *\n"
                     + "	FROM fichas "
-                    + "WHERE id_fichas="+id+";";
+                    + "WHERE id_fichas=" + id + ";";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Fichas f = new Fichas();
@@ -152,6 +152,26 @@ public class ModlFichas extends Fichas {
         String sql = "INSERT INTO fichas(\n"
                 + "	id_fichas, color, valor, foto, cantidad, estado)\n"
                 + "	VALUES (" + getId_fichas() + ", '" + getColor() + "', " + getValor() + ", '" + foto64 + "', " + getCantidad() + ", '" + getEstado() + "');";
+        return con.accion(sql);
+
+    }
+
+    public boolean Editar() {
+        String foto64 = null;
+        BufferedImage img = imgBinari(getFoto());
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+
+            ImageIO.write(img, "PNG", bos);
+            byte[] imgb = bos.toByteArray();
+            foto64 = Base64.encodeBytes(imgb);
+        } catch (IOException ex) {
+            Logger.getLogger(ModlFichas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql = "UPDATE fichas\n"
+                + "   SET color= '" + getColor() + "', valor=" + getValor() + ", foto='" + foto64 + "', cantidad=" + getCantidad() + "\n"
+                + " WHERE id_fichas=" + getId_fichas() + ";";
+
         return con.accion(sql);
 
     }

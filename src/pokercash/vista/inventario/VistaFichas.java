@@ -49,6 +49,7 @@ public class VistaFichas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         btnIngresar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaFiichas = new javax.swing.JTable();
 
@@ -142,6 +143,13 @@ public class VistaFichas extends javax.swing.JInternalFrame {
 
         btnEditar.setText("Editar");
 
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/action_delete.png"))); // NOI18N
+        btnCerrar.setBorder(null);
+        btnCerrar.setBorderPainted(false);
+        btnCerrar.setContentAreaFilled(false);
+        btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -151,7 +159,9 @@ public class VistaFichas extends javax.swing.JInternalFrame {
                 .addComponent(btnIngresar)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerrar)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,6 +170,10 @@ public class VistaFichas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnIngresar)
                     .addComponent(btnEditar)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCerrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         TablaFiichas.setModel(new javax.swing.table.DefaultTableModel(
@@ -167,11 +181,11 @@ public class VistaFichas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Color", "Valor", "Cantidad", "Estado", "Foto"
+                "Color", "Valor", "Cantidad", "Foto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -193,7 +207,7 @@ public class VistaFichas extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,6 +309,14 @@ public class VistaFichas extends javax.swing.JInternalFrame {
         this.txtValor = txtValor;
     }
 
+    public JButton getBtnCerrar() {
+        return btnCerrar;
+    }
+
+    public void setBtnCerrar(JButton btnCerrar) {
+        this.btnCerrar = btnCerrar;
+    }
+
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -303,6 +325,7 @@ public class VistaFichas extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnColor;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnIngresar;

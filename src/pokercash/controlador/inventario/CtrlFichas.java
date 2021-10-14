@@ -31,12 +31,13 @@ import pokercash.vista.inventario.VistaFichas;
  * @author Usuario
  */
 public class CtrlFichas {
-    
+
     private ModlFichas m;
     private VistaFichas v;
     private Image imagen;
     private String col = "240,240,240";
-    
+    private int opc;
+
     public CtrlFichas(ModlFichas m, VistaFichas v) {
         this.m = m;
         this.v = v;
@@ -44,14 +45,33 @@ public class CtrlFichas {
         cargarLista();
         v.setVisible(true);
     }
-    
+
     public void IniciarControl() {
         v.getBtnIngresar().addActionListener(l -> CargarDialogo(1));
         v.getBtnColor().addActionListener(l -> Color());
-        v.getBtnAceptar().addActionListener(l -> IngresarFichas());
+        v.getBtnCerrar().addActionListener(l->cerrar());
+        v.getBtnAceptar().addActionListener(l ->{
+            switch (opc) {
+                case 1:
+                    IngresarFichas();
+                    break;
+                case 2:
+                    Editar();
+                    break;
+            }
+        } );
         v.getBtnCargar().addActionListener(l -> cargarFoto());
+        v.getBtnEditar().addActionListener(l -> {
+            int s = v.getTablaFichas().getSelectedRow();
+            if (s != -1) {
+                CargarDialogo(2);
+            } else {
+                JOptionPane.showMessageDialog(v, "Seleccione ficha para editar");
+            }
+
+        });
     }
-    
+
     public void cargarLista() {
         v.getTablaFichas().setDefaultRenderer(Object.class, new ImagenTabla());
         v.getTablaFichas().setRowHeight(100);
@@ -66,17 +86,16 @@ public class CtrlFichas {
             tbModel.addRow(new Object[ncolums]);
             v.getTablaFichas().setValueAt(l.getCantidad(), i.value, 2);
             v.getTablaFichas().setValueAt(l.getValor(), i.value, 1);
-            v.getTablaFichas().setValueAt(l.getEstado(), i.value, 3);
             Image img = l.getFoto();
             if (img != null) {
                 Image nimg = img.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(nimg);
                 render.setIcon(icon);
-                v.getTablaFichas().setValueAt(new JLabel(icon), i.value, 4);
+                v.getTablaFichas().setValueAt(new JLabel(icon), i.value, 3);
             } else {
-                v.getTablaFichas().setValueAt(null, i.value, 4);
+                v.getTablaFichas().setValueAt(null, i.value, 3);
             }
-            
+
             String c = l.getColor();
             String vl[] = c.split(",");
             int r, g, b;
@@ -91,11 +110,12 @@ public class CtrlFichas {
             i.value++;
         });
     }
-    
+
     public void CargarDialogo(int opc) {
         switch (opc) {
             case 1:
                 v.getDlgFichas().setTitle("Ingresar Fichas");
+                LimpiarCampos();
                 break;
             case 2:
                 v.getDlgFichas().setTitle("Editar Ficha");
@@ -104,6 +124,7 @@ public class CtrlFichas {
                 v.getTxtValor().setText(String.valueOf(l.get(s).getValor()));
                 v.getTxtCantidad().setText(String.valueOf(l.get(s).getCantidad()));
                 String c = l.get(s).getColor();
+                this.col = c;
                 String vl[] = c.split(",");
                 int r,
                  g,
@@ -112,20 +133,27 @@ public class CtrlFichas {
                 g = Integer.parseInt(vl[1]);
                 b = Integer.parseInt(vl[2]);
                 Color cl = new Color(r, g, b);
-                v.getPanelColor().setBackground(cl);////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                v.getPanelColor().setBackground(cl);
+
+                Image img = l.get(s).getFoto();
+                this.imagen = img;
+                Icon icon = new ImageIcon(img);
+                v.getLblImagen().setIcon(icon);
+                v.getLblImagen().updateUI();
                 break;
         }
-        v.getDlgFichas().setLocationRelativeTo(null);
+        this.opc=opc;
         v.getDlgFichas().setSize(370, 340);
+        v.getDlgFichas().setLocationRelativeTo(v);
         v.getDlgFichas().setModal(true);
         v.getDlgFichas().setVisible(true);
     }
-    
+
     public void IngresarFichas() {
         int id = IdFichas();
         ModlFichas mf = new ModlFichas();
         mf.setId_fichas(id);
-        mf.setEstado("SIN USO");
+        mf.setEstado("0");
         mf.setValor(Double.parseDouble(v.getTxtValor().getText()));
         mf.setCantidad(Integer.parseInt(v.getTxtCantidad().getText()));
         mf.setColor(col);
@@ -137,17 +165,16 @@ public class CtrlFichas {
         }
         LimpiarCampos();
         v.getDlgFichas().setVisible(false);
-        cargarLista();
-        
     }
-    
+
     public void LimpiarCampos() {
         v.getTxtCantidad().setText("0");
         v.getTxtValor().setText("0");
         v.getLblImagen().setIcon(null);
         v.getPanelColor().setBackground(null);
+        cargarLista();
     }
-    
+
     public void Color() {
         Color c = Color.WHITE;
         c = JColorChooser.showDialog(v, "ESCOGER COLOR", c);
@@ -160,7 +187,7 @@ public class CtrlFichas {
         col = col.replace("g", "");
         col = col.replace("b", "");
     }
-    
+
     public int IdFichas() {
         List<Fichas> lf = m.ListarFichas();
         int id;
@@ -174,7 +201,7 @@ public class CtrlFichas {
             }
         } while (true);
     }
-    
+
     private void cargarFoto() {
         JFileChooser jfc = new JFileChooser();
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -192,5 +219,27 @@ public class CtrlFichas {
                 Logger.getLogger(ModlFichas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public void Editar() {
+        int s = v.getTablaFichas().getSelectedRow();
+        List<Fichas> l = m.ListarFichas();
+        ModlFichas mf = new ModlFichas();
+        mf.setId_fichas(l.get(s).getId_fichas());
+        mf.setValor(Double.parseDouble(v.getTxtValor().getText()));
+        mf.setCantidad(Integer.parseInt(v.getTxtCantidad().getText()));
+        mf.setColor(col);
+        mf.setFoto(imagen);
+        if (mf.Editar()) {
+            JOptionPane.showMessageDialog(v, "Fichas Editada con exito");
+        } else {
+            JOptionPane.showMessageDialog(v, "ERROR");
+        }
+        LimpiarCampos();
+        v.getDlgFichas().setVisible(false);
+    }
+    
+    public void cerrar(){
+        v.setVisible(false);
     }
 }

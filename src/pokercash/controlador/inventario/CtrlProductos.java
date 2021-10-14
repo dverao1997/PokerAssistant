@@ -187,8 +187,9 @@ public class CtrlProductos {
                 break;
         }
         opcion = opc;
-        v.getDlgProducto().setLocationRelativeTo(null);
+        
         v.getDlgProducto().setSize(230, 230);
+        v.getDlgProducto().setLocationRelativeTo(v);
         v.getDlgProducto().setModal(true);
         v.getDlgProducto().setVisible(true);
     }
