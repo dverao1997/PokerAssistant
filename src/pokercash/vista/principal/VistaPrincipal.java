@@ -44,6 +44,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         mnuProducto = new javax.swing.JMenuItem();
         mnuFichas = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        mnuMesa = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +126,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Mesa");
+
+        mnuMesa.setText("Crear Mesa");
+        jMenu3.add(mnuMesa);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -146,6 +155,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public JMenuItem getMnuMesa() {
+        return mnuMesa;
+    }
+
+    public void setMnuMesa(JMenuItem mnuMesa) {
+        this.mnuMesa = mnuMesa;
+    }
 
     public JMenuItem getMnuUsuario() {
         return mnuUsuario;
@@ -194,13 +211,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public void setMnuFichas(JMenuItem mnuFichas) {
         this.mnuFichas = mnuFichas;
     }
- 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dktContenedor;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -208,6 +226,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JMenuItem mnuEmpleados;
     private javax.swing.JMenuItem mnuFichas;
+    private javax.swing.JMenuItem mnuMesa;
     private javax.swing.JMenuItem mnuProducto;
     private javax.swing.JMenuItem mnuUsuario;
     // End of variables declaration//GEN-END:variables

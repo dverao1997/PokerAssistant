@@ -7,6 +7,7 @@ package pokercash.controlador;
 
 import pokercash.controlador.persona.CtrlUsuario;
 import pokercash.controlador.inventario.CtrlFichas;
+import pokercash.controlador.inventario.CtrlMesa;
 import pokercash.controlador.inventario.CtrlProductos;
 import pokercash.controlador.persona.CtrlEmpleados;
 import pokercash.modelo.inventario.ModlFichas;
@@ -17,6 +18,7 @@ import pokercash.vista.inventario.VistaFichas;
 import pokercash.vista.persona.VistaEmpleado;
 import pokercash.vista.principal.VistaPrincipal;
 import pokercash.vista.inventario.VistaProducto;
+import pokercash.vista.mesa.VistaMesa;
 import pokercash.vista.persona.VistaUsuario;
 
 /**
@@ -24,51 +26,61 @@ import pokercash.vista.persona.VistaUsuario;
  * @author CyberLink
  */
 public class CtrlPrincipal {
-    
+
     private VistaPrincipal v;
-    
+
     public CtrlPrincipal(VistaPrincipal v) {
         this.v = v;
         v.setTitle("Poker Table Assistant");
         v.setVisible(true);
         v.setLocationRelativeTo(null);
     }
-    
+
     public void iniciarControl() {
-        v.getMnuEmpleados().addActionListener(l->Empleados());
-        v.getMnuProducto().addActionListener(l->Productos());
-        v.getMnuFichas().addActionListener(l->Fichas());
-        v.getMnuUsuario().addActionListener(l->Usuario());
+        v.getMnuEmpleados().addActionListener(l -> Empleados());
+        v.getMnuProducto().addActionListener(l -> Productos());
+        v.getMnuFichas().addActionListener(l -> Fichas());
+        v.getMnuUsuario().addActionListener(l -> Usuario());
+        v.getMnuMesa().addActionListener(l -> Mesa());
     }
-    
-    public void Empleados(){
-        ModlEmpleado mod=new ModlEmpleado();
-        VistaEmpleado vis=new VistaEmpleado();
+
+    public void Empleados() {
+        ModlEmpleado mod = new ModlEmpleado();
+        VistaEmpleado vis = new VistaEmpleado();
         v.getDktContenedor().add(vis);
-        CtrlEmpleados control=new CtrlEmpleados(mod, vis);
+        CtrlEmpleados control = new CtrlEmpleados(mod, vis);
         control.IniciarControl();
     }
-    
-    public void Productos(){
-        ModlProducto mod=new ModlProducto();
-        VistaProducto pro=new VistaProducto();
+
+    public void Productos() {
+        ModlProducto mod = new ModlProducto();
+        VistaProducto pro = new VistaProducto();
         v.getDktContenedor().add(pro);
-        CtrlProductos control=new CtrlProductos(mod, pro);
+        CtrlProductos control = new CtrlProductos(mod, pro);
         control.IniciarControl();
     }
-    
-    public void Fichas(){
-        ModlFichas mod=new ModlFichas();
-        VistaFichas fic=new VistaFichas();
+
+    public void Fichas() {
+        ModlFichas mod = new ModlFichas();
+        VistaFichas fic = new VistaFichas();
         v.getDktContenedor().add(fic);
-        CtrlFichas control=new CtrlFichas(mod, fic);
+        CtrlFichas control = new CtrlFichas(mod, fic);
         control.IniciarControl();
     }
-    public void Usuario(){
-        ModlUsuario mod=new ModlUsuario();
-        VistaUsuario vis=new VistaUsuario();
+
+    public void Usuario() {
+        ModlUsuario mod = new ModlUsuario();
+        VistaUsuario vis = new VistaUsuario();
         v.getDktContenedor().add(vis);
-        CtrlUsuario control=new CtrlUsuario(vis, mod);
+        CtrlUsuario control = new CtrlUsuario(vis, mod);
+        control.IniciarControl();
+    }
+
+    public void Mesa() {
+        VistaMesa vis = new VistaMesa();
+        v.getDktContenedor().add(vis);
+        CtrlMesa control = new CtrlMesa(vis);
+
         control.IniciarControl();
     }
 }
