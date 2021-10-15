@@ -12,19 +12,40 @@ import java.time.LocalDate;
  * @author CyberLink
  */
 public class Mesa {
+
     private int id_mesa;
     private double casilla;
     private LocalDate fecha;
     private double gastos;
+    private double propinaServi;
+    private double efectivoServi;
+    private double efectivoAdmin;
+    private double propinaDeler;
+    private double efectivoDeler;
+    private double casillaDeler;
+    private int gastosDeler;
+    private double porcentajeClub;
+    private double efectivoClub;
+    private int gastosClub;
 
     public Mesa() {
     }
 
-    public Mesa(int id_mesa, double casilla, LocalDate fecha, double gastos) {
+    public Mesa(int id_mesa, double casilla, LocalDate fecha, double gastos, double propinaServi, double efectivoServi, double efectivoAdmin, double propinaDeler, double efectivoDeler, double casillaDeler, int gastosDeler, double porcentajeClub, double efectivoClub, int gastosClub) {
         this.id_mesa = id_mesa;
         this.casilla = casilla;
         this.fecha = fecha;
         this.gastos = gastos;
+        this.propinaServi = propinaServi;
+        this.efectivoServi = efectivoServi;
+        this.efectivoAdmin = efectivoAdmin;
+        this.propinaDeler = propinaDeler;
+        this.efectivoDeler = efectivoDeler;
+        this.casillaDeler = casillaDeler;
+        this.gastosDeler = gastosDeler;
+        this.porcentajeClub = porcentajeClub;
+        this.efectivoClub = efectivoClub;
+        this.gastosClub = gastosClub;
     }
 
     public int getId_mesa() {
@@ -59,7 +80,84 @@ public class Mesa {
         this.gastos = gastos;
     }
 
-  
-    
-    
+    public double getPropinaServi() {
+        return propinaServi;
+    }
+
+    public void setPropinaServi(double propinaServi) {
+        this.propinaServi = propinaServi;
+    }
+
+    public double getEfectivoServi() {
+        return efectivoServi;
+    }
+
+    public void setEfectivoServi(double efectivoServi) {
+        this.efectivoServi = efectivoServi;
+    }
+
+    public double getEfectivoAdmin() {
+        return efectivoAdmin;
+    }
+
+    public void setEfectivoAdmin(double efectivoAdmin) {
+        this.efectivoAdmin = efectivoAdmin;
+    }
+
+    public double getPropinaDeler() {
+        return propinaDeler;
+    }
+
+    public void setPropinaDeler(double propinaDeler) {
+        this.propinaDeler = propinaDeler;
+    }
+
+    public double getEfectivoDeler() {
+        return efectivoDeler;
+    }
+
+    public void setEfectivoDeler(double efectivoDeler) {
+        this.efectivoDeler = efectivoDeler;
+    }
+
+    public double getCasillaDeler() {
+        return casillaDeler;
+    }
+
+    public void setCasillaDeler(double casillaDeler) {
+        this.casillaDeler = casillaDeler;
+    }
+
+    public int getGastosDeler() {
+        return gastosDeler;
+    }
+
+    public void setGastosDeler(int gastosDeler) {
+        this.gastosDeler = gastosDeler;
+    }
+
+    public double getPorcentajeClub() {
+        return porcentajeClub;
+    }
+
+    public void setPorcentajeClub(double porcentajeClub) {
+        this.porcentajeClub = porcentajeClub;
+    }
+
+    public double getEfectivoClub() {
+        return efectivoClub;
+    }
+
+    public void setEfectivoClub(double efectivoClub) {
+        this.efectivoClub = efectivoClub;
+    }
+
+    public int getGastosClub() {
+        return gastosClub;
+    }
+
+    public void setGastosClub(int gastosClub) {
+        this.gastosClub = gastosClub;
+    }
+
 }

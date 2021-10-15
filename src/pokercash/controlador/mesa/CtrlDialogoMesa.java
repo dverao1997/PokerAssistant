@@ -10,12 +10,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
+import pokercash.modelo.mesa.Mesa;
 import pokercash.modelo.mesa.ModlMesa;
 import pokercash.modelo.persona.Empleado;
 import pokercash.modelo.persona.ModlEmpleado;
@@ -30,7 +30,6 @@ import pokercash.vista.principal.VistaPrincipal;
 public class CtrlDialogoMesa {
 
     private VistaDialogoMesa v;
-    private ModlMesa m;
     private VistaPrincipal vp;
 
     List<Empleado> listaD = new ArrayList<>();
@@ -52,9 +51,8 @@ public class CtrlDialogoMesa {
     double porcentajeCasilla = 0;
     int gastosDeler = 0;
 
-    public CtrlDialogoMesa(VistaDialogoMesa v, ModlMesa m, VistaPrincipal vp) {
+    public CtrlDialogoMesa(VistaDialogoMesa v, VistaPrincipal vp) {
         this.v = v;
-        this.m = m;
         this.vp = vp;
         v.setLocationRelativeTo(null);
         CargarPanel(v.getPanelOrganizacion());
@@ -275,14 +273,18 @@ public class CtrlDialogoMesa {
     }
 
     public void Finalizar() {
-        
-        
-        
         VistaMesa vm = new VistaMesa();
-        
         vp.getDktContenedor().add(vm);
         vm.setVisible(true);
         v.setVisible(false);
+    }
+
+    public void InsertarEst() {
+
+    }
+
+    public void InsertarMesa() {
+        int id_mesa=Id_mesa();
     }
 
     public void Cargar() {
@@ -473,5 +475,18 @@ public class CtrlDialogoMesa {
         }
     }
 
-    
+    private int Id_mesa() {
+        
+        int n = 0;
+        ModlMesa md = new ModlMesa();
+        List<Mesa> ms = md.Listar();
+        n = ms.size() + 1;
+        do {
+            ms = md.Listar(n);
+            if (ms.size() == 1) {
+                n++;
+            }
+        } while (true);
+    }
+
 }

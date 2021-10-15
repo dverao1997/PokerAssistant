@@ -78,10 +78,8 @@ public class CtrlPrincipal {
     }
 
     public void Mesa() {
-        VistaDialogoMesa d=new VistaDialogoMesa(v, true);
-        
-        ModlMesa md=new ModlMesa();
-        CtrlDialogoMesa c=new CtrlDialogoMesa(d, md,v);
+        VistaDialogoMesa d = new VistaDialogoMesa(v, true);
+        CtrlDialogoMesa c = new CtrlDialogoMesa(d, v);
         c.IniciarControl();
     }
 }
