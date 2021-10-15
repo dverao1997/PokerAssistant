@@ -7,18 +7,19 @@ package pokercash.controlador;
 
 import pokercash.controlador.persona.CtrlUsuario;
 import pokercash.controlador.inventario.CtrlFichas;
-import pokercash.controlador.inventario.CtrlMesa;
+import pokercash.controlador.mesa.CtrlDialogoMesa;
 import pokercash.controlador.inventario.CtrlProductos;
 import pokercash.controlador.persona.CtrlEmpleados;
 import pokercash.modelo.inventario.ModlFichas;
 import pokercash.modelo.inventario.ModlProducto;
+import pokercash.modelo.mesa.ModlMesa;
 import pokercash.modelo.persona.ModlEmpleado;
 import pokercash.modelo.persona.ModlUsuario;
 import pokercash.vista.inventario.VistaFichas;
 import pokercash.vista.persona.VistaEmpleado;
 import pokercash.vista.principal.VistaPrincipal;
 import pokercash.vista.inventario.VistaProducto;
-import pokercash.vista.mesa.VistaMesa;
+import pokercash.vista.mesa.VistaDialogoMesa;
 import pokercash.vista.persona.VistaUsuario;
 
 /**
@@ -77,10 +78,10 @@ public class CtrlPrincipal {
     }
 
     public void Mesa() {
-        VistaMesa vis = new VistaMesa();
-        v.getDktContenedor().add(vis);
-        CtrlMesa control = new CtrlMesa(vis);
-
-        control.IniciarControl();
+        VistaDialogoMesa d=new VistaDialogoMesa(v, true);
+        
+        ModlMesa md=new ModlMesa();
+        CtrlDialogoMesa c=new CtrlDialogoMesa(d, md,v);
+        c.IniciarControl();
     }
 }

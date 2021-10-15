@@ -57,6 +57,53 @@ public class ModlEmpleado extends Empleado {
         }
     }
 
+    public List<Empleado> ListarMesa(String aguja) {
+        try {
+            List<Empleado> le = new ArrayList<>();
+
+            String sql = "SELECT p.nombre,p.apellido,e.id_empleado\n"
+                    + "  FROM persona p join empleado e on p.id_persona=e.id_persona\n"
+                    + "  WHERE rol='" + aguja + "';";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Empleado e = new Empleado();
+                e.setId_empleado(rs.getInt("id_empleado"));
+                e.setNombre(rs.getString("nombre"));
+                e.setApellido(rs.getString("apellido"));
+                le.add(e);
+            }
+            rs.close();
+            return le;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<Empleado> ListarMesaT() {
+        try {
+            List<Empleado> le = new ArrayList<>();
+
+            String sql = "SELECT p.nombre,e.id_empleado,e.rol,p.apellido\n"
+                    + "  FROM persona p join empleado e on p.id_persona=e.id_persona\n"
+                    + "  WHERE rol='Deler' or rol='Servicio' or rol='Administrador';";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Empleado e = new Empleado();
+                e.setId_empleado(rs.getInt("id_empleado"));
+                e.setNombre(rs.getString("nombre"));
+                e.setApellido(rs.getString("apellido"));
+                e.setRol(rs.getString("rol"));
+                le.add(e);
+            }
+            rs.close();
+            return le;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public List<Empleado> listarEmpleado(int aguja) {
         try {
             List<Empleado> le = new ArrayList<>();
@@ -144,6 +191,5 @@ public class ModlEmpleado extends Empleado {
                 + " WHERE id_empleado=" + getId_empleado() + ";";
         return con.accion(sql);
     }
-
 
 }
