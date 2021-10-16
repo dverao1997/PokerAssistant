@@ -8,6 +8,7 @@ package pokercash.controlador.mesa;
 import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -15,7 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
+import pokercash.modelo.mesa.EstIngrEmpl;
 import pokercash.modelo.mesa.Mesa;
+import pokercash.modelo.mesa.ModlEstIngrEmpl;
 import pokercash.modelo.mesa.ModlMesa;
 import pokercash.modelo.persona.Empleado;
 import pokercash.modelo.persona.ModlEmpleado;
@@ -42,7 +45,7 @@ public class CtrlDialogoMesa {
     double PorcentajeClub = 100;
     double EfectivoClub;
     int GastosClub = 1;
-
+    int mesa;
     double propinasServ = 0;
     double efectivoServ = 0;
     double efectivoAdmin = 0;
@@ -273,18 +276,66 @@ public class CtrlDialogoMesa {
     }
 
     public void Finalizar() {
+        InsertarMesa();
+        InsertarEst();
         VistaMesa vm = new VistaMesa();
+        ModlMesa mod = new ModlMesa();
         vp.getDktContenedor().add(vm);
-        vm.setVisible(true);
+        CtrlMesa c = new CtrlMesa(vm, mod, mesa);
+        c.IniciarControl();
         v.setVisible(false);
     }
 
     public void InsertarEst() {
+        ModlEstIngrEmpl m = new ModlEstIngrEmpl();
+        listaD.stream().forEach(l -> {
+            m.setId_empleado(l.getId_empleado());
+            m.setId_est_ingr(Id_est());
+            m.setId_mesa(mesa);
+            m.setIngreso(0);
+            m.Insertar();
+        });
+        listaO.stream().forEach(l -> {
+            m.setId_empleado(l.getId_empleado());
+            m.setId_est_ingr(Id_est());
+            m.setId_mesa(mesa);
+            m.setIngreso(0);
+            m.Insertar();
+        });
+        listaT.stream().forEach(l -> {
+            m.setId_empleado(l.getId_empleado());
+            m.setId_est_ingr(Id_est());
+            m.setId_mesa(mesa);
+            m.setIngreso(0);
+            m.Insertar();
+        });
 
     }
 
     public void InsertarMesa() {
-        int id_mesa=Id_mesa();
+        int id_mesa = Id_mesa();
+        mesa = id_mesa;
+        ModlMesa m = new ModlMesa(
+                id_mesa,
+                0,
+                LocalDate.now(),
+                0,
+                propinasServ,
+                efectivoServ,
+                efectivoAdmin,
+                propinasDeler,
+                efectivoDeler,
+                porcentajeCasilla,
+                gastosDeler,
+                PorcentajeClub,
+                EfectivoClub,
+                GastosClub, 1);
+
+        if (m.Insertar()) {
+
+        } else {
+            JOptionPane.showMessageDialog(v, "ERROR");
+        }
     }
 
     public void Cargar() {
@@ -476,7 +527,6 @@ public class CtrlDialogoMesa {
     }
 
     private int Id_mesa() {
-        
         int n = 0;
         ModlMesa md = new ModlMesa();
         List<Mesa> ms = md.Listar();
@@ -485,8 +535,29 @@ public class CtrlDialogoMesa {
             ms = md.Listar(n);
             if (ms.size() == 1) {
                 n++;
+            } else {
+                break;
             }
+
         } while (true);
+        return n;
+    }
+
+    private int Id_est() {
+        int n = 0;
+        ModlEstIngrEmpl md = new ModlEstIngrEmpl();
+        List<EstIngrEmpl> ms = md.Listar();
+        n = ms.size() + 1;
+        do {
+            ms = md.Listar(n);
+            if (ms.size() == 1) {
+                n++;
+            } else {
+                break;
+            }
+
+        } while (true);
+        return n;
     }
 
 }

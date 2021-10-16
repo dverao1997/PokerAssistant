@@ -49,6 +49,27 @@ public class ModlEstIngrEmpl extends EstIngrEmpl {
         }
     }
     
+    public List<EstIngrEmpl> Listar(){
+        try {
+            List<EstIngrEmpl> l=new ArrayList<>();
+            String sql="select * from est_ingresos_empl;";
+            ResultSet rs=con.consulta(sql);
+            while (rs.next()) {
+                EstIngrEmpl e=new EstIngrEmpl();
+                e.setId_est_ingr(rs.getInt("id_est_ingr"));
+                e.setId_empleado(rs.getInt("id_empleado"));
+                e.setId_mesa(rs.getInt("id_mesa"));
+                e.setIngreso(rs.getDouble("ingreso"));
+                l.add(e);
+            }
+            rs.close();
+            return l;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlEstIngrEmpl.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     public boolean Insertar() {
         String sql = "INSERT INTO est_ingresos_empl(\n"
                 + "            id_est_ingr, ingreso, id_empleado, id_mesa)\n"

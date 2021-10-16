@@ -5,9 +5,12 @@
  */
 package pokercash.vista.principal;
 
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JTable;
 
 /**
  *
@@ -31,6 +34,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dlgMesa = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaMesa = new javax.swing.JTable();
+        btnAceptar = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
         lblMensaje = new javax.swing.JLabel();
@@ -46,6 +53,47 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mnuFichas = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         mnuMesa = new javax.swing.JMenuItem();
+        mnuAbrirMesa = new javax.swing.JMenuItem();
+
+        TablaMesa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N°", "Fecha", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TablaMesa.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(TablaMesa);
+
+        btnAceptar.setText("Aceptar");
+
+        javax.swing.GroupLayout dlgMesaLayout = new javax.swing.GroupLayout(dlgMesa.getContentPane());
+        dlgMesa.getContentPane().setLayout(dlgMesaLayout);
+        dlgMesaLayout.setHorizontalGroup(
+            dlgMesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dlgMesaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addContainerGap())
+        );
+        dlgMesaLayout.setVerticalGroup(
+            dlgMesaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dlgMesaLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +179,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mnuMesa.setText("Crear Mesa");
         jMenu3.add(mnuMesa);
 
+        mnuAbrirMesa.setText("Abrir Mesa");
+        jMenu3.add(mnuAbrirMesa);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -212,9 +263,44 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.mnuFichas = mnuFichas;
     }
 
+    public JDialog getDlgMesa() {
+        return dlgMesa;
+    }
+
+    public void setDlgMesa(JDialog dlgMesa) {
+        this.dlgMesa = dlgMesa;
+    }
+
+    public JMenuItem getMnuAbrirMesa() {
+        return mnuAbrirMesa;
+    }
+
+    public void setMnuAbrirMesa(JMenuItem mnuAbrirMesa) {
+        this.mnuAbrirMesa = mnuAbrirMesa;
+    }
+
+    public JTable getTablaMesa() {
+        return TablaMesa;
+    }
+
+    public void setTablaMesa(JTable TablaMesa) {
+        this.TablaMesa = TablaMesa;
+    }
+
+    public JButton getBtnAceptar() {
+        return btnAceptar;
+    }
+
+    public void setBtnAceptar(JButton btnAceptar) {
+        this.btnAceptar = btnAceptar;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaMesa;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JDesktopPane dktContenedor;
+    private javax.swing.JDialog dlgMesa;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -222,8 +308,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblMensaje;
+    private javax.swing.JMenuItem mnuAbrirMesa;
     private javax.swing.JMenuItem mnuEmpleados;
     private javax.swing.JMenuItem mnuFichas;
     private javax.swing.JMenuItem mnuMesa;

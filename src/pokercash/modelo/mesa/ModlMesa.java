@@ -25,10 +25,11 @@ public class ModlMesa extends Mesa {
     public ModlMesa() {
     }
 
-    public ModlMesa(int id_mesa, double casilla, LocalDate fecha, double gastos, double propinaServi, double efectivoServi, double efectivoAdmin, double propinaDeler, double efectivoDeler, double casillaDeler, int gastosDeler, double porcentajeClub, double efectivoClub, int gastosClub) {
-        super(id_mesa, casilla, fecha, gastos, propinaServi, efectivoServi, efectivoAdmin, propinaDeler, efectivoDeler, casillaDeler, gastosDeler, porcentajeClub, efectivoClub, gastosClub);
+    public ModlMesa(int id_mesa, double casilla, LocalDate fecha, double gastos, double propinaServi, double efectivoServi, double efectivoAdmin, double propinaDeler, double efectivoDeler, double casillaDeler, int gastosDeler, double porcentajeClub, double efectivoClub, int gastosClub, int estado) {
+        super(id_mesa, casilla, fecha, gastos, propinaServi, efectivoServi, efectivoAdmin, propinaDeler, efectivoDeler, casillaDeler, gastosDeler, porcentajeClub, efectivoClub, gastosClub, estado);
     }
 
+    
     public List<Mesa> Listar(int id) {
         try {
             List<Mesa> l = new ArrayList<>();
@@ -47,6 +48,7 @@ public class ModlMesa extends Mesa {
                 m.setGastosClub(rs.getInt("gastos_club"));
                 m.setGastosDeler(rs.getInt("gastos_deler"));
                 m.setId_mesa(rs.getInt("id_mesa"));
+                m.setEstado(rs.getInt("id_mesa"));
                 m.setPorcentajeClub(rs.getDouble("porcentaje_club"));
                 m.setPropinaDeler(rs.getDouble("propinas_deler"));
                 m.setPropinaServi(rs.getDouble("propina_servicio"));
@@ -80,6 +82,7 @@ public class ModlMesa extends Mesa {
                 m.setPorcentajeClub(rs.getDouble("porcentaje_club"));
                 m.setPropinaDeler(rs.getDouble("propinas_deler"));
                 m.setPropinaServi(rs.getDouble("propina_servicio"));
+                m.setEstado(rs.getInt("id_mesa"));
                 l.add(m);
             }
             rs.close();
@@ -94,10 +97,10 @@ public class ModlMesa extends Mesa {
         String sql = "INSERT INTO mesa(\n"
                 + "            casilla, fecha, gastos, id_mesa, propina_servicio, efectivo_servicio, \n"
                 + "            efectivo_admin, propinas_deler, efectivo_deler, casilla_deler, \n"
-                + "            gastos_deler, porcentaje_club, efectivo_club, gastos_club)\n"
+                + "            gastos_deler, porcentaje_club, efectivo_club, gastos_club,estado)\n"
                 + "    VALUES ("+getCasilla()+", '"+getFecha()+"', "+getGastos()+", "+getId_mesa()+", "+getPropinaServi()+", "+getEfectivoServi()+", \n"
                 + "            "+getEfectivoAdmin()+", "+getPropinaDeler()+", "+getEfectivoDeler()+", "+getCasillaDeler()+", \n"
-                + "            "+getGastosDeler()+", "+getPorcentajeClub()+", "+getEfectivoClub()+", "+getGastosClub()+");";
+                + "            "+getGastosDeler()+", "+getPorcentajeClub()+", "+getEfectivoClub()+", "+getGastosClub()+","+getEstado()+");";
         return con.accion(sql);
     }
 }

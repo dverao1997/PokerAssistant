@@ -14,14 +14,16 @@ import java.time.LocalDate;
 public class Jugador extends Persona{
     private int id_jugador;
     private LocalDate fecha_ingreso;
+    private int estado;
 
     public Jugador() {
     }
 
-    public Jugador(int id_jugador, LocalDate fecha_ingreso, int id_persona, String nombre, String apellido, String telefono, String genero) {
+    public Jugador(int id_jugador, LocalDate fecha_ingreso, int estado, int id_persona, String nombre, String apellido, String telefono, String genero) {
         super(id_persona, nombre, apellido, telefono, genero);
         this.id_jugador = id_jugador;
         this.fecha_ingreso = fecha_ingreso;
+        this.estado = estado;
     }
 
     public int getId_jugador() {
@@ -40,4 +42,13 @@ public class Jugador extends Persona{
         this.fecha_ingreso = fecha_ingreso;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+ 
 }

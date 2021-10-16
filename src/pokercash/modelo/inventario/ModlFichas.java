@@ -22,7 +22,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
-import javax.swing.JFileChooser;
 import org.postgresql.util.Base64;
 import pokercash.modelo.ConexionPg;
 
@@ -46,6 +45,36 @@ public class ModlFichas extends Fichas {
             List<Fichas> l = new ArrayList<>();
             String sql = "SELECT *\n"
                     + "	FROM fichas;";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Fichas f = new Fichas();
+                f.setId_fichas(rs.getInt("id_fichas"));
+                f.setColor(rs.getString("color"));
+                f.setValor(rs.getDouble("valor"));
+                f.setEstado(rs.getString("estado"));
+                f.setCantidad(rs.getInt("cantidad"));
+                byte[] bf = rs.getBytes("foto");
+                if (bf != null) {
+                    bf = Base64.decode(bf, 0, bf.length);
+                    f.setFoto(ObtImagen(bf));
+
+                } else {
+                    f.setFoto(null);
+                }
+                l.add(f);
+            }
+            rs.close();
+            return l;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlFichas.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<Fichas> ListarFMesa() {
+        try {
+            List<Fichas> l = new ArrayList<>();
+            String sql = "SELECT * FROM fichas where estado='0';";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Fichas f = new Fichas();
@@ -174,6 +203,13 @@ public class ModlFichas extends Fichas {
 
         return con.accion(sql);
 
+    }
+
+    public boolean Estado() {
+        String sql = "UPDATE fichas\n"
+                + "   SET estado=" + getEstado() + "\n"
+                + " WHERE id_fichas='" + getId_fichas() + "';";
+        return con.accion(sql);
     }
 
 }

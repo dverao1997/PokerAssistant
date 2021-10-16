@@ -27,11 +27,12 @@ public class Mesa {
     private double porcentajeClub;
     private double efectivoClub;
     private int gastosClub;
+    private int estado;
 
     public Mesa() {
     }
 
-    public Mesa(int id_mesa, double casilla, LocalDate fecha, double gastos, double propinaServi, double efectivoServi, double efectivoAdmin, double propinaDeler, double efectivoDeler, double casillaDeler, int gastosDeler, double porcentajeClub, double efectivoClub, int gastosClub) {
+    public Mesa(int id_mesa, double casilla, LocalDate fecha, double gastos, double propinaServi, double efectivoServi, double efectivoAdmin, double propinaDeler, double efectivoDeler, double casillaDeler, int gastosDeler, double porcentajeClub, double efectivoClub, int gastosClub, int estado) {
         this.id_mesa = id_mesa;
         this.casilla = casilla;
         this.fecha = fecha;
@@ -46,7 +47,18 @@ public class Mesa {
         this.porcentajeClub = porcentajeClub;
         this.efectivoClub = efectivoClub;
         this.gastosClub = gastosClub;
+        this.estado = estado;
     }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+
 
     public int getId_mesa() {
         return id_mesa;
