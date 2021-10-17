@@ -23,10 +23,12 @@ import pokercash.modelo.inventario.ModlDetallFichas;
 import pokercash.modelo.inventario.ModlFichas;
 import pokercash.modelo.mesa.EstadJugador;
 import pokercash.modelo.mesa.ModlEstadJugador;
+import pokercash.modelo.mesa.ModlIngrJugMesa;
 import pokercash.modelo.mesa.ModlMesa;
 import pokercash.modelo.persona.Jugador;
 import pokercash.modelo.persona.ModlJugador;
 import pokercash.vista.mesa.VistaDialogoJugador;
+import pokercash.vista.mesa.VistaDialogueFichas;
 import pokercash.vista.mesa.VistaMesa;
 
 /**
@@ -45,11 +47,8 @@ public class CtrlMesa {
         this.id = id;
 
         v.setTitle("Poker table Administrator");
-
-     
         CargarJugadores();
         CargarFichasTotales();
-       
     }
 
     public void IniciarControl() {
@@ -64,7 +63,23 @@ public class CtrlMesa {
             }
 
         });
-         v.show();
+
+
+        v.getBtnFichas().addActionListener(l -> {
+        int s = v.getTablaJugadores().getSelectedRow();
+            if (s != -1) {
+                if ("0".equals(v.getLblfichas().getText())) {
+                    JOptionPane.showMessageDialog(v.getDlgFichas(), "Fichas en maletin Insuficientes ");
+                }else{
+                    ComprarFichas(s);
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(v.getDlgFichas(), "Seleccione un Jugador");
+            }
+
+        });
+        v.show();
     }
 
     public void AgregarFichas() {
@@ -91,18 +106,57 @@ public class CtrlMesa {
         ModlFichas mf = new ModlFichas();
         List<DetalleFichas> l = md.listar();
 
-        double valor = 0;
+        double fichas = 0;
+        double total_ingresos=T_ingresos();
+        double cambios=T_Cambios();
+        double casilla=T_Casilla();
+        double maletin=0;
         double cantidad;
         for (int i = 0; i < l.size(); i++) {
             if (l.get(i).getId_mesa() == this.id) {
                 List<Fichas> lf = mf.ListarFichas(l.get(i).getId_ficahs());
                 cantidad = lf.get(0).getCantidad() * lf.get(0).getValor();
-                valor = valor + cantidad;
+                fichas = fichas + cantidad;
             }
         }
-        v.getLblfichas().setText(valor + "");
+
+        maletin=fichas-total_ingresos+cambios+casilla;
+        v.getLblfichas().setText(maletin + "");
     }
 
+    public double T_ingresos(){
+        double i=0;
+        ModlEstadJugador me=new ModlEstadJugador();
+        List<EstadJugador> l=me.ListarJ(this.id);
+        for (int j = 0; j < l.size(); j++) {
+            i=i+l.get(j).getIngreso_total();
+        }
+        return i;
+    }
+    public double T_Cambios(){
+        double i=0;
+        ModlEstadJugador me=new ModlEstadJugador();
+        List<EstadJugador> l=me.ListarJ(this.id);
+        double [] cb=new double [l.size()];
+        i=i+l.get(0).getIngreso_total();
+        for (int j = 0; j < l.size(); j++) {
+            if (l.get(j).getGanancias()!=0) {
+                cb[j]=l.get(j).getIngreso_total()+l.get(j).getGanancias();
+            }else{
+                if (l.get(j).getPerdidas()!=0) {
+                    cb[j]=l.get(j).getIngreso_total()-l.get(j).getPerdidas();
+                    
+                }else{
+                    cb[j]=0;
+                }
+            }
+            i=i+cb[j];
+        }
+        return i;
+    }
+    public double T_Casilla(){
+        return 0;
+    }
     public void CargarDialogo() {
 
         v.getDlgFichas().setSize(410, 365);
@@ -196,4 +250,15 @@ public class CtrlMesa {
         CtrlDialogoJugador c = new CtrlDialogoJugador(vj, v, mj, id);
         c.IniciarControl();
     }
+
+    public void ComprarFichas(int s) {
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> lp = me.ListarJM(this.id);
+        VistaDialogueFichas vf = new VistaDialogueFichas(v, true);
+        ModlIngrJugMesa mi = new ModlIngrJugMesa();
+        System.out.println(lp.get(s).getId_est_jug());
+        CtrlingresarFichas c = new CtrlingresarFichas(v, vf, mi, lp.get(s).getId_est_jug(),Double.parseDouble(v.getLblfichas().getText()));
+        c.IniciarControl();
+    }
+
 }

@@ -68,6 +68,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         btnAgregar = new javax.swing.JButton();
         btnFichas = new javax.swing.JButton();
         btnCobrar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnRegistro = new javax.swing.JButton();
@@ -309,7 +310,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.setRollover(true);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/player_new.png"))); // NOI18N
-        btnAgregar.setToolTipText("");
+        btnAgregar.setToolTipText("Agregar Jugador");
         btnAgregar.setContentAreaFilled(false);
         btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregar.setFocusable(false);
@@ -318,7 +319,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.add(btnAgregar);
 
         btnFichas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/chips.png"))); // NOI18N
-        btnFichas.setToolTipText("");
+        btnFichas.setToolTipText("Comprar Fichas");
         btnFichas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFichas.setFocusable(false);
         btnFichas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -326,15 +327,23 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.add(btnFichas);
 
         btnCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/buyin_2.png"))); // NOI18N
-        btnCobrar.setToolTipText("");
+        btnCobrar.setToolTipText("Pagar deuda ");
         btnCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCobrar.setFocusable(false);
         btnCobrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCobrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnCobrar);
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/declared.png"))); // NOI18N
+        btnSalir.setToolTipText("Salir");
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setFocusable(false);
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnSalir);
+
         btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/delete.png"))); // NOI18N
-        btnRemover.setToolTipText("");
+        btnRemover.setToolTipText("Remover");
         btnRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemover.setFocusable(false);
         btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -342,7 +351,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.add(btnRemover);
 
         btnActivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/accept.png"))); // NOI18N
-        btnActivar.setToolTipText("");
+        btnActivar.setToolTipText("Activar jugador");
         btnActivar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActivar.setFocusable(false);
         btnActivar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -350,7 +359,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.add(btnActivar);
 
         btnRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/bankroll.png"))); // NOI18N
-        btnRegistro.setToolTipText("");
+        btnRegistro.setToolTipText("Detalle de ingresos");
         btnRegistro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegistro.setFocusable(false);
         btnRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -358,6 +367,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.add(btnRegistro);
 
         btnAgregarFichas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/played.png"))); // NOI18N
+        btnAgregarFichas.setToolTipText("Agregar nuevas fichas");
         btnAgregarFichas.setContentAreaFilled(false);
         btnAgregarFichas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarFichas.setFocusable(false);
@@ -365,8 +375,10 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         btnAgregarFichas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnAgregarFichas);
 
-        jLabel1.setText("Total Fichas:      ");
+        jLabel1.setText("Maletin:    ");
         jToolBar1.add(jLabel1);
+
+        lblfichas.setForeground(new java.awt.Color(255, 51, 51));
         jToolBar1.add(lblfichas);
 
         TablaJugadores.setModel(new javax.swing.table.DefaultTableModel(
@@ -646,6 +658,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegistro;
     private javax.swing.JButton btnRemover;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cbxGenero;
     private javax.swing.JDialog dlgFichas;

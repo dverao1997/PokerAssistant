@@ -3,17 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/vista/principal/VistaPrincipal.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/mesa/ModlMesa.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/mesa/CtrlDialogoMesa.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/mesa/Mesa.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/inventario/ModlFichas.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/inventario/CtrlFichas.java</file>
+            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/persona/CtrlDialogoJugador.java</file>
+            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/vista/mesa/VistaDialogoJugador.java</file>
             <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/vista/mesa/VistaMesa.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/CtrlPrincipal.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/inventario/CtrlProductos.java</file>
             <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/controlador/mesa/CtrlMesa.java</file>
-            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/modelo/inventario/ModlDetallFichas.java</file>
+            <file>file:/C:/Users/CyberLink/Documents/GitHub/PokerAssistant/src/pokercash/vista/mesa/VistaDialogueFichas.java</file>
         </group>
     </open-files>
 </project-private>
