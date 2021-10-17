@@ -327,7 +327,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jToolBar1.add(btnFichas);
 
         btnCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/buyin_2.png"))); // NOI18N
-        btnCobrar.setToolTipText("Pagar deuda ");
+        btnCobrar.setToolTipText("Cancelar deuda ");
         btnCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCobrar.setFocusable(false);
         btnCobrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

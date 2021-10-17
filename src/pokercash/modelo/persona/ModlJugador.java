@@ -101,7 +101,34 @@ public class ModlJugador extends Jugador {
         try {
             List<Jugador> l = new ArrayList<>();
             String sql = "SELECT p.nombre,p.apellido,j.fecha_ingreso, j.id_persona, j.id_jugador, j.estado\n"
-                    + "  FROM persona p join jugador j on p.id_persona=j.id_persona;";
+                    + "FROM persona p join jugador j on p.id_persona=j.id_persona\n"
+                    + "WHERE j.estado=1;";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Jugador p = new Jugador();
+                p.setNombre(rs.getString("nombre"));
+                p.setApellido(rs.getString("apellido"));
+                p.setId_persona(rs.getInt("id_persona"));
+                p.setEstado(rs.getInt("estado"));
+                p.setId_jugador(rs.getInt("id_jugador"));
+                p.setFecha_ingreso(rs.getDate("fecha_ingreso").toLocalDate());
+                l.add(p);
+            }
+            rs.close();
+            return l;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlJugador.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+
+    public List<Jugador> ListarJNombres(int id) {
+        try {
+            List<Jugador> l = new ArrayList<>();
+            String sql = "SELECT p.nombre,p.apellido,j.fecha_ingreso, j.id_persona, j.id_jugador, j.estado\n"
+                    + "FROM persona p join jugador j on p.id_persona=j.id_persona\n"
+                    + "WHERE j.id_jugador="+id+";";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Jugador p = new Jugador();

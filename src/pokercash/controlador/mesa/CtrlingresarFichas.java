@@ -73,10 +73,12 @@ public class CtrlingresarFichas {
             m.setDeudas(le.get(0).getDeudas());
         }
         if (m.Insertar()) {
-            JOptionPane.showMessageDialog(v, "Fichas Comprada exitosamente");
             ModlMesa mm = new ModlMesa();
             CtrlMesa c = new CtrlMesa(vm, mm, le.get(0).getId_mesa());
+            JOptionPane.showMessageDialog(v, "Fichas Comprada exitosamente");
             v.setVisible(false);
+            
+
         } else {
             JOptionPane.showMessageDialog(v, "ERROR");
             v.setVisible(false);
