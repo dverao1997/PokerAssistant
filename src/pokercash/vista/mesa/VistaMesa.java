@@ -110,12 +110,29 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaProducto = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
-        jSeparator5 = new javax.swing.JSeparator();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        TablaAFavor = new javax.swing.JTable();
+        lblSpinner = new javax.swing.JLabel();
+        btnAgregarProd = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        cbxDeudaAFavor = new javax.swing.JComboBox<>();
-        btnDeudaAFavor = new javax.swing.JButton();
+        lblCasillaF = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        lblDeudaF = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        lblServicioF = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        lblDelerFinal = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        lblAdministradorF = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        lblDineroActual = new javax.swing.JLabel();
+        btnFinalizarMesa = new javax.swing.JButton();
+        jLabel32 = new javax.swing.JLabel();
+        lblGastosFinal = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        lblPagoClub = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        lblPagoOrganizador = new javax.swing.JLabel();
+        btnGenerar = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -451,7 +468,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Jugador", jPanel1);
@@ -587,7 +604,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
                 .addComponent(txtPropinaD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPropinaD)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(new javax.swing.border.MatteBorder(null));
@@ -619,33 +636,15 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(TablaProducto);
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel19.setText("Deudas a Favor");
+        jLabel19.setText("Max:  ");
 
-        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+        lblSpinner.setText("0");
 
-        TablaAFavor.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Valor"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TablaAFavor.getTableHeader().setReorderingAllowed(false);
-        jScrollPane5.setViewportView(TablaAFavor);
-
-        jLabel20.setText("Escoger Persona");
-
-        btnDeudaAFavor.setText("Agregar");
+        btnAgregarProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/action_check.png"))); // NOI18N
+        btnAgregarProd.setToolTipText("Agregar");
+        btnAgregarProd.setBorder(null);
+        btnAgregarProd.setContentAreaFilled(false);
+        btnAgregarProd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -657,22 +656,19 @@ public class VistaMesa extends javax.swing.JInternalFrame {
                     .addComponent(jSeparator4)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel17)
-                                .addComponent(jLabel18)
-                                .addGroup(jPanel10Layout.createSequentialGroup()
-                                    .addComponent(cbxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE)
-                                .addComponent(jLabel19)
-                                .addComponent(jSeparator5))
-                            .addComponent(jLabel20)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18)
                             .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(cbxDeudaAFavor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDeudaAFavor))
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblSpinner)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAgregarProd))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -686,24 +682,16 @@ public class VistaMesa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbxProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel19)
+                        .addComponent(lblSpinner))
+                    .addComponent(btnAgregarProd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxDeudaAFavor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeudaAFavor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -722,12 +710,167 @@ public class VistaMesa extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Mesa", jPanel5);
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel20.setText("Casilla:");
+
+        lblCasillaF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblCasillaF.setForeground(new java.awt.Color(255, 0, 0));
+        lblCasillaF.setText("0");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel22.setText("Deudas:");
+
+        lblDeudaF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblDeudaF.setForeground(new java.awt.Color(255, 0, 0));
+        lblDeudaF.setText("0");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel24.setText("Paga Servicio:");
+
+        lblServicioF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblServicioF.setForeground(new java.awt.Color(255, 0, 0));
+        lblServicioF.setText("0");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel26.setText("Paga Deler:");
+
+        lblDelerFinal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblDelerFinal.setForeground(new java.awt.Color(255, 0, 0));
+        lblDelerFinal.setText("0");
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel28.setText("Paga Administrador:");
+
+        lblAdministradorF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblAdministradorF.setForeground(new java.awt.Color(255, 0, 0));
+        lblAdministradorF.setText("0");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel30.setText("Efectivo:");
+
+        lblDineroActual.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblDineroActual.setForeground(new java.awt.Color(255, 0, 0));
+        lblDineroActual.setText("0");
+
+        btnFinalizarMesa.setText("Finalizar Mesa");
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel32.setText("Gastos Totales:");
+
+        lblGastosFinal.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblGastosFinal.setForeground(new java.awt.Color(255, 0, 0));
+        lblGastosFinal.setText("0");
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel34.setText("Pago Club:");
+
+        lblPagoClub.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblPagoClub.setForeground(new java.awt.Color(255, 0, 0));
+        lblPagoClub.setText("0");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel36.setText("Pago Organizador:");
+
+        lblPagoOrganizador.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblPagoOrganizador.setForeground(new java.awt.Color(255, 0, 0));
+        lblPagoOrganizador.setText("0");
+
+        btnGenerar.setText("Generar");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPagoClub)
+                            .addComponent(lblPagoOrganizador)
+                            .addComponent(lblDineroActual)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnFinalizarMesa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGenerar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAdministradorF)
+                            .addComponent(lblGastosFinal)
+                            .addComponent(lblDelerFinal)
+                            .addComponent(lblServicioF)
+                            .addComponent(lblDeudaF)
+                            .addComponent(lblCasillaF))))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(lblCasillaF))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(lblDeudaF))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(lblServicioF))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(lblDelerFinal))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(lblAdministradorF))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(lblGastosFinal))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(lblDineroActual))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(lblPagoClub))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(lblPagoOrganizador))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(btnGenerar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFinalizarMesa)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Reporte", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -737,7 +880,7 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
         );
 
         pack();
@@ -745,6 +888,14 @@ public class VistaMesa extends javax.swing.JInternalFrame {
 
     public JButton getBtnSalir() {
         return btnSalir;
+    }
+
+    public JButton getBtnAgregarProd() {
+        return btnAgregarProd;
+    }
+
+    public void setBtnAgregarProd(JButton btnAgregarProd) {
+        this.btnAgregarProd = btnAgregarProd;
     }
 
     public JTextField getTxtPropinaD() {
@@ -755,13 +906,14 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         this.txtPropinaD = txtPropinaD;
     }
 
-    public JTable getTablaAFavor() {
-        return TablaAFavor;
+    public JLabel getLblSpinner() {
+        return lblSpinner;
     }
 
-    public void setTablaAFavor(JTable TablaAFavor) {
-        this.TablaAFavor = TablaAFavor;
+    public void setLblSpinner(JLabel lblSpinner) {
+        this.lblSpinner = lblSpinner;
     }
+
 
     public JTable getTablaProducto() {
         return TablaProducto;
@@ -777,14 +929,6 @@ public class VistaMesa extends javax.swing.JInternalFrame {
 
     public void setBtnCasilla(JButton btnCasilla) {
         this.btnCasilla = btnCasilla;
-    }
-
-    public JButton getBtnDeudaAFavor() {
-        return btnDeudaAFavor;
-    }
-
-    public void setBtnDeudaAFavor(JButton btnDeudaAFavor) {
-        this.btnDeudaAFavor = btnDeudaAFavor;
     }
 
     public JButton getBtnPropinaD() {
@@ -803,13 +947,6 @@ public class VistaMesa extends javax.swing.JInternalFrame {
         this.btnPropinaS = btnPropinaS;
     }
 
-    public JComboBox<String> getCbxDeudaAFavor() {
-        return cbxDeudaAFavor;
-    }
-
-    public void setCbxDeudaAFavor(JComboBox<String> cbxDeudaAFavor) {
-        this.cbxDeudaAFavor = cbxDeudaAFavor;
-    }
 
     public JComboBox<String> getCbxProducto() {
         return cbxProducto;
@@ -861,6 +998,94 @@ public class VistaMesa extends javax.swing.JInternalFrame {
 
     public JTextField getTxtPropinaS() {
         return txtPropinaS;
+    }
+
+    public JButton getBtnFinalizarMesa() {
+        return btnFinalizarMesa;
+    }
+
+    public void setBtnFinalizarMesa(JButton btnFinalizarMesa) {
+        this.btnFinalizarMesa = btnFinalizarMesa;
+    }
+
+    public JButton getBtnGenerar() {
+        return btnGenerar;
+    }
+
+    public void setBtnGenerar(JButton btnGenerar) {
+        this.btnGenerar = btnGenerar;
+    }
+
+    public JLabel getLblAdministradorF() {
+        return lblAdministradorF;
+    }
+
+    public void setLblAdministradorF(JLabel lblAdministradorF) {
+        this.lblAdministradorF = lblAdministradorF;
+    }
+
+    public JLabel getLblCasillaF() {
+        return lblCasillaF;
+    }
+
+    public void setLblCasillaF(JLabel lblCasillaF) {
+        this.lblCasillaF = lblCasillaF;
+    }
+
+    public JLabel getLblDelerFinal() {
+        return lblDelerFinal;
+    }
+
+    public void setLblDelerFinal(JLabel lblDelerFinal) {
+        this.lblDelerFinal = lblDelerFinal;
+    }
+
+    public JLabel getLblDeudaF() {
+        return lblDeudaF;
+    }
+
+    public void setLblDeudaF(JLabel lblDeudaF) {
+        this.lblDeudaF = lblDeudaF;
+    }
+
+    public JLabel getLblDineroActual() {
+        return lblDineroActual;
+    }
+
+    public void setLblDineroActual(JLabel lblDineroActual) {
+        this.lblDineroActual = lblDineroActual;
+    }
+
+    public JLabel getLblGastosFinal() {
+        return lblGastosFinal;
+    }
+
+    public void setLblGastosFinal(JLabel lblGastosFinal) {
+        this.lblGastosFinal = lblGastosFinal;
+    }
+
+    public JLabel getLblPagoClub() {
+        return lblPagoClub;
+    }
+
+    public void setLblPagoClub(JLabel lblPagoClub) {
+        this.lblPagoClub = lblPagoClub;
+    }
+
+    public JLabel getLblPagoOrganizador() {
+        return lblPagoOrganizador;
+    }
+
+    public void setLblPagoOrganizador(JLabel lblPagoOrganizador) {
+        this.lblPagoOrganizador = lblPagoOrganizador;
+    }
+
+    public JLabel getLblServicioF() {
+        return lblServicioF;
+    }
+
+    public void setLblServicioF(JLabel lblServicioF) {
+        this.lblServicioF = lblServicioF;
     }
 
     public void setTxtPropinaS(JTextField txtPropinaS) {
@@ -1083,7 +1308,6 @@ public class VistaMesa extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaAFavor;
     private javax.swing.JTable TablaFichas;
     private javax.swing.JTable TablaJugadores;
     private javax.swing.JTable TablaPersona;
@@ -1092,12 +1316,14 @@ public class VistaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnActivar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarFichas;
+    private javax.swing.JButton btnAgregarProd;
     private javax.swing.JButton btnCance;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCasilla;
     private javax.swing.JButton btnCobrar;
-    private javax.swing.JButton btnDeudaAFavor;
     private javax.swing.JButton btnFichas;
+    private javax.swing.JButton btnFinalizarMesa;
+    private javax.swing.JButton btnGenerar;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnPropinaD;
@@ -1106,7 +1332,6 @@ public class VistaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionar;
-    private javax.swing.JComboBox<String> cbxDeudaAFavor;
     private javax.swing.JComboBox<String> cbxGenero;
     private javax.swing.JComboBox<String> cbxProducto;
     private javax.swing.JDialog dlgFichas;
@@ -1125,7 +1350,15 @@ public class VistaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1138,23 +1371,32 @@ public class VistaMesa extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel lblAdministradorF;
     private javax.swing.JLabel lblCasilla;
+    private javax.swing.JLabel lblCasillaF;
+    private javax.swing.JLabel lblDelerFinal;
+    private javax.swing.JLabel lblDeudaF;
+    private javax.swing.JLabel lblDineroActual;
+    private javax.swing.JLabel lblGastosFinal;
+    private javax.swing.JLabel lblPagoClub;
+    private javax.swing.JLabel lblPagoOrganizador;
     private javax.swing.JLabel lblPopinaS;
     private javax.swing.JLabel lblPropinaD;
+    private javax.swing.JLabel lblServicioF;
+    private javax.swing.JLabel lblSpinner;
     private javax.swing.JLabel lblfichas;
     private javax.swing.JSpinner spCantidad;
     private javax.swing.JTextField txtApellido;

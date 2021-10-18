@@ -47,7 +47,7 @@ public class ModlMesa extends Mesa {
                 m.setGastosClub(rs.getInt("gastos_club"));
                 m.setGastosDeler(rs.getInt("gastos_deler"));
                 m.setId_mesa(rs.getInt("id_mesa"));
-                m.setEstado(rs.getInt("id_mesa"));
+                m.setEstado(rs.getInt("estado"));
                 m.setPorcentajeClub(rs.getDouble("porcentaje_club"));
                 m.setPropinaDeler(rs.getDouble("propinas_deler"));
                 m.setPropinaServi(rs.getDouble("propina_servicio"));
@@ -82,7 +82,7 @@ public class ModlMesa extends Mesa {
                 m.setPorcentajeClub(rs.getDouble("porcentaje_club"));
                 m.setPropinaDeler(rs.getDouble("propinas_deler"));
                 m.setPropinaServi(rs.getDouble("propina_servicio"));
-                m.setEstado(rs.getInt("id_mesa"));
+                m.setEstado(rs.getInt("estado"));
                 l.add(m);
             }
             rs.close();

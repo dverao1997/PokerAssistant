@@ -9,18 +9,19 @@ package pokercash.modelo.inventario;
  *
  * @author CyberLink
  */
-public class DetallProducto {
+public class DetallProducto extends Producto{
     private int id_deta_prod;
     private int cantidad;
     private int id_mesa;
-    private int id_producto;
 
-    public DetallProducto(int id_deta_prod, int cantidad, int id_mesa, int id_producto) {
+    public DetallProducto(int id_deta_prod, int cantidad, int id_mesa, int id_producto, String nombre, double precio, int existencias) {
+        super(id_producto, nombre, precio, existencias);
         this.id_deta_prod = id_deta_prod;
         this.cantidad = cantidad;
         this.id_mesa = id_mesa;
-        this.id_producto = id_producto;
     }
+
+
 
     public DetallProducto() {
     }
@@ -49,12 +50,5 @@ public class DetallProducto {
         this.id_mesa = id_mesa;
     }
 
-    public int getId_producto() {
-        return id_producto;
-    }
-
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
-    }
 
 }

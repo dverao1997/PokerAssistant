@@ -44,7 +44,7 @@ public class CtrlPrincipal {
         v.setVisible(true);
         v.setExtendedState(MAXIMIZED_BOTH);
         v.setLocationRelativeTo(null);
-        
+
     }
 
     public void iniciarControl() {
@@ -56,12 +56,15 @@ public class CtrlPrincipal {
         v.getMnuAbrirMesa().addActionListener(l -> CargarDialogo());
         v.getBtnAceptar().addActionListener(l -> {
             int s = v.getTablaMesa().getSelectedRow();
+            System.out.println(s);
             ModlMesa ms = new ModlMesa();
             List<Mesa> lp = ms.Listar();
             if (s != -1) {
-                if (lp.get(s).getEstado() == 1) {
+                System.out.println(lp.get(s).getEstado());
+                if (lp.get(s).getEstado() != 0) {
+                    
                     AbrirMesa(lp.get(s).getId_mesa());
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(v, "Mesa ya finalizada");
                 }
 
@@ -132,7 +135,7 @@ public class CtrlPrincipal {
             i.value++;
         });
 
-        v.getDlgMesa().setSize(340,385);
+        v.getDlgMesa().setSize(340, 385);
         v.getDlgMesa().setLocationRelativeTo(v);
         v.getDlgMesa().setModal(true);
         v.getDlgMesa().setVisible(true);

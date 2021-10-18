@@ -114,10 +114,7 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
         txtPropDeler = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        txtInformacion = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
@@ -646,13 +643,7 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel22.setText("Steps");
-
-        txtInformacion.setColumns(20);
-        txtInformacion.setRows(5);
-        txtInformacion.setWrapStyleWord(true);
-        jScrollPane5.setViewportView(txtInformacion);
+        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -660,26 +651,17 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator6)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(31, 31, 31)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(409, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
@@ -1107,14 +1089,6 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
         this.txtValorAdm = txtValorAdm;
     }
 
-    public JTextArea getTxtInformacion() {
-        return txtInformacion;
-    }
-
-    public void setTxtInformacion(JTextArea txtInformacion) {
-        this.txtInformacion = txtInformacion;
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListClub;
@@ -1163,7 +1137,6 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1178,7 +1151,6 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -1196,7 +1168,6 @@ public class VistaDialogoMesa extends javax.swing.JDialog {
     private javax.swing.JTextField txtClubPor;
     private javax.swing.JTextField txtEfectDeler;
     private javax.swing.JTextField txtEfectServi;
-    private javax.swing.JTextArea txtInformacion;
     private javax.swing.JTextField txtPropDeler;
     private javax.swing.JTextField txtPropServi;
     private javax.swing.JTextField txtValorAdm;
