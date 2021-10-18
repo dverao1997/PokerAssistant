@@ -5,6 +5,7 @@
  */
 package pokercash.controlador;
 
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +42,9 @@ public class CtrlPrincipal {
         this.v = v;
         v.setTitle("Poker Table Assistant");
         v.setVisible(true);
+        v.setExtendedState(MAXIMIZED_BOTH);
         v.setLocationRelativeTo(null);
+        
     }
 
     public void iniciarControl() {

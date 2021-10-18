@@ -103,4 +103,20 @@ public class ModlMesa extends Mesa {
                 + "            " + getGastosDeler() + ", " + getPorcentajeClub() + ", " + getEfectivoClub() + ", " + getGastosClub() + "," + getEstado() + ");";
         return con.accion(sql);
     }
+
+    public boolean ActualizarCasilla() {
+        String sql = "UPDATE mesa\n"
+                + "   SET casilla="+getCasilla()
+                + " WHERE id_mesa="+getId_mesa()+";";
+        return con.accion(sql);
+    }
+    public boolean Actulizar() {
+        String sql = "UPDATE mesa\n"
+                + "   SET casilla=?, fecha=?, gastos=?, id_mesa=?, propina_servicio=?, \n"
+                + "       efectivo_servicio=?, efectivo_admin=?, propinas_deler=?, efectivo_deler=?, \n"
+                + "       casilla_deler=?, gastos_deler=?, porcentaje_club=?, efectivo_club=?, \n"
+                + "       gastos_club=?, estado=?\n"
+                + " WHERE <condition>;;";
+        return con.accion(sql);
+    }
 }

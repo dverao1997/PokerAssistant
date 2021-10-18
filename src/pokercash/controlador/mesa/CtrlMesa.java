@@ -26,11 +26,14 @@ import pokercash.modelo.inventario.ModlFichas;
 import pokercash.modelo.mesa.Cambio;
 import pokercash.modelo.mesa.Deudas;
 import pokercash.modelo.mesa.EstadJugador;
+import pokercash.modelo.mesa.Mesa;
 import pokercash.modelo.mesa.ModlCambio;
 import pokercash.modelo.mesa.ModlDeudas;
 import pokercash.modelo.mesa.ModlEstadJugador;
 import pokercash.modelo.mesa.ModlIngrJugMesa;
 import pokercash.modelo.mesa.ModlMesa;
+import pokercash.modelo.mesa.ModlPropinas;
+import pokercash.modelo.mesa.Propinas;
 import pokercash.modelo.persona.Jugador;
 import pokercash.modelo.persona.ModlJugador;
 import pokercash.vista.mesa.VistaDialogoDeudas;
@@ -48,17 +51,15 @@ public class CtrlMesa {
 
     private VistaMesa v;
     private ModlMesa m;
-    private int id;
+    private int ID_MESA;
 
-    public CtrlMesa(VistaMesa v, ModlMesa m, int id) {
+    public CtrlMesa(VistaMesa v, ModlMesa m, int ID_MESA) {
         this.v = v;
         this.m = m;
-        this.id = id;
+        this.ID_MESA = ID_MESA;
 
         v.setTitle("Poker table Administrator");
-        CargarJugadores();
-        CargarFichasTotales();
-        botones();
+        cargar();
     }
 
     public void IniciarControl() {
@@ -150,14 +151,16 @@ public class CtrlMesa {
         });
         v.getBtnRegistro().addActionListener(l -> {
             int s = v.getTablaJugadores().getSelectedRow();
-            
-            if (s!=-1) {
+
+            if (s != -1) {
                 Registro(s);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(v.getDlgFichas(), "Seleccione un Jugador");
             }
         });
-        
+        v.getBtnCasilla().addActionListener(l -> AgregarCasilla());
+        v.getBtnPropinaS().addActionListener(l -> AgregarPropinaServicio());
+        v.getBtnPropinaD().addActionListener(l -> AgregarPropinaDeler());
         v.show();
     }
 
@@ -173,7 +176,7 @@ public class CtrlMesa {
     public void Encender(int s) {
 
         ModlJugador mj = new ModlJugador();
-        List<Jugador> lj = mj.ListarJugadores(this.id);
+        List<Jugador> lj = mj.ListarJugadores(this.ID_MESA);
 
         if (lj.get(s).getEstado() == 1) {
             v.getBtnFichas().setEnabled(true);
@@ -201,7 +204,7 @@ public class CtrlMesa {
         List<Fichas> l = mf.ListarFMesa();
         md.setId_detalle(id);
         md.setId_ficahs(l.get(s).getId_fichas());
-        md.setId_mesa(this.id);
+        md.setId_mesa(this.ID_MESA);
         mf.setEstado("1");
         mf.setId_fichas(l.get(s).getId_fichas());
         md.Insertar();
@@ -222,24 +225,26 @@ public class CtrlMesa {
         double total_ingresos = T_ingresos();
         double cambios = T_Cambios();
         double casilla = T_Casilla();
+        double p_servi = T_PropinaS();
+        double p_deler = T_PropinaD();
         double maletin = 0;
         double cantidad;
         for (int i = 0; i < l.size(); i++) {
-            if (l.get(i).getId_mesa() == this.id) {
+            if (l.get(i).getId_mesa() == this.ID_MESA) {
                 List<Fichas> lf = mf.ListarFichas(l.get(i).getId_ficahs());
                 cantidad = lf.get(0).getCantidad() * lf.get(0).getValor();
                 fichas = fichas + cantidad;
             }
         }
 
-        maletin = fichas - total_ingresos + cambios + casilla;
+        maletin = fichas - total_ingresos + cambios + casilla + p_servi + p_deler;
         v.getLblfichas().setText(maletin + "");
     }
 
     public double T_ingresos() {
         double i = 0;
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> l = me.ListarJ(this.id);
+        List<EstadJugador> l = me.ListarJ(this.ID_MESA);
         for (int j = 0; j < l.size(); j++) {
             i = i + l.get(j).getIngreso_total();
         }
@@ -249,7 +254,7 @@ public class CtrlMesa {
     public double T_Cambios() {
         double i = 0;
         ModlCambio mc = new ModlCambio();
-        List<Cambio> lc = mc.ListaCambiosTotalesMesa(this.id);
+        List<Cambio> lc = mc.ListaCambiosTotalesMesa(this.ID_MESA);
         for (int j = 0; j < lc.size(); j++) {
             i = i + lc.get(j).getValor();
         }
@@ -257,7 +262,18 @@ public class CtrlMesa {
     }
 
     public double T_Casilla() {
-        return 0;
+
+        return Double.parseDouble(v.getLblCasilla().getText());
+    }
+
+    public double T_PropinaS() {
+
+        return Double.parseDouble(v.getLblPopinaS().getText());
+    }
+
+    public double T_PropinaD() {
+
+        return Double.parseDouble(v.getLblPropinaD().getText());
     }
 
     public void CargarDialogo() {
@@ -275,8 +291,8 @@ public class CtrlMesa {
         DefaultTableModel tbmodel;
         tbmodel = (DefaultTableModel) v.getTablaJugadores().getModel();
         tbmodel.setRowCount(0);
-        List<EstadJugador> lp = per.ListarJM(this.id);
-        List<Jugador> lj = j.ListarJugadores(this.id);
+        List<EstadJugador> lp = per.ListarJM(this.ID_MESA);
+        List<Jugador> lj = j.ListarJugadores(this.ID_MESA);
         int n = tbmodel.getColumnCount();
         Holder<Integer> i = new Holder<>(0);
         lj.stream().forEach(l -> {
@@ -350,13 +366,13 @@ public class CtrlMesa {
     public void AgregarJugador() {
         VistaDialogoJugador vj = new VistaDialogoJugador(v, true);
         ModlJugador mj = new ModlJugador();
-        CtrlDialogoJugador c = new CtrlDialogoJugador(vj, v, mj, id);
+        CtrlDialogoJugador c = new CtrlDialogoJugador(vj, v, mj, ID_MESA);
         c.IniciarControl();
     }
 
     public void ComprarFichas(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> lp = me.ListarJM(this.id);
+        List<EstadJugador> lp = me.ListarJM(this.ID_MESA);
         VistaDialogueFichas vf = new VistaDialogueFichas(v, true);
         ModlIngrJugMesa mi = new ModlIngrJugMesa();
         CtrlingresarFichas c = new CtrlingresarFichas(v, vf, mi, lp.get(s).getId_est_jug(), Double.parseDouble(v.getLblfichas().getText()));
@@ -365,7 +381,7 @@ public class CtrlMesa {
 
     public void CancelarDeuda(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> lp = me.ListarJM(this.id);
+        List<EstadJugador> lp = me.ListarJM(this.ID_MESA);
         if (lp.get(s).getDeudas_en_contra() > 0) {
             VistaDialogoDeudas vd = new VistaDialogoDeudas(v, true);
             ModlDeudas md = new ModlDeudas();
@@ -380,7 +396,7 @@ public class CtrlMesa {
 
     public void Salir(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> le = me.ListarJM(this.id);
+        List<EstadJugador> le = me.ListarJM(this.ID_MESA);
         VistaDialogueSalir ve = new VistaDialogueSalir(v, true);
         CtrlSalir c = new CtrlSalir(ve, v, le.get(s).getId_est_jug(), me);
         c.IniciarControl();
@@ -388,9 +404,9 @@ public class CtrlMesa {
 
     public void Activar(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> le = me.ListarJM(this.id);
+        List<EstadJugador> le = me.ListarJM(this.ID_MESA);
         ModlJugador j = new ModlJugador();
-        List<Jugador> lj = j.ListarJugadores(this.id);
+        List<Jugador> lj = j.ListarJugadores(this.ID_MESA);
         j.setId_jugador(le.get(s).getId_jugador());
         j.setEstado(1);
 
@@ -404,9 +420,9 @@ public class CtrlMesa {
 
     public void remover(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> le = me.ListarJM(this.id);
+        List<EstadJugador> le = me.ListarJM(this.ID_MESA);
         ModlJugador j = new ModlJugador();
-        List<Jugador> lj = j.ListarJugadores(this.id);
+        List<Jugador> lj = j.ListarJugadores(this.ID_MESA);
 
         if (le.get(s).getIngreso_total() == 0) {
             me.setId_est_jug(le.get(s).getId_est_jug());
@@ -428,12 +444,138 @@ public class CtrlMesa {
 
     public void Registro(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> le = me.ListarJM(this.id);
+        List<EstadJugador> le = me.ListarJM(this.ID_MESA);
         ModlJugador j = new ModlJugador();
-        List<Jugador> lj = j.ListarJugadores(this.id);
-        ModlIngrJugMesa mi=new ModlIngrJugMesa();
-        VistaDialogueRegisto vr=new VistaDialogueRegisto(v, true);
-        CtrlIngr_jugador c=new CtrlIngr_jugador(v, vr, mi, le.get(s).getId_est_jug(),lj.get(s).getNombre()+" "+lj.get(s).getApellido());
+        List<Jugador> lj = j.ListarJugadores(this.ID_MESA);
+        ModlIngrJugMesa mi = new ModlIngrJugMesa();
+        VistaDialogueRegisto vr = new VistaDialogueRegisto(v, true);
+        CtrlIngr_jugador c = new CtrlIngr_jugador(v, vr, mi, le.get(s).getId_est_jug(), lj.get(s).getNombre() + " " + lj.get(s).getApellido());
         c.IniciarControl();
+    }
+
+    public void AgregarCasilla() {
+        double valor = Double.parseDouble(v.getLblCasilla().getText());
+        double nuevo = Double.parseDouble(v.getTxtCasilla().getText());
+        double casilla = valor + nuevo;
+        m.setCasilla(casilla);
+        m.setId_mesa(ID_MESA);
+        if (m.ActualizarCasilla()) {
+            JOptionPane.showMessageDialog(v, "Casilla subida con exito");
+        } else {
+            JOptionPane.showMessageDialog(v, "Error");
+        }
+        v.getTxtCasilla().setText("0");
+        cargar();
+    }
+
+    public void CargarCasilla() {
+        List<Mesa> l = m.Listar(ID_MESA);
+        v.getLblCasilla().setText(l.get(0).getCasilla() + "");
+    }
+
+    public void CargarPropinaServicio() {
+        ModlPropinas mp = new ModlPropinas();
+        List<Propinas> l = mp.ListarPropinas(ID_MESA);
+        if (!l.isEmpty()) {
+            v.getLblPopinaS().setText(l.get(0).getPropina_servi() + "");
+        }
+
+    }
+
+    public void CargarPropinaDeler() {
+        ModlPropinas mp = new ModlPropinas();
+        List<Propinas> l = mp.ListarPropinas(ID_MESA);
+        if (!l.isEmpty()) {
+            v.getLblPropinaD().setText(l.get(0).getPropina_deler() + "");
+        }
+
+    }
+
+    public void AgregarPropinaServicio() {
+        ModlPropinas mp = new ModlPropinas();
+        List<Propinas> lp = mp.ListarPropinas(ID_MESA);
+        int ID_propina = IDPropina();
+        double valor = Double.parseDouble(v.getLblPopinaS().getText());
+        double nuevo = Double.parseDouble(v.getTxtPropinaS().getText());
+        double propina = valor + nuevo;
+        mp.setId_propina(ID_propina);
+        mp.setId_mesa(ID_MESA);
+        mp.setPropina_servi(propina);
+
+        if (lp.isEmpty()) {
+            mp.setPropina_deler(0);
+            if (mp.Insert()) {
+                JOptionPane.showMessageDialog(v, "Propina subida exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(v, "ERROR");
+            }
+        } else {
+            mp.setId_propina(lp.get(0).getId_propina());
+            mp.setPropina_deler(lp.get(0).getPropina_deler());
+            if (mp.Update()) {
+                JOptionPane.showMessageDialog(v, "Propina subida exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(v, "ERROR");
+            }
+        }
+        v.getTxtPropinaS().setText("0");
+        cargar();
+    }
+
+    public void AgregarPropinaDeler() {
+        ModlPropinas mp = new ModlPropinas();
+        List<Propinas> lp = mp.ListarPropinas(ID_MESA);
+        int ID_propina = IDPropina();
+        double valor = Double.parseDouble(v.getLblPropinaD().getText());
+        double nuevo = Double.parseDouble(v.getTxtPropinaD().getText());
+        double propina = valor + nuevo;
+        mp.setId_propina(ID_propina);
+        mp.setId_mesa(ID_MESA);
+        mp.setPropina_deler(propina);
+
+        if (lp.isEmpty()) {
+            mp.setPropina_servi(0);
+            if (mp.Insert()) {
+                JOptionPane.showMessageDialog(v, "Propina subida exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(v, "ERROR");
+            }
+        } else {
+            mp.setId_propina(lp.get(0).getId_propina());
+            mp.setPropina_servi(lp.get(0).getPropina_servi());
+            if (mp.Update()) {
+                JOptionPane.showMessageDialog(v, "Propina subida exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(v, "ERROR");
+            }
+        }
+        v.getTxtPropinaD().setText("0");
+        cargar();
+    }
+
+    public int IDPropina() {
+        int n = 0;
+        ModlPropinas mp = new ModlPropinas();
+        List<Propinas> lp = mp.ListarTotal();
+        n = lp.size() + 1;
+        do {
+            lp = mp.IDListarTotal(n);
+            if (lp.size() == 1) {
+                n++;
+            } else {
+                break;
+            }
+
+        } while (true);
+        return n;
+    }
+
+    public void cargar() {
+        CargarCasilla();
+        CargarPropinaServicio();
+        CargarPropinaDeler();
+        CargarJugadores();
+        CargarFichasTotales();
+        botones();
     }
 }
