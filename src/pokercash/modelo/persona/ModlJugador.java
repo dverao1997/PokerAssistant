@@ -33,7 +33,7 @@ public class ModlJugador extends Jugador {
         try {
             List<Jugador> l = new ArrayList<>();
             String sql = "Select * from persona where upper(nombre) like '%" + aguja + "%'\n"
-                    + "or  upper(apellido) like '%" + aguja + "%';";
+                    + "or  upper(apellido) like '%" + aguja + "%' order by id_persona;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Jugador p = new Jugador();
@@ -56,7 +56,28 @@ public class ModlJugador extends Jugador {
     public List<Jugador> ListarJ(int id) {
         try {
             List<Jugador> l = new ArrayList<>();
-            String sql = "Select * from jugador where id_persona=" + id + ";";
+            String sql = "Select * from jugador where id_persona=" + id + " order by id_jugador;";
+            ResultSet rs = con.consulta(sql);
+            while (rs.next()) {
+                Jugador p = new Jugador();
+                p.setId_persona(rs.getInt("id_persona"));
+                p.setEstado(rs.getInt("estado"));
+                p.setId_jugador(rs.getInt("id_jugador"));
+                p.setFecha_ingreso(rs.getDate("fecha_ingreso").toLocalDate());
+                l.add(p);
+            }
+            rs.close();
+            return l;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModlJugador.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
+    public List<Jugador> ListarTotalJugadores() {
+        try {
+            List<Jugador> l = new ArrayList<>();
+            String sql = "Select * from jugador order by id_jugador;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Jugador p = new Jugador();
@@ -78,7 +99,7 @@ public class ModlJugador extends Jugador {
     public List<Jugador> ListarIDJ(int id) {
         try {
             List<Jugador> l = new ArrayList<>();
-            String sql = "Select * from jugador where id_jugador=" + id + ";";
+            String sql = "Select * from jugador where id_jugador=" + id + " order by id_jugador;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Jugador p = new Jugador();
@@ -97,21 +118,20 @@ public class ModlJugador extends Jugador {
 
     }
 
-    public List<Jugador> ListarJ() {
+    public List<Jugador> ListarJugadores(int id_mesa) {
         try {
             List<Jugador> l = new ArrayList<>();
-            String sql = "SELECT p.nombre,p.apellido,j.fecha_ingreso, j.id_persona, j.id_jugador, j.estado\n"
-                    + "FROM persona p join jugador j on p.id_persona=j.id_persona\n"
-                    + "WHERE j.estado=1;";
+            String sql = "SELECT p.nombre,p.apellido,j.id_jugador,j.estado\n"
+                    + "FROM persona p join jugador j on p.id_persona=j.id_persona join estad_jugador e on e.id_jugador=j.id_jugador join mesa m on m.id_mesa=e.id_mesa\n"
+                    + "where m.id_mesa="+id_mesa+"\n"
+                    + "order by j.id_jugador;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Jugador p = new Jugador();
                 p.setNombre(rs.getString("nombre"));
                 p.setApellido(rs.getString("apellido"));
-                p.setId_persona(rs.getInt("id_persona"));
                 p.setEstado(rs.getInt("estado"));
                 p.setId_jugador(rs.getInt("id_jugador"));
-                p.setFecha_ingreso(rs.getDate("fecha_ingreso").toLocalDate());
                 l.add(p);
             }
             rs.close();
@@ -123,12 +143,12 @@ public class ModlJugador extends Jugador {
 
     }
 
-    public List<Jugador> ListarJNombres(int id) {
+    public List<Jugador> ListarNombresJugadores(int id) {
         try {
             List<Jugador> l = new ArrayList<>();
             String sql = "SELECT p.nombre,p.apellido,j.fecha_ingreso, j.id_persona, j.id_jugador, j.estado\n"
                     + "FROM persona p join jugador j on p.id_persona=j.id_persona\n"
-                    + "WHERE j.id_jugador="+id+";";
+                    + "WHERE j.id_jugador=" + id + " order by id_jugador;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Jugador p = new Jugador();

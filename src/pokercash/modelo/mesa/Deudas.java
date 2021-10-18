@@ -11,14 +11,15 @@ import java.time.LocalDate;
  *
  * @author CyberLink
  */
-public class Deudas extends EstadJugador{
+public class Deudas extends EstadJugador {
+
     private int id_deudas;
     private double valor;
     private LocalDate fecha;
     private String tipo;
 
-    public Deudas(int id_deudas, double valor, LocalDate fecha, String tipo, int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas) {
-        super(id_est_jug, ingreso_total, id_jugador, id_mesa, perdidas, ganancias, deudas);
+    public Deudas(int id_deudas, double valor, LocalDate fecha, String tipo, int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas_en_contra, double deudas_a_favor) {
+        super(id_est_jug, ingreso_total, id_jugador, id_mesa, perdidas, ganancias, deudas_en_contra, deudas_a_favor);
         this.id_deudas = id_deudas;
         this.valor = valor;
         this.fecha = fecha;
@@ -27,7 +28,6 @@ public class Deudas extends EstadJugador{
 
     public Deudas() {
     }
-
 
     public int getId_deudas() {
         return id_deudas;
@@ -60,5 +60,5 @@ public class Deudas extends EstadJugador{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
+
 }

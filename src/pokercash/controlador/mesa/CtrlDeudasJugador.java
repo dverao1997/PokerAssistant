@@ -37,10 +37,27 @@ public class CtrlDeudasJugador {
 
     }
 
-    public void IniciarControl() {
+    public void IniciarControlCobrar_Deuda() {
         v.setTitle("Deuda Jugador");
         v.setLocationRelativeTo(vm);
         Cargar();
+        v.setModal(true);
+        
+        v.getBtnAceptar().addActionListener(l -> {
+            if (Double.parseDouble(v.getTxtValor().getText())>Double.parseDouble(v.getLblValor().getText())) {
+                JOptionPane.showMessageDialog(v, "ingrese un valor menor que la deuda a pagar");
+                
+            }else{
+                PagarDeuda();
+            }
+        });
+
+        v.show();
+    }
+    public void IniciarControlPagar_Ganancias(double dinero) {
+        v.setTitle("Pagar Jugador");
+        v.setLocationRelativeTo(vm);
+        CargarDeuda_a_pagar(dinero);
         v.setModal(true);
         
         v.getBtnAceptar().addActionListener(l -> {
@@ -59,9 +76,17 @@ public class CtrlDeudasJugador {
         ModlEstadJugador me = new ModlEstadJugador();
         List<EstadJugador> l = me.ID(ID_ESTADISTICA);
         ModlJugador mj=new ModlJugador();
-        List<Jugador> lj=mj.ListarJNombres(l.get(0).getId_jugador());
+        List<Jugador> lj=mj.ListarNombresJugadores(l.get(0).getId_jugador());
         v.getLblJugador().setText(lj.get(0).getNombre()+" "+lj.get(0).getApellido());
-        v.getLblValor().setText(l.get(0).getDeudas()+"");
+        v.getLblValor().setText(l.get(0).getDeudas_en_contra()+"");
+    }
+    public void CargarDeuda_a_pagar(double dinero) {
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> l = me.ID(ID_ESTADISTICA);
+        ModlJugador mj=new ModlJugador();
+        List<Jugador> lj=mj.ListarNombresJugadores(l.get(0).getId_jugador());
+        v.getLblJugador().setText(lj.get(0).getNombre()+" "+lj.get(0).getApellido());
+        v.getLblValor().setText(dinero+"");
     }
 
     public void PagarDeuda() {
@@ -75,7 +100,7 @@ public class CtrlDeudasJugador {
         m.setFecha(LocalDate.now());
         m.setTipo(t);
         m.setId_est_jug(ID_ESTADISTICA);
-        m.setDeudas(l.get(0).getDeudas() - valor);
+        m.setDeudas_en_contra(l.get(0).getDeudas_en_contra() - valor);
         if (m.Pagar()) {
             ModlMesa mm = new ModlMesa();
             CtrlMesa c = new CtrlMesa(vm, mm, l.get(0).getId_mesa());
@@ -85,14 +110,35 @@ public class CtrlDeudasJugador {
             JOptionPane.showMessageDialog(v, "Error");
         }
     }
+    public void Valor_a_Cobrar() {
+        Double valor = Double.parseDouble(v.getTxtValor().getText());
+        String t = v.getCbxTransaccion().getSelectedItem().toString();
+        int id_deuda = IDDeuda();
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> l = me.ID(ID_ESTADISTICA);
+        m.setId_deudas(id_deuda);
+        m.setValor(valor);
+        m.setFecha(LocalDate.now());
+        m.setTipo(t);
+        m.setId_est_jug(ID_ESTADISTICA);
+        m.setDeudas_a_favor(l.get(0).getDeudas_a_favor() +(Double.parseDouble(v.getLblValor().getText())-valor));
+        if (m.PagarDeudaJugador()) {
+            ModlMesa mm = new ModlMesa();
+            CtrlMesa c = new CtrlMesa(vm, mm, l.get(0).getId_mesa());
+            JOptionPane.showMessageDialog(v, "Valor pagada exitosamente");
+            v.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(v, "Error");
+        }
+    }
 
     public int IDDeuda() {
         int num;
 
-        List<Deudas> lista = m.ListarD();
+        List<Deudas> lista = m.ListarDeuda();
         num = lista.size() + 1;
         do {
-            lista = m.IDListarD(num);
+            lista = m.IDListarDeuda(num);
 
             if (lista.size() == 1) {
                 num++;

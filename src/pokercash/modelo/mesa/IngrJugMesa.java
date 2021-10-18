@@ -9,7 +9,8 @@ package pokercash.modelo.mesa;
  *
  * @author CyberLink
  */
-public class IngrJugMesa extends EstadJugador{
+public class IngrJugMesa extends EstadJugador {
+
     private int id_ingr_jug;
     private double ingreso;
     private String hora;
@@ -18,15 +19,13 @@ public class IngrJugMesa extends EstadJugador{
     public IngrJugMesa() {
     }
 
-    public IngrJugMesa(int id_ingr_jug, double ingreso, String hora, String tipo, int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas) {
-        super(id_est_jug, ingreso_total, id_jugador, id_mesa, perdidas, ganancias, deudas);
+    public IngrJugMesa(int id_ingr_jug, double ingreso, String hora, String tipo, int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas_en_contra, double deudas_a_favor) {
+        super(id_est_jug, ingreso_total, id_jugador, id_mesa, perdidas, ganancias, deudas_en_contra, deudas_a_favor);
         this.id_ingr_jug = id_ingr_jug;
         this.ingreso = ingreso;
         this.hora = hora;
         this.tipo = tipo;
     }
-
-   
 
     public int getId_ingr_jug() {
         return id_ingr_jug;
@@ -60,7 +59,4 @@ public class IngrJugMesa extends EstadJugador{
         this.tipo = tipo;
     }
 
-
-    
-    
 }

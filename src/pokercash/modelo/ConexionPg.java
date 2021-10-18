@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +37,7 @@ public class ConexionPg {
             con=DriverManager.getConnection(cadConexion, usuarioPg, pssPG);
         } catch (SQLException ex) {
             Logger.getLogger(ConexionPg.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ABRIR Y CERRAR EL SISTEMA FALLA EN LA BASE DE DATOS");
         }
     }
     

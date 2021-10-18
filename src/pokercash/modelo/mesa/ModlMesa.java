@@ -29,11 +29,10 @@ public class ModlMesa extends Mesa {
         super(id_mesa, casilla, fecha, gastos, propinaServi, efectivoServi, efectivoAdmin, propinaDeler, efectivoDeler, casillaDeler, gastosDeler, porcentajeClub, efectivoClub, gastosClub, estado);
     }
 
-    
     public List<Mesa> Listar(int id) {
         try {
             List<Mesa> l = new ArrayList<>();
-            String sql = "select * from mesa where id_mesa=" + id + ";";
+            String sql = "select * from mesa where id_mesa=" + id + " order by id_mesa;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Mesa m = new Mesa();
@@ -61,10 +60,11 @@ public class ModlMesa extends Mesa {
             return null;
         }
     }
+
     public List<Mesa> Listar() {
         try {
             List<Mesa> l = new ArrayList<>();
-            String sql = "select * from mesa ;";
+            String sql = "select * from mesa order by id_mesa;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Mesa m = new Mesa();
@@ -98,9 +98,9 @@ public class ModlMesa extends Mesa {
                 + "            casilla, fecha, gastos, id_mesa, propina_servicio, efectivo_servicio, \n"
                 + "            efectivo_admin, propinas_deler, efectivo_deler, casilla_deler, \n"
                 + "            gastos_deler, porcentaje_club, efectivo_club, gastos_club,estado)\n"
-                + "    VALUES ("+getCasilla()+", '"+getFecha()+"', "+getGastos()+", "+getId_mesa()+", "+getPropinaServi()+", "+getEfectivoServi()+", \n"
-                + "            "+getEfectivoAdmin()+", "+getPropinaDeler()+", "+getEfectivoDeler()+", "+getCasillaDeler()+", \n"
-                + "            "+getGastosDeler()+", "+getPorcentajeClub()+", "+getEfectivoClub()+", "+getGastosClub()+","+getEstado()+");";
+                + "    VALUES (" + getCasilla() + ", '" + getFecha() + "', " + getGastos() + ", " + getId_mesa() + ", " + getPropinaServi() + ", " + getEfectivoServi() + ", \n"
+                + "            " + getEfectivoAdmin() + ", " + getPropinaDeler() + ", " + getEfectivoDeler() + ", " + getCasillaDeler() + ", \n"
+                + "            " + getGastosDeler() + ", " + getPorcentajeClub() + ", " + getEfectivoClub() + ", " + getGastosClub() + "," + getEstado() + ");";
         return con.accion(sql);
     }
 }

@@ -44,7 +44,7 @@ public class ModlFichas extends Fichas {
         try {
             List<Fichas> l = new ArrayList<>();
             String sql = "SELECT *\n"
-                    + "	FROM fichas;";
+                    + "	FROM fichas order by id_fichas;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Fichas f = new Fichas();
@@ -74,7 +74,7 @@ public class ModlFichas extends Fichas {
     public List<Fichas> ListarFMesa() {
         try {
             List<Fichas> l = new ArrayList<>();
-            String sql = "SELECT * FROM fichas where estado='0';";
+            String sql = "SELECT * FROM fichas where estado='0' order by id_fichas;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Fichas f = new Fichas();
@@ -106,7 +106,7 @@ public class ModlFichas extends Fichas {
             List<Fichas> l = new ArrayList<>();
             String sql = "SELECT *\n"
                     + "	FROM fichas "
-                    + "WHERE id_fichas=" + id + ";";
+                    + "WHERE id_fichas=" + id + " order by id_fichas;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Fichas f = new Fichas();

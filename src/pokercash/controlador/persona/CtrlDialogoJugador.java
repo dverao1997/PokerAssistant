@@ -71,9 +71,9 @@ public class CtrlDialogoJugador {
             }
         });
         v.getBtnCerrar().addActionListener(l -> Cerrar());
-        v.getBtnCrear().addActionListener(l->CargarDialogue());
-        v.getBtnAceptar().addActionListener(l->Crearjugador());
-        v.getBtnCancelar().addActionListener(l->Cerrar());
+        v.getBtnCrear().addActionListener(l -> CargarDialogue());
+        v.getBtnAceptar().addActionListener(l -> Crearjugador());
+        v.getBtnCancelar().addActionListener(l -> Cerrar());
         v.show();
     }
 
@@ -126,7 +126,7 @@ public class CtrlDialogoJugador {
 
     public void Jugar(int jug) {
         int idEst = IDEst();
-        ModlEstadJugador p = new ModlEstadJugador(idEst, 0, jug, ID_mesa, 0, 0, 0);
+        ModlEstadJugador p = new ModlEstadJugador(idEst, 0, jug, ID_mesa, 0, 0, 0, 0);
         if (p.JugarMesa()) {
             JOptionPane.showMessageDialog(v, "Jugador ingresado con exito");
             m.setId_jugador(jug);
@@ -176,7 +176,7 @@ public class CtrlDialogoJugador {
     public int IDJug() {
         int num;
 
-        List<Jugador> lista = m.ListarJ();
+        List<Jugador> lista = m.ListarTotalJugadores();
         num = lista.size() + 1;
         do {
             lista = m.ListarIDJ(num);
@@ -220,9 +220,4 @@ public class CtrlDialogoJugador {
         v.getDlgJugador().show();
     }
 
-   
-
-    
-    
-    
 }

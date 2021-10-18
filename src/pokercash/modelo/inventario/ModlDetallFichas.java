@@ -28,51 +28,52 @@ public class ModlDetallFichas extends DetalleFichas {
     public ModlDetallFichas() {
     }
 
-    public List<DetalleFichas> listar(int id){
+    public List<DetalleFichas> listar(int id) {
         try {
-            List<DetalleFichas> l=new ArrayList<>();
-            String sql="select * from detalle_fichas where id_detalle="+id+";";
-            ResultSet rs=con.consulta(sql);
+            List<DetalleFichas> l = new ArrayList<>();
+            String sql = "select * from detalle_fichas where id_detalle=" + id + " order by id_detalle;";
+            ResultSet rs = con.consulta(sql);
             while (rs.next()) {
-                DetalleFichas d=new DetalleFichas();
+                DetalleFichas d = new DetalleFichas();
                 d.setId_detalle(rs.getInt("id_detalle"));
                 d.setId_ficahs(rs.getInt("id_fichas"));
                 d.setId_mesa(rs.getInt("id_mesa"));
-            l.add(d);
+                l.add(d);
             }
             rs.close();
             return l;
         } catch (SQLException ex) {
             Logger.getLogger(ModlDetallFichas.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
+            return null;
         }
-        
+
     }
-    public List<DetalleFichas> listar(){
+
+    public List<DetalleFichas> listar() {
         try {
-            List<DetalleFichas> l=new ArrayList<>();
-            String sql="select * from detalle_fichas;";
-            ResultSet rs=con.consulta(sql);
+            List<DetalleFichas> l = new ArrayList<>();
+            String sql = "select * from detalle_fichas order by id_detalle;";
+            ResultSet rs = con.consulta(sql);
             while (rs.next()) {
-                DetalleFichas d=new DetalleFichas();
+                DetalleFichas d = new DetalleFichas();
                 d.setId_detalle(rs.getInt("id_detalle"));
                 d.setId_ficahs(rs.getInt("id_fichas"));
                 d.setId_mesa(rs.getInt("id_mesa"));
-            l.add(d);
+                l.add(d);
             }
             rs.close();
             return l;
         } catch (SQLException ex) {
             Logger.getLogger(ModlDetallFichas.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
+            return null;
         }
-        
+
     }
-    
+
     public boolean Insertar() {
         String sql = "INSERT INTO detalle_fichas(\n"
                 + "            id_detalle, id_fichas, id_mesa)\n"
-                + "    VALUES ("+getId_detalle()+", "+getId_ficahs()+", "+getId_mesa()+");";
+                + "    VALUES (" + getId_detalle() + ", " + getId_ficahs() + ", " + getId_mesa() + ");";
         return con.accion(sql);
     }
 }

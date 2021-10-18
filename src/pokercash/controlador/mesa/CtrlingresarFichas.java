@@ -68,9 +68,9 @@ public class CtrlingresarFichas {
         m.setId_est_jug(this.id_Est);
         m.setIngreso_total(le.get(0).getIngreso_total() + valor);
         if ("Deuda".equals(t)) {
-            m.setDeudas(le.get(0).getDeudas() + valor);
+            m.setDeudas_en_contra(le.get(0).getDeudas_en_contra() + valor);
         } else {
-            m.setDeudas(le.get(0).getDeudas());
+            m.setDeudas_en_contra(le.get(0).getDeudas_en_contra());
         }
         if (m.Insertar()) {
             ModlMesa mm = new ModlMesa();

@@ -31,7 +31,7 @@ public class ModlEstIngrEmpl extends EstIngrEmpl {
     public List<EstIngrEmpl> Listar(int id){
         try {
             List<EstIngrEmpl> l=new ArrayList<>();
-            String sql="select * from est_ingresos_empl where id_est_ingr="+id+";";
+            String sql="select * from est_ingresos_empl where id_est_ingr="+id+" order by id_est_ingr;";
             ResultSet rs=con.consulta(sql);
             while (rs.next()) {
                 EstIngrEmpl e=new EstIngrEmpl();
@@ -52,7 +52,7 @@ public class ModlEstIngrEmpl extends EstIngrEmpl {
     public List<EstIngrEmpl> Listar(){
         try {
             List<EstIngrEmpl> l=new ArrayList<>();
-            String sql="select * from est_ingresos_empl;";
+            String sql="select * from est_ingresos_empl order by id_est_ingr;";
             ResultSet rs=con.consulta(sql);
             while (rs.next()) {
                 EstIngrEmpl e=new EstIngrEmpl();

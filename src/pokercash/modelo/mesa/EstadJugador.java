@@ -10,26 +10,25 @@ package pokercash.modelo.mesa;
  * @author CyberLink
  */
 public class EstadJugador {
+
     private int id_est_jug;
     private double ingreso_total;
     private int id_jugador;
     private int id_mesa;
     private double perdidas;
     private double ganancias;
-    private double deudas;
+    private double deudas_en_contra;
+    private double deudas_a_favor;
 
-    public EstadJugador(int id_est_jug) {
-        this.id_est_jug = id_est_jug;
-    }
-
-    public EstadJugador(int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas) {
+    public EstadJugador(int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas_en_contra, double deudas_a_favor) {
         this.id_est_jug = id_est_jug;
         this.ingreso_total = ingreso_total;
         this.id_jugador = id_jugador;
         this.id_mesa = id_mesa;
         this.perdidas = perdidas;
         this.ganancias = ganancias;
-        this.deudas = deudas;
+        this.deudas_en_contra = deudas_en_contra;
+        this.deudas_a_favor = deudas_a_favor;
     }
 
     public EstadJugador() {
@@ -83,14 +82,20 @@ public class EstadJugador {
         this.ganancias = ganancias;
     }
 
-    public double getDeudas() {
-        return deudas;
+    public double getDeudas_en_contra() {
+        return deudas_en_contra;
     }
 
-    public void setDeudas(double deudas) {
-        this.deudas = deudas;
+    public void setDeudas_en_contra(double deudas_en_contra) {
+        this.deudas_en_contra = deudas_en_contra;
     }
-    
 
-    
+    public double getDeudas_a_favor() {
+        return deudas_a_favor;
+    }
+
+    public void setDeudas_a_favor(double deudas_a_favor) {
+        this.deudas_a_favor = deudas_a_favor;
+    }
+
 }

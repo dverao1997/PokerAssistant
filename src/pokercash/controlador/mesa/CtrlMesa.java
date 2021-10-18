@@ -7,6 +7,8 @@ package pokercash.controlador.mesa;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -21,7 +23,10 @@ import pokercash.modelo.inventario.DetalleFichas;
 import pokercash.modelo.inventario.Fichas;
 import pokercash.modelo.inventario.ModlDetallFichas;
 import pokercash.modelo.inventario.ModlFichas;
+import pokercash.modelo.mesa.Cambio;
+import pokercash.modelo.mesa.Deudas;
 import pokercash.modelo.mesa.EstadJugador;
+import pokercash.modelo.mesa.ModlCambio;
 import pokercash.modelo.mesa.ModlDeudas;
 import pokercash.modelo.mesa.ModlEstadJugador;
 import pokercash.modelo.mesa.ModlIngrJugMesa;
@@ -31,6 +36,8 @@ import pokercash.modelo.persona.ModlJugador;
 import pokercash.vista.mesa.VistaDialogoDeudas;
 import pokercash.vista.mesa.VistaDialogoJugador;
 import pokercash.vista.mesa.VistaDialogueFichas;
+import pokercash.vista.mesa.VistaDialogueRegisto;
+import pokercash.vista.mesa.VistaDialogueSalir;
 import pokercash.vista.mesa.VistaMesa;
 
 /**
@@ -51,9 +58,40 @@ public class CtrlMesa {
         v.setTitle("Poker table Administrator");
         CargarJugadores();
         CargarFichasTotales();
+        botones();
     }
 
     public void IniciarControl() {
+        MouseListener ml = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+                int s = v.getTablaJugadores().getSelectedRow();
+                if (s != -1) {
+                    Encender(s);
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+
+            }
+        };
+        v.getTablaJugadores().addMouseListener(ml);
         v.getBtnAgregarFichas().addActionListener(l -> CargarDialogo());
         v.getBtnAgregar().addActionListener(l -> AgregarJugador());
         v.getBtnIngresar().addActionListener(l -> {
@@ -69,7 +107,7 @@ public class CtrlMesa {
         v.getBtnFichas().addActionListener(l -> {
             int s = v.getTablaJugadores().getSelectedRow();
             if (s != -1) {
-                if (Double.parseDouble(v.getLblfichas().getText())==0) {
+                if (Double.parseDouble(v.getLblfichas().getText()) == 0) {
                     JOptionPane.showMessageDialog(v.getDlgFichas(), "Fichas en maletin Insuficientes ");
                 } else {
                     ComprarFichas(s);
@@ -85,11 +123,74 @@ public class CtrlMesa {
             int s = v.getTablaJugadores().getSelectedRow();
             if (s != -1) {
                 CancelarDeuda(s);
+            } else {
+                JOptionPane.showMessageDialog(v.getDlgFichas(), "Seleccione un Jugador");
+            }
+        });
+        v.getBtnSalir().addActionListener(l -> {
+            int s = v.getTablaJugadores().getSelectedRow();
+            int confirmar = JOptionPane.showConfirmDialog(v, "Seguro que desea retirar al jugador", "CONFIRMACION", JOptionPane.YES_NO_OPTION);
+            if (confirmar == 0) {
+                Salir(s);
+            }
+        });
+        v.getBtnActivar().addActionListener(l -> {
+            int s = v.getTablaJugadores().getSelectedRow();
+            int confirmar = JOptionPane.showConfirmDialog(v, "Seguro que desea regresar al jugador", "CONFIRMACION", JOptionPane.YES_NO_OPTION);
+            if (confirmar == 0) {
+                Activar(s);
+            }
+        });
+        v.getBtnRemover().addActionListener(l -> {
+            int s = v.getTablaJugadores().getSelectedRow();
+            int confirmar = JOptionPane.showConfirmDialog(v, "Seguro que desea retirar al jugador", "CONFIRMACION", JOptionPane.YES_NO_OPTION);
+            if (confirmar == 0) {
+                remover(s);
+            }
+        });
+        v.getBtnRegistro().addActionListener(l -> {
+            int s = v.getTablaJugadores().getSelectedRow();
+            
+            if (s!=-1) {
+                Registro(s);
             }else{
                 JOptionPane.showMessageDialog(v.getDlgFichas(), "Seleccione un Jugador");
             }
         });
+        
         v.show();
+    }
+
+    public void botones() {
+        v.getBtnFichas().setEnabled(false);
+        v.getBtnCobrar().setEnabled(true);
+        v.getBtnSalir().setEnabled(false);
+        v.getBtnRemover().setEnabled(false);
+        v.getBtnActivar().setEnabled(false);
+        v.getBtnRegistro().setEnabled(true);
+    }
+
+    public void Encender(int s) {
+
+        ModlJugador mj = new ModlJugador();
+        List<Jugador> lj = mj.ListarJugadores(this.id);
+
+        if (lj.get(s).getEstado() == 1) {
+            v.getBtnFichas().setEnabled(true);
+            v.getBtnCobrar().setEnabled(true);
+            v.getBtnSalir().setEnabled(true);
+            v.getBtnRemover().setEnabled(true);
+            v.getBtnActivar().setEnabled(false);
+            v.getBtnRegistro().setEnabled(true);
+        } else {
+            v.getBtnFichas().setEnabled(false);
+            v.getBtnCobrar().setEnabled(true);
+            v.getBtnSalir().setEnabled(false);
+            v.getBtnRemover().setEnabled(true);
+            v.getBtnActivar().setEnabled(true);
+            v.getBtnRegistro().setEnabled(true);
+        }
+
     }
 
     public void AgregarFichas() {
@@ -114,6 +215,7 @@ public class CtrlMesa {
     public void CargarFichasTotales() {
         ModlDetallFichas md = new ModlDetallFichas();
         ModlFichas mf = new ModlFichas();
+        ModlDeudas mdd = new ModlDeudas();
         List<DetalleFichas> l = md.listar();
 
         double fichas = 0;
@@ -146,21 +248,10 @@ public class CtrlMesa {
 
     public double T_Cambios() {
         double i = 0;
-        ModlEstadJugador me = new ModlEstadJugador();
-        List<EstadJugador> l = me.ListarJ(this.id);
-        double[] cb = new double[l.size()];
-        for (int j = 0; j < l.size(); j++) {
-            if (l.get(j).getGanancias() != 0) {
-                cb[j] = l.get(j).getIngreso_total() + l.get(j).getGanancias();
-            } else {
-                if (l.get(j).getPerdidas() != 0) {
-                    cb[j] = l.get(j).getIngreso_total() - l.get(j).getPerdidas();
-
-                } else {
-                    cb[j] = 0;
-                }
-            }
-            i = i + cb[j];
+        ModlCambio mc = new ModlCambio();
+        List<Cambio> lc = mc.ListaCambiosTotalesMesa(this.id);
+        for (int j = 0; j < lc.size(); j++) {
+            i = i + lc.get(j).getValor();
         }
         return i;
     }
@@ -184,8 +275,8 @@ public class CtrlMesa {
         DefaultTableModel tbmodel;
         tbmodel = (DefaultTableModel) v.getTablaJugadores().getModel();
         tbmodel.setRowCount(0);
-        List<EstadJugador> lp = per.ListarJ(this.id);
-        List<Jugador> lj = j.ListarJ();
+        List<EstadJugador> lp = per.ListarJM(this.id);
+        List<Jugador> lj = j.ListarJugadores(this.id);
         int n = tbmodel.getColumnCount();
         Holder<Integer> i = new Holder<>(0);
         lj.stream().forEach(l -> {
@@ -193,7 +284,7 @@ public class CtrlMesa {
                 tbmodel.addRow(new Object[n]);
                 v.getTablaJugadores().setValueAt(l.getNombre() + " " + l.getApellido(), i.value, 0);
                 v.getTablaJugadores().setValueAt(t.getIngreso_total(), i.value, 1);
-                v.getTablaJugadores().setValueAt(t.getDeudas(), i.value, 2);
+                v.getTablaJugadores().setValueAt(t.getDeudas_en_contra(), i.value, 2);
             });
             i.value++;
         });
@@ -275,14 +366,74 @@ public class CtrlMesa {
     public void CancelarDeuda(int s) {
         ModlEstadJugador me = new ModlEstadJugador();
         List<EstadJugador> lp = me.ListarJM(this.id);
-        if (lp.get(s).getDeudas() > 0) {
+        if (lp.get(s).getDeudas_en_contra() > 0) {
             VistaDialogoDeudas vd = new VistaDialogoDeudas(v, true);
             ModlDeudas md = new ModlDeudas();
             CtrlDeudasJugador c = new CtrlDeudasJugador(v, vd, md, lp.get(s).getId_est_jug());
-            c.IniciarControl();
-        }else{
+            System.out.println("");
+            c.IniciarControlCobrar_Deuda();
+        } else {
             JOptionPane.showMessageDialog(v.getDlgFichas(), "El jugador no tiene deudas en la mesa");
         }
 
+    }
+
+    public void Salir(int s) {
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> le = me.ListarJM(this.id);
+        VistaDialogueSalir ve = new VistaDialogueSalir(v, true);
+        CtrlSalir c = new CtrlSalir(ve, v, le.get(s).getId_est_jug(), me);
+        c.IniciarControl();
+    }
+
+    public void Activar(int s) {
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> le = me.ListarJM(this.id);
+        ModlJugador j = new ModlJugador();
+        List<Jugador> lj = j.ListarJugadores(this.id);
+        j.setId_jugador(le.get(s).getId_jugador());
+        j.setEstado(1);
+
+        if (j.estado()) {
+            JOptionPane.showMessageDialog(v, "Jugador regresa con exito");
+        } else {
+            JOptionPane.showMessageDialog(v, "ERROR");
+        }
+        Encender(s);
+    }
+
+    public void remover(int s) {
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> le = me.ListarJM(this.id);
+        ModlJugador j = new ModlJugador();
+        List<Jugador> lj = j.ListarJugadores(this.id);
+
+        if (le.get(s).getIngreso_total() == 0) {
+            me.setId_est_jug(le.get(s).getId_est_jug());
+            j.setEstado(0);
+            j.setId_jugador(le.get(s).getId_jugador());
+            if (me.SalirMesa()) {
+                j.estado();
+                JOptionPane.showMessageDialog(v, "Jugador retirado con exito");
+            } else {
+                JOptionPane.showMessageDialog(v, "ERROR");
+            }
+        } else {
+            JOptionPane.showMessageDialog(v, "Jugador no puede ser retirado por jugar en la mesa");
+        }
+        CargarJugadores();
+        CargarFichasTotales();
+        botones();
+    }
+
+    public void Registro(int s) {
+        ModlEstadJugador me = new ModlEstadJugador();
+        List<EstadJugador> le = me.ListarJM(this.id);
+        ModlJugador j = new ModlJugador();
+        List<Jugador> lj = j.ListarJugadores(this.id);
+        ModlIngrJugMesa mi=new ModlIngrJugMesa();
+        VistaDialogueRegisto vr=new VistaDialogueRegisto(v, true);
+        CtrlIngr_jugador c=new CtrlIngr_jugador(v, vr, mi, le.get(s).getId_est_jug(),lj.get(s).getNombre()+" "+lj.get(s).getApellido());
+        c.IniciarControl();
     }
 }

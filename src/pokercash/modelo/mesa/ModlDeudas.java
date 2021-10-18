@@ -22,30 +22,22 @@ public class ModlDeudas extends Deudas {
 
     ConexionPg con = new ConexionPg();
 
-    public ModlDeudas(int id_deudas, double valor, LocalDate fecha, String tipo, int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas) {
-        super(id_deudas, valor, fecha, tipo, id_est_jug, ingreso_total, id_jugador, id_mesa, perdidas, ganancias, deudas);
+    public ModlDeudas(int id_deudas, double valor, LocalDate fecha, String tipo, int id_est_jug, double ingreso_total, int id_jugador, int id_mesa, double perdidas, double ganancias, double deudas_en_contra, double deudas_a_favor) {
+        super(id_deudas, valor, fecha, tipo, id_est_jug, ingreso_total, id_jugador, id_mesa, perdidas, ganancias, deudas_en_contra, deudas_a_favor);
     }
 
     public ModlDeudas() {
     }
 
-    public List<Deudas> ListarDeuda(int id) {
-        String sql = "SELECT e.id_jugador,e.deudas,e.id_estad_jug,d.id.deudas,d.valor,d.fecha,d.tipo\n"
-                + "FROM estad_jugador e join deudas d on e.id_jugador=d.id_jugador\n"
-                + "WHERE e.id_estad_jug=" + id + ";";
-        ResultSet rs = con.consulta(sql);
-        return null;
-    }
+    public List<Deudas> ListarDeuda() {
 
-    public List<Deudas> ListarD() {
-        
         try {
-            List<Deudas> l=new ArrayList<>();
+            List<Deudas> l = new ArrayList<>();
             String sql = "SELECT id_deudas, valor, fecha, tipo, id_estad_jug\n"
-                    + "  FROM deudas;";
+                    + "  FROM deudas order by id_deudas;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
-                Deudas d=new Deudas();
+                Deudas d = new Deudas();
                 d.setId_deudas(rs.getInt("id_deudas"));
                 d.setValor(rs.getDouble("valor"));
                 d.setFecha(rs.getDate("fecha").toLocalDate());
@@ -60,16 +52,17 @@ public class ModlDeudas extends Deudas {
             return null;
         }
     }
-    public List<Deudas> IDListarD(int id) {
-        
+
+    public List<Deudas> IDListarDeuda(int id) {
+
         try {
-            List<Deudas> l=new ArrayList<>();
+            List<Deudas> l = new ArrayList<>();
             String sql = "SELECT id_deudas, valor, fecha, tipo, id_estad_jug\n"
                     + "  FROM deudas"
-                    + "  WHERE id_deudas="+id+";";
+                    + "  WHERE id_deudas=" + id + " order by id_deudas;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
-                Deudas d=new Deudas();
+                Deudas d = new Deudas();
                 d.setId_deudas(rs.getInt("id_deudas"));
                 d.setValor(rs.getDouble("valor"));
                 d.setFecha(rs.getDate("fecha").toLocalDate());
@@ -90,7 +83,16 @@ public class ModlDeudas extends Deudas {
                 + "            id_deudas, valor, fecha, tipo, id_estad_jug)\n"
                 + "    VALUES (" + getId_deudas() + ", " + getValor() + ", '" + getFecha() + "', '" + getTipo() + "', " + getId_est_jug() + ");\n"
                 + "UPDATE estad_jugador\n"
-                + "   SET deudas=" + getDeudas() + "\n"
+                + "   SET deudas=" + getDeudas_en_contra() + "\n"
+                + " WHERE id_estad_jug=" + getId_est_jug() + ";";
+        return con.accion(sql);
+    }
+    public boolean PagarDeudaJugador() {
+        String sql = "INSERT INTO deudas(\n"
+                + "            id_deudas, valor, fecha, tipo, id_estad_jug)\n"
+                + "    VALUES (" + getId_deudas() + ", " + getValor() + ", '" + getFecha() + "', '" + getTipo() + "', " + getId_est_jug() + ");\n"
+                + "UPDATE estad_jugador\n"
+                + "   SET deudas_favor=" + getDeudas_a_favor() + "\n"
                 + " WHERE id_estad_jug=" + getId_est_jug() + ";";
         return con.accion(sql);
     }

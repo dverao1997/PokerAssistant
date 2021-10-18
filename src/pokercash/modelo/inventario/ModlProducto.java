@@ -33,7 +33,7 @@ public class ModlProducto extends Producto {
             List<Producto> lp = new ArrayList<>();
             String sql = "SELECT id_producto, nombre, precio, existencias\n"
                     + "  FROM producto\n"
-                    + "  where upper(nombre) like '%" + aguja + "%';";
+                    + "  where upper(nombre) like '%" + aguja + "%' order by id_producto;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Producto p = new Producto();
@@ -56,7 +56,7 @@ public class ModlProducto extends Producto {
             List<Producto> lp = new ArrayList<>();
             String sql = "SELECT id_producto, nombre, precio, existencias\n"
                     + "  FROM producto\n"
-                    + "  where id_producto=" + aguja + ";";
+                    + "  where id_producto=" + aguja + " id_producto;";
             ResultSet rs = con.consulta(sql);
             while (rs.next()) {
                 Producto p = new Producto();
