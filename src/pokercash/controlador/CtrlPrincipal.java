@@ -56,11 +56,9 @@ public class CtrlPrincipal {
         v.getMnuAbrirMesa().addActionListener(l -> CargarDialogo());
         v.getBtnAceptar().addActionListener(l -> {
             int s = v.getTablaMesa().getSelectedRow();
-            System.out.println(s);
             ModlMesa ms = new ModlMesa();
             List<Mesa> lp = ms.Listar();
             if (s != -1) {
-                System.out.println(lp.get(s).getEstado());
                 if (lp.get(s).getEstado() != 0) {
                     
                     AbrirMesa(lp.get(s).getId_mesa());

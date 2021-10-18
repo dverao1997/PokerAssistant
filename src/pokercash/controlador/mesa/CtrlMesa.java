@@ -125,7 +125,12 @@ public class CtrlMesa {
             }
         };
         v.getBtnFinalizarMesa().addActionListener(l -> imprimirPersonas());
-        v.getBtnGenerar().addActionListener(l -> Generar());
+        v.getBtnGenerar().addActionListener(l -> {
+            Generar();
+            v.getBtnFinalizarMesa().setEnabled(true);
+            v.getBtnGenerar().setEnabled(false);
+            
+        });
         v.getCbxProducto().addItemListener(il);
         v.getBtnAgregarProd().addActionListener(l -> AgregarProducto());
         v.getTablaJugadores().addMouseListener(ml);
@@ -207,6 +212,7 @@ public class CtrlMesa {
         v.getBtnRemover().setEnabled(false);
         v.getBtnActivar().setEnabled(false);
         v.getBtnRegistro().setEnabled(true);
+        v.getBtnFinalizarMesa().setEnabled(false);
     }
     
     public void Encender(int s) {
@@ -781,9 +787,7 @@ public class CtrlMesa {
         double casilla = lm.get(0).getCasilla() * (lm.get(0).getCasillaDeler() / 100);
         
         double total = efectivo + propinasT + casilla;
-        System.out.println(total);
         v.getLblDelerFinal().setText(total + "");
-        System.out.println(v.getLblDelerFinal().getText());
     }
     
     public void AdministradorF() {
@@ -828,9 +832,8 @@ public class CtrlMesa {
         List< Mesa> lm = m.Listar(ID_MESA);
         double porcentaje = 1 - (lm.get(0).getPorcentajeClub() / 100);
         double total = (casilla - gastos) * porcentaje;
-        DecimalFormat df = new DecimalFormat("#.00");
         
-        v.getLblPagoOrganizador().setText(df.format(total));
+        v.getLblPagoOrganizador().setText(total+"");
     }
     
     public void FinalizarMesa() {

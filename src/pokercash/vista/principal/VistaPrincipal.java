@@ -38,9 +38,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaMesa = new javax.swing.JTable();
         btnAceptar = new javax.swing.JButton();
-        jToolBar1 = new javax.swing.JToolBar();
-        jPanel1 = new javax.swing.JPanel();
-        lblMensaje = new javax.swing.JLabel();
         dktContenedor = new javax.swing.JDesktopPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -97,23 +94,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jToolBar1.setRollover(true);
-
-        lblMensaje.setText("Pantalla Principal");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(lblMensaje))
-        );
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,14 +105,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(757, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(198, Short.MAX_VALUE)
+                .addContainerGap(260, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,6 +138,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mnuEmpleados.setText("Ingresar Empleados");
         jMenu1.add(mnuEmpleados);
 
+        mnuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/player_new.png"))); // NOI18N
         mnuUsuario.setText("Ingresar Usuario");
         jMenu1.add(mnuUsuario);
 
@@ -169,6 +150,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         mnuProducto.setText("Ingresar Producto");
         jMenu2.add(mnuProducto);
 
+        mnuFichas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/chips.png"))); // NOI18N
         mnuFichas.setText("Ingresar Fichas");
         jMenu2.add(mnuFichas);
 
@@ -176,9 +158,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Mesa");
 
+        mnuMesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/table_new.png"))); // NOI18N
         mnuMesa.setText("Crear Mesa");
         jMenu3.add(mnuMesa);
 
+        mnuAbrirMesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pokercash/vista/icons/tables.png"))); // NOI18N
         mnuAbrirMesa.setText("Abrir Mesa");
         jMenu3.add(mnuAbrirMesa);
 
@@ -190,18 +174,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(dktContenedor)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dktContenedor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(dktContenedor)
         );
 
         pack();
@@ -231,14 +208,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         this.dktContenedor = dktContenedor;
     }
 
-    public JLabel getLblMensaje() {
-        return lblMensaje;
-    }
-
-    public void setLblMensaje(JLabel lblMensaje) {
-        this.lblMensaje = lblMensaje;
-    }
-
+   
     public JMenuItem getMnuEmpleados() {
         return mnuEmpleados;
     }
@@ -306,11 +276,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JLabel lblMensaje;
     private javax.swing.JMenuItem mnuAbrirMesa;
     private javax.swing.JMenuItem mnuEmpleados;
     private javax.swing.JMenuItem mnuFichas;
