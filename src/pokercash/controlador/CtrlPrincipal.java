@@ -7,6 +7,7 @@ package pokercash.controlador;
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.util.List;
+import java.util.UUID;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.ws.Holder;
@@ -119,7 +120,7 @@ public class CtrlPrincipal {
         tbmodel.setRowCount(0);
         List<Mesa> lp = ms.Listar();
         int n = tbmodel.getColumnCount();
-        Holder<Integer> i = new Holder<>(0);
+        Holder<Integer> i=new Holder<>(0); 
 
         lp.stream().forEach(l -> {
             tbmodel.addRow(new Object[n]);
